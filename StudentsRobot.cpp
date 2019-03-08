@@ -71,9 +71,9 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 			150// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 	);
 	// Set up the line tracker
-	pinMode(LINE_SENSE_ONE, ANALOG);
-	pinMode(LINE_SENSE_TWO, ANALOG);
-	pinMode(EMITTER_PIN, OUTPUT);
+	pinMode(ANALOG_SENSE_ONE, ANALOG);
+	pinMode(ANALOG_SENSE_ONE, ANALOG);
+	pinMode(H_BRIDGE_ENABLE, OUTPUT);
 }
 /**
  * Seperate from running the motor control,
@@ -90,7 +90,7 @@ void StudentsRobot::updateStateMachine() {
 	case StartRunning:
 		Serial.println("Start Running");
 
-		digitalWrite(EMITTER_PIN, 1);
+		digitalWrite(H_BRIDGE_ENABLE, 1);
 		// Start an interpolation of the motors
 		motor1->startInterpolationDegrees(motor1->getAngleDegrees(), 1000, SIN);
 		motor2->startInterpolationDegrees(motor2->getAngleDegrees(), 1000, SIN);
@@ -128,7 +128,7 @@ void StudentsRobot::updateStateMachine() {
 	case Halting:
 		// save state and enter safe mode
 		Serial.println("Halting State machine");
-		digitalWrite(EMITTER_PIN, 0);
+		digitalWrite(H_BRIDGE_ENABLE, 0);
 		motor3->stop();
 		motor2->stop();
 		motor1->stop();
