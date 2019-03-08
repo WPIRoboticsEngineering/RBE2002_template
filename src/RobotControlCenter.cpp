@@ -41,6 +41,12 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	state = Startup;
 	name = mn;
 	robot = NULL;
+#if defined(USE_IR_CAM)
+	serverIR=NULL;
+#endif
+#if defined(USE_IMU)
+	sensor=NULL;
+#endif
 }
 
 void RobotControlCenter::setup() {
@@ -67,8 +73,34 @@ void RobotControlCenter::setup() {
 	servo.attach(SERVO_PIN, 1000, 2000);
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
 
+	//	// Create sensors and servers
+	#if defined(USE_IMU)
+		sensor = new GetIMU();
+		/* Initialise the sensor */
+		while(!bno.begin()) {
+			/* There was a problem detecting the BNO055 ... check your connections */
+			Serial.print(
+					"Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+			delay(1000);
+		}
+
+		delay(1000);
+		bno.setExtCrystalUse(true);
+		sensor->startSensor(&bno);
+	#endif
+
+	#if defined(USE_IR_CAM)
+		myDFRobotIRPosition.begin();
+		serverIR = new IRCamSimplePacketComsServer(&myDFRobotIRPosition);
+	#endif
 
 #if defined(USE_WIFI)
+#if defined(USE_IMU)
+	coms.attach(sensor);
+#endif
+#if defined(USE_IR_CAM)
+	coms.attach(serverIR);
+#endif
 	// Attach coms
 	coms.attach(new NameCheckerServer(name)); // @suppress("Method cannot be resolved")
 	coms.attach(new SetPIDSetpoint(numberOfPID, pidList)); // @suppress("Method cannot be resolved")

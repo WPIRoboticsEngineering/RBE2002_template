@@ -39,6 +39,9 @@
 #include "commands/SetPIDVelocity.h"
 #include "commands/GetPDVelocityConstants.h"
 #include "commands/GetPIDVelocity.h"
+#include "commands/IRCamSimplePacketComsServer.h"
+#include <BNO055SimplePacketComs.h>
+
 
 enum state_t {
 	Startup, WaitForConnect, run
@@ -79,6 +82,19 @@ private:
 	void setupPIDServers();
 	// State machine state
 	state_t state = Startup;
+
+#if defined(USE_IMU)
+// Simple packet coms server for IMU
+	GetIMU * sensor;
+// The IMU object
+	Adafruit_BNO055 bno;
+#endif
+#if defined(USE_IR_CAM)
+// IR camera
+	DFRobotIRPosition myDFRobotIRPosition;
+	IRCamSimplePacketComsServer * serverIR;
+#endif
+
 public:
 	/**
 	 * RobotControlCenter constructor
