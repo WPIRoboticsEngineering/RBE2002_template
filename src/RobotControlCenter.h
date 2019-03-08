@@ -44,7 +44,7 @@
 
 
 enum state_t {
-	Startup, WaitForConnect, run
+	Startup, WaitForConnect, run,readIMU, readIR
 // Add more states here and be sure to add them to the cycle
 };
 #define numberOfPID  3
@@ -119,8 +119,8 @@ public:
 	 */
 	StudentsRobot * robot;
 protected:
-	ServoEncoderPIDMotor motor1;  // PID controlled motor object
-	ServoEncoderPIDMotor motor2; // PID controlled motor object
+	HBridgeEncoderPIDMotor motor1;  // PID controlled motor object
+	HBridgeEncoderPIDMotor motor2; // PID controlled motor object
 	HBridgeEncoderPIDMotor motor3; // PID controlled motor object
 	// Servo objects
 	Servo servo;

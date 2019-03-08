@@ -13,7 +13,8 @@
 #include "src/pid/HBridgeEncoderPIDMotor.h"
 #include "src/pid/ServoAnalogPIDMotor.h"
 #include <ESP32Servo.h>
-
+#include "src/commands/IRCamSimplePacketComsServer.h"
+#include <BNO055SimplePacketComs.h>
 #include "DriveChassis.h"
 
 /**
@@ -60,6 +61,8 @@ private:
 	long nextTime =0;
   long startTime =0;
 	RobotStateMachine nextStatus = StartupRobot;
+	IRCamSimplePacketComsServer * IRCamera;
+	GetIMU * IMU;
 public:
 	/**
 	 * Constructor for StudentsRobot
@@ -73,7 +76,7 @@ public:
 	 */
 	StudentsRobot(PIDMotor * motor1,
 			PIDMotor * motor2, PIDMotor * motor3,
-			Servo * servo);
+			Servo * servo,IRCamSimplePacketComsServer * IRCam,GetIMU * imu);
 	/**
 	 * Command status
 	 *

@@ -20,7 +20,20 @@ void RobotControlCenter::loop() {
 #if defined(USE_WIFI)
 			if (manager.getState() == Connected)
 #endif
-				state = run; // begin the main operation loop
+				state = readIR; // begin the main operation loop
+			break;
+		case readIR:
+			state = readIMU;
+#if defined(USE_IMU)
+			sensor->loop();
+#endif
+			break;
+		case readIMU:
+			state = readIR;
+#if defined(USE_IR_CAM)
+			serverIR->loop();
+			//serverIR->print();
+#endif
 			break;
 		default:
 			break;
@@ -42,10 +55,10 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	name = mn;
 	robot = NULL;
 #if defined(USE_IR_CAM)
-	serverIR=NULL;
+	serverIR = NULL;
 #endif
 #if defined(USE_IMU)
-	sensor=NULL;
+	sensor = NULL;
 #endif
 }
 
@@ -59,8 +72,8 @@ void RobotControlCenter::setup() {
 	Serial.begin(115200);
 #endif
 
-	motor1.attach(MOTOR1_PWM, MOTOR1_ENCA, MOTOR1_ENCB);
-	motor2.attach(MOTOR2_PWM, MOTOR2_ENCA, MOTOR2_ENCB);
+	motor1.attach(MOTOR1_PWM, MOTOR1_DIR, MOTOR1_ENCA, MOTOR1_ENCB);
+	motor2.attach(MOTOR2_PWM, MOTOR2_DIR, MOTOR2_ENCA, MOTOR2_ENCB);
 	motor3.attach(MOTOR3_PWM, MOTOR3_DIR, MOTOR3_ENCA, MOTOR3_ENCB);
 	// Set the setpoint the current position in motor units to ensure no motion
 	motor1.setSetpoint(motor1.getPosition());
@@ -71,28 +84,30 @@ void RobotControlCenter::setup() {
 	// Set up digital servo for the gripper
 	servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
-	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo);
+
 
 	//	// Create sensors and servers
-	#if defined(USE_IMU)
-		sensor = new GetIMU();
-		/* Initialise the sensor */
-		while(!bno.begin()) {
-			/* There was a problem detecting the BNO055 ... check your connections */
-			Serial.print(
-					"Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-			delay(1000);
-		}
-
+#if defined(USE_IMU)
+	sensor = new GetIMU();
+	/* Initialise the sensor */
+	while (!bno.begin()) {
+		/* There was a problem detecting the BNO055 ... check your connections */
+		Serial.print(
+				"Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
 		delay(1000);
-		bno.setExtCrystalUse(true);
-		sensor->startSensor(&bno);
-	#endif
+	}
 
-	#if defined(USE_IR_CAM)
-		myDFRobotIRPosition.begin();
-		serverIR = new IRCamSimplePacketComsServer(&myDFRobotIRPosition);
-	#endif
+	delay(1000);
+	bno.setExtCrystalUse(true);
+	sensor->startSensor(&bno);
+#endif
+
+#if defined(USE_IR_CAM)
+	myDFRobotIRPosition.begin();
+	serverIR = new IRCamSimplePacketComsServer(&myDFRobotIRPosition);
+#endif
+
+	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo,serverIR,sensor);
 
 #if defined(USE_WIFI)
 #if defined(USE_IMU)

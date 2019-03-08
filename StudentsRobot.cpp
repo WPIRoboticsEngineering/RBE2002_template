@@ -9,12 +9,14 @@
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1,
 		PIDMotor * motor2, PIDMotor * motor3,
-		Servo * servo) {
+		Servo * servo,IRCamSimplePacketComsServer * IRCam,GetIMU * imu) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
 	this->servo = servo;
 	this->motor1 = motor1;
 	this->motor2 = motor2;
 	this->motor3 = motor3;
+	IRCamera=IRCam;
+	IMU=imu;
 
 	// Set the PID Clock gating rate. Thie must be 10 times slower than the motors update rate
 	motor1->myPID.sampleRateMs = 5; //
@@ -31,11 +33,11 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 	motor3->velocityPID.setpid(0.1, 0, 0);
 	// compute ratios and bounding
 	double motorToWheel = 3;
-	motor1->setOutputBoundingValues(57, //the minimum value that the output takes (Full reverse)
-			150, //the maximum value the output takes (Full forward)
-			90, //the value of the output to stop moving
-			6, //a positive value subtracted from stop value to creep backward
-			14, //a positive value added to the stop value to creep forwards
+	motor1->setOutputBoundingValues(-255, //the minimum value that the output takes (Full reverse)
+			255, //the maximum value the output takes (Full forward)
+			0, //the value of the output to stop moving
+			125, //a positive value subtracted from stop value to creep backward
+			125, //a positive value added to the stop value to creep forwards
 			16.0 * // Encoder CPR
 					50.0 * // Motor Gear box ratio
 					motorToWheel * // motor to wheel stage ratio
@@ -44,11 +46,11 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 			480,// measured max degrees per second
 			150// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 	);
-	motor2->setOutputBoundingValues(0, //the minimum value that the output takes (Full reverse)
-			180, //the maximum value the output takes (Full forward)
-			90, //the value of the output to stop moving
-			7, //a positive value subtracted from stop value to creep backward
-			14, //a positive value added to the stop value to creep forwards
+	motor2->setOutputBoundingValues(-255, //the minimum value that the output takes (Full reverse)
+			255, //the maximum value the output takes (Full forward)
+			0, //the value of the output to stop moving
+			125, //a positive value subtracted from stop value to creep backward
+			125, //a positive value added to the stop value to creep forwards
 			16.0 * // Encoder CPR
 					50.0 * // Motor Gear box ratio
 					motorToWheel * // motor to wheel stage ratio
@@ -108,9 +110,12 @@ void StudentsRobot::updateStateMachine() {
 		nextStatus = Running;
 
 		// Do something
-		if (!digitalRead(0))
+		if (!digitalRead(0)){
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
+			IRCamera->print();
+			IMU->print();
+		}
 		break;
 	case WAIT_FOR_TIME:
 		// Check to see if enough time has elapsed
