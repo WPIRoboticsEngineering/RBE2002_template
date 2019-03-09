@@ -7,16 +7,16 @@
 
 #include "StudentsRobot.h"
 
-StudentsRobot::StudentsRobot(PIDMotor * motor1,
-		PIDMotor * motor2, PIDMotor * motor3,
-		Servo * servo,IRCamSimplePacketComsServer * IRCam,GetIMU * imu) {
+StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
+		PIDMotor * motor3, Servo * servo, IRCamSimplePacketComsServer * IRCam,
+		GetIMU * imu) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
 	this->servo = servo;
 	this->motor1 = motor1;
 	this->motor2 = motor2;
 	this->motor3 = motor3;
-	IRCamera=IRCam;
-	IMU=imu;
+	IRCamera = IRCam;
+	IMU = imu;
 
 	// Set the PID Clock gating rate. Thie must be 10 times slower than the motors update rate
 	motor1->myPID.sampleRateMs = 5; //
@@ -43,9 +43,9 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 					motorToWheel * // motor to wheel stage ratio
 					(1.0 / 360.0) * // degrees per revolution
 					2, // Number of edges that are used to increment the value
-			480,// measured max degrees per second
-			150// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
-	);
+			480, // measured max degrees per second
+			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
+			);
 	motor2->setOutputBoundingValues(-255, //the minimum value that the output takes (Full reverse)
 			255, //the maximum value the output takes (Full forward)
 			0, //the value of the output to stop moving
@@ -56,9 +56,9 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 					motorToWheel * // motor to wheel stage ratio
 					(1.0 / 360.0) * // degrees per revolution
 					2, // Number of edges that are used to increment the value
-			480,// measured max degrees per second
+			480, // measured max degrees per second
 			150	// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
-	);
+			);
 	motor3->setOutputBoundingValues(-255, //the minimum value that the output takes (Full reverse)
 			255, //the maximum value the output takes (Full forward)
 			0, //the value of the output to stop moving
@@ -69,9 +69,9 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1,
 					1.0 * // motor to arm stage ratio
 					(1.0 / 360.0) * // degrees per revolution
 					2, // Number of edges that are used to increment the value
-			1400,// measured max degrees per second
-			150// the speed in degrees per second that the motor spins when the hardware output is at creep forwards
-	);
+			1400, // measured max degrees per second
+			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
+			);
 	// Set up the line tracker
 	pinMode(ANALOG_SENSE_ONE, ANALOG);
 	pinMode(ANALOG_SENSE_ONE, ANALOG);
@@ -105,16 +105,22 @@ void StudentsRobot::updateStateMachine() {
 	case Running:
 		// Set up a non-blocking 1000 ms delay
 		status = WAIT_FOR_TIME;
-		nextTime = nextTime + 1000; // ensure no timer drift by incremeting the target
+		nextTime = nextTime + 100; // ensure no timer drift by incremeting the target
 		// After 1000 ms, come back to this state
 		nextStatus = Running;
 
 		// Do something
-		if (!digitalRead(0)){
+		if (!digitalRead(0)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
-			IRCamera->print();
+#if defined(USE_IMU)
+
 			IMU->print();
+#endif
+#if defined(USE_IR_CAM)
+			IRCamera->print();
+#endif
+
 		}
 		break;
 	case WAIT_FOR_TIME:

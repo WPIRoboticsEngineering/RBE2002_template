@@ -83,17 +83,11 @@ private:
 	// State machine state
 	state_t state = Startup;
 
-#if defined(USE_IMU)
-// Simple packet coms server for IMU
+
 	GetIMU * sensor;
-// The IMU object
-	Adafruit_BNO055 bno;
-#endif
-#if defined(USE_IR_CAM)
-// IR camera
-	DFRobotIRPosition myDFRobotIRPosition;
+
 	IRCamSimplePacketComsServer * serverIR;
-#endif
+
 
 public:
 	/**

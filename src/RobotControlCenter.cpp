@@ -6,11 +6,21 @@
  */
 
 #include "RobotControlCenter.h"
-
+#if defined(USE_IMU)
+// Simple packet coms server for IMU
+// The IMU object
+	Adafruit_BNO055 bno;
+#endif
+#if defined(USE_IR_CAM)
+// IR camera
+	DFRobotIRPosition myDFRobotIRPosition;
+#endif
 void RobotControlCenter::loop() {
-	if (esp_timer_get_time() - lastPrint > 500
+	if (esp_timer_get_time() - lastPrint > 2500
 			|| esp_timer_get_time() < lastPrint // check for the wrap over case
 					) {
+
+		lastPrint = esp_timer_get_time(); // ensure 0.5 ms spacing *between* reads for Wifi to transact
 		switch (state) {
 		case Startup:
 			setup();
@@ -24,6 +34,7 @@ void RobotControlCenter::loop() {
 			break;
 		case readIR:
 			state = readIMU;
+
 #if defined(USE_IMU)
 			sensor->loop();
 #endif
@@ -38,7 +49,6 @@ void RobotControlCenter::loop() {
 		default:
 			break;
 		}
-		lastPrint = esp_timer_get_time(); // ensure 0.5 ms spacing *between* reads for Wifi to transact
 	}
 	if (state != Startup) {
 		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
@@ -54,12 +64,9 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	state = Startup;
 	name = mn;
 	robot = NULL;
-#if defined(USE_IR_CAM)
 	serverIR = NULL;
-#endif
-#if defined(USE_IMU)
 	sensor = NULL;
-#endif
+
 }
 
 void RobotControlCenter::setup() {
