@@ -32,11 +32,11 @@ private:
 	/**
 	 * Compute a delta in wheel angle to traverse a specific distance
 	 *
-	 * arc length	=	2*	π*	R*	(C/360)
+	 * arc length	=	2*	Pi*	R*	(C/360)
 	 *
 	 * C  is the central angle of the arc in degrees
 	 * R  is the radius of the arc
-	 * π  is Pi
+	 * Pi  is Pi
 	 *
 	 * @param distance a distance for this wheel to travel in MM
 	 * @return the wheel angle delta in degrees
@@ -46,11 +46,11 @@ private:
 	 * Compute the arch length distance the wheel needs to travel through to rotate the base
 	 * through a given number of degrees.
 	 *
-	 * arc length	=	2*	π*	R*	(C/360)
+	 * arc length	=	2*	Pi*	R*	(C/360)
 	 *
 	 * C  is the central angle of the arc in degrees
 	 * R  is the radius of the arc
-	 * π  is Pi
+	 * Pi  is Pi
 	 *
 	 * @param angle is the angle the base should be rotated by
 	 * @return is the linear distance the wheel needs to travel given the this CHassis's wheel track
