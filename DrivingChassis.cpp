@@ -53,7 +53,7 @@ DrivingChassis::~DrivingChassis() {
  * @param wheelRadiusMM is the measurment in milimeters of the radius of the wheels
  */
 DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
-		float wheelTrackMM, float wheelRadiusMM) {
+		float wheelTrackMM, float wheelRadiusMM,GetIMU * imu) {
 
 }
 

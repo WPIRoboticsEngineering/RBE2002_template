@@ -8,6 +8,7 @@
 #ifndef DRIVINGCHASSIS_H_
 #define DRIVINGCHASSIS_H_
 #include "src/pid/PIDMotor.h"
+#include<BNO055SimplePacketComs.h>
 /**
  * DrivingChassis encapsulates a 2 wheel differential steered chassis that drives around
  *
@@ -25,6 +26,7 @@ class DrivingChassis {
 private:
 	PIDMotor * myleft;
 	PIDMotor * myright;
+	GetIMU * IMU;
 	float mywheelTrackMM;
 	float mywheelRadiusMM;
 	/**
@@ -66,7 +68,7 @@ public:
 	 * @param wheelRadiusMM is the measurment in milimeters of the radius of the wheels
 	 */
 	DrivingChassis(PIDMotor * left, PIDMotor * right, float wheelTrackMM,
-			float wheelRadiusMM);
+			float wheelRadiusMM,GetIMU * imu);
 
 	/**
 	 * Start a drive forward action
