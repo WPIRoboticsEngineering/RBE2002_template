@@ -72,16 +72,27 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 			1400, // measured max degrees per second
 			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
-	// Set up the line tracker
+	// Set up the Analog sensors
 	pinMode(ANALOG_SENSE_ONE, ANALOG);
-	pinMode(ANALOG_SENSE_ONE, ANALOG);
+	pinMode(ANALOG_SENSE_TWO, ANALOG);
+	pinMode(ANALOG_SENSE_THREE, ANALOG);
+	pinMode(ANALOG_SENSE_FOUR, ANALOG);
+	// H-Bridge enable pin
 	pinMode(H_BRIDGE_ENABLE, OUTPUT);
+	// Stepper pins
+	pinMode(STEPPER_DIRECTION, OUTPUT);
+	pinMode(STEPPER_STEP, OUTPUT);
+	// User button
+	pinMode(BOOT_FLAG_PIN, INPUT);
+	//Test IO
+	pinMode(WII_CONTROLLER_DETECT, OUTPUT);
 }
 /**
  * Seperate from running the motor control,
  * update the state machine for running the final project code here
  */
 void StudentsRobot::updateStateMachine() {
+	digitalWrite(WII_CONTROLLER_DETECT, 1);
 	long now = millis();
 	switch (status) {
 	case StartupRobot:
@@ -150,6 +161,7 @@ void StudentsRobot::updateStateMachine() {
 		break;
 
 	}
+	digitalWrite(WII_CONTROLLER_DETECT, 0);
 }
 
 /**
@@ -157,7 +169,6 @@ void StudentsRobot::updateStateMachine() {
  *
  * You call the PIDMotor's loop function. This will update the whole motor control system
  * This will read from the concoder and write to the motors and handle the hardware interface.
- * Instead of allowing this to be called by the controller yopu may call these from a timer interrupt.
  */
 void StudentsRobot::pidLoop() {
 	motor1->loop();
