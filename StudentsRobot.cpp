@@ -110,11 +110,10 @@ void StudentsRobot::updateStateMachine() {
 		nextStatus = Running;
 
 		// Do something
-		if (!digitalRead(0)) {
+		if (!digitalRead(BOOT_FLAG_PIN)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
 #if defined(USE_IMU)
-
 			IMU->print();
 #endif
 #if defined(USE_IR_CAM)
