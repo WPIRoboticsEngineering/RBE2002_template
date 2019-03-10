@@ -17,8 +17,12 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 	this->motor3 = motor3;
 	IRCamera = IRCam;
 	IMU = imu;
-
-	// Set the PID Clock gating rate. Thie must be 10 times slower than the motors update rate
+#if defined(USE_IMU)
+	IMU->setXPosition(0);
+	IMU->setYPosition(0);
+	IMU->setZPosition(0);
+#endif
+	// Set the PID Clock gating rate. The PID must be 10 times slower than the motors update rate
 	motor1->myPID.sampleRateMs = 5; //
 	motor2->myPID.sampleRateMs = 5; //
 	motor3->myPID.sampleRateMs = 1;  // 10khz H-Bridge, 0.1ms update, 1 ms PID
