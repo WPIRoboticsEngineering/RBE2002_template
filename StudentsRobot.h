@@ -87,58 +87,7 @@ public:
 	 * This is internal data representing the runtime status of the robot for use in its state machine
 	 */
 	RobotStateMachine status = StartupRobot;
-	/**
-	 * Approve
-	 *
-	 * @param buffer A buffer of floats containing nothing
-	 *
-	 * the is the event of the Approve button pressed in the GUI
-	 *
-	 * This function is called via coms.server() in:
-	 * @see RobotControlCenter::fastLoop
-	 */
-	void Approve(float * buffer);
-	/**
-	 * ClearFaults
-	 *
-	 * @param buffer A buffer of floats containing nothing
-	 *
-	 * this represents the event of the clear faults button press in the gui
-	 *
-	 * This function is called via coms.server() in:
-	 * @see RobotControlCenter::fastLoop
-	 */
-	void ClearFaults(float * buffer);
-	/**
-	 * EStop
-	 *
-	 * @param buffer A buffer of floats containing nothing
-	 *
-	 * this represents the event of the EStop button press in the gui
-	 *
-	 * This is called whrn the estop in the GUI is pressed
-	 * All motors shuld hault and lock in position
-	 * Motors should not go idle and drop the plate
-	 *
-	 * This function is called via coms.server() in:
-	 * @see RobotControlCenter::fastLoop
-	 */
-	void EStop(float * buffer);
-	/**
-	 * PickOrder
-	 *
-	 * @param buffer A buffer of floats containing the pick order data
-	 *
-	 * buffer[0]  is the material, aluminum or plastic.
-	 *
-	 * buffer[1]  is the drop off angle 25 or 45 degrees
-	 *
-	 * buffer[2]  is the drop off position 1, or 2
-	 *
-	 * This function is called via coms.server() in:
-	 * @see RobotControlCenter::fastLoop
-	 */
-	void PickOrder(float * buffer);
+
 
 	/**
 	 * pidLoop This functoion is called to let the StudentsRobot controll the running of the PID loop functions

@@ -29,11 +29,7 @@
 #include "commands/GetPIDData.h"
 #include "commands/SetPIDConstants.h"
 #include "commands/SetPIDSetpoint.h"
-#include "commands/Approve.h"
-#include "commands/ClearFaults.h"
-#include "commands/EStop.h"
-#include "commands/GetStatus.h"
-#include "commands/PickOrder.h"
+
 #include "../StudentsRobot.h"
 #include "commands/SetPDVelocityConstants.h"
 #include "commands/SetPIDVelocity.h"
