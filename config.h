@@ -8,7 +8,7 @@
 #ifndef SRC_CONFIG_H_
 #define SRC_CONFIG_H_
 
-#define TEAM_NAME "IMU-Team21"
+#define TEAM_NAME "IMU-Team0"
 
 #define USE_WIFI
 #define USE_IR_CAM
@@ -23,7 +23,7 @@
 /**
  * Enable for all h-bridges
  */
-#define H_BRIDGE_ENABLE             13  // emitter is controlled by digital pin
+#define H_BRIDGE_ENABLE             13
 // Pins
 /**
  * Drive motor 1 10Khz full duty PWM pin

@@ -83,7 +83,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 	pinMode(STEPPER_DIRECTION, OUTPUT);
 	pinMode(STEPPER_STEP, OUTPUT);
 	// User button
-	pinMode(BOOT_FLAG_PIN, INPUT);
+	pinMode(BOOT_FLAG_PIN, INPUT_PULLUP);
 	//Test IO
 	pinMode(WII_CONTROLLER_DETECT, OUTPUT);
 }
