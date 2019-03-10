@@ -142,6 +142,7 @@ void RobotControlCenter::setup() {
 void RobotControlCenter::fastLoop() {
 	if (state == Startup)    // Do not run before startp
 		return;
+	robot->pidLoop();
 #if defined(USE_WIFI)
 	manager.loop();
 	if (manager.getState() == Connected)
@@ -150,7 +151,6 @@ void RobotControlCenter::fastLoop() {
 		return;
 	}
 #endif
-	robot->pidLoop();
 	robot->updateStateMachine();
 
 }
