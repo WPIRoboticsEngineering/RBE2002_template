@@ -57,8 +57,8 @@
 #define MOTOR2_ENCA 17
 #define MOTOR2_ENCB 16
 
-#define MOTOR3_ENCA 14
-#define MOTOR3_ENCB 26
+#define MOTOR3_ENCA 26
+#define MOTOR3_ENCB 14
 
 //Stepper
 #define STEPPER_DIRECTION 33
