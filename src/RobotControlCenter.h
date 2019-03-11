@@ -36,7 +36,7 @@
 #include "commands/GetPDVelocityConstants.h"
 #include "commands/GetPIDVelocity.h"
 #include "commands/IRCamSimplePacketComsServer.h"
-#include <BNO055SimplePacketComs.h>
+#include "commands/GetIMU.h"
 
 
 enum state_t {

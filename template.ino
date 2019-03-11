@@ -10,7 +10,6 @@
 
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
-#include <BNO055SimplePacketComs.h>
 #include <DFRobotIRPosition.h>
 
 #include "src/RobotControlCenter.h"

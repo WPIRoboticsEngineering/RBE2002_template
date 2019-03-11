@@ -8,7 +8,7 @@
 #ifndef DRIVINGCHASSIS_H_
 #define DRIVINGCHASSIS_H_
 #include "src/pid/PIDMotor.h"
-#include<BNO055SimplePacketComs.h>
+#include "src/commands/GetIMU.h"
 /**
  * DrivingChassis encapsulates a 2 wheel differential steered chassis that drives around
  *
