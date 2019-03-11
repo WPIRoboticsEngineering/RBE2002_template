@@ -44,11 +44,11 @@
 /**
  * Drive motor 3 10Khz full duty PWM pin
  */
-#define MOTOR3_PWM 25
+#define MOTOR3_PWM 12
 /**
  * Pin for setting the direction of the H-Bridge
  */
-#define MOTOR3_DIR 26
+#define MOTOR3_DIR 25
 
 //Encoder pins
 #define MOTOR1_ENCA 19
@@ -58,7 +58,7 @@
 #define MOTOR2_ENCB 16
 
 #define MOTOR3_ENCA 14
-#define MOTOR3_ENCB 12
+#define MOTOR3_ENCB 26
 
 //Stepper
 #define STEPPER_DIRECTION 33
