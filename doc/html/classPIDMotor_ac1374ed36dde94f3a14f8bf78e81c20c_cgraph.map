@@ -7,12 +7,12 @@
 <area shape="rect" id="node8" href="$classPIDMotor.html#af3660a46b5b7614ba1a5812a85d103ef" title="PIDMotor::setOutputUnitVector" alt="" coords="399,275,604,301"/>
 <area shape="rect" id="node16" href="$classPIDMotor.html#af5a516cd4dc617063b61632ce9968df1" title="PIDMotor::velocityLoop" alt="" coords="178,325,337,352"/>
 <area shape="rect" id="node5" href="$classPIDMotor.html#a292e9bc7f736e94ee0df376a08efae33" title="PIDMotor::ticksToDeg" alt="" coords="425,107,578,133"/>
-<area shape="rect" id="node9" href="$classPIDMotor.html#ac0e60cd163f49aaf5dc34353a6650953" title="PIDMotor::getOutputStop" alt="" coords="677,97,847,124"/>
-<area shape="rect" id="node10" href="$classPIDMotor.html#a7a743e25e68c808e71bc5724e8130748" title="PIDMotor::getOutputMax" alt="" coords="678,148,846,175"/>
-<area shape="rect" id="node11" href="$classPIDMotor.html#a54dd9a1ed9fa34f9070e3aa473f47fae" title="PIDMotor::getOutputMin" alt="" coords="680,199,844,225"/>
+<area shape="rect" id="node9" href="$classPIDMotor.html#aab8f58c624bc04015c6179e2c029fec3" title="PIDMotor::getOutputStop" alt="" coords="677,97,847,124"/>
+<area shape="rect" id="node10" href="$classPIDMotor.html#aeac2d568ea99d5ed87511f6107681919" title="PIDMotor::getOutputMax" alt="" coords="678,148,846,175"/>
+<area shape="rect" id="node11" href="$classPIDMotor.html#a48ccac9c1c76693f15b54e5db7a33df1" title="PIDMotor::getOutputMin" alt="" coords="680,199,844,225"/>
 <area shape="rect" id="node12" href="$classPIDMotor.html#a4f30d949a3c41afb995caef9fb207e05" title="PIDMotor::myFmap" alt="" coords="693,401,831,428"/>
-<area shape="rect" id="node13" href="$classPIDMotor.html#a63aace26cb7ff89d45d7a6abdc79b3e3" title="PIDMotor::getOutputMaxDeadbad" alt="" coords="652,249,872,276"/>
-<area shape="rect" id="node14" href="$classPIDMotor.html#a798b283fb058d321b8627097142a7e6d" title="PIDMotor::getOutputMinDeadbad" alt="" coords="654,300,870,327"/>
-<area shape="rect" id="node15" href="$classPIDMotor.html#af1c954ea7fa21d4685a67b06f66c1982" title="PIDMotor::setOutput" alt="" coords="691,351,833,377"/>
+<area shape="rect" id="node13" href="$classPIDMotor.html#a4abe212ce5ed85b3f6f9b0d6065a2d19" title="PIDMotor::getOutputMaxDeadbad" alt="" coords="652,249,872,276"/>
+<area shape="rect" id="node14" href="$classPIDMotor.html#a7cd2e4d3e82e28e60999eca98a96be7d" title="PIDMotor::getOutputMinDeadbad" alt="" coords="654,300,870,327"/>
+<area shape="rect" id="node15" href="$classPIDMotor.html#a017ecfd1aca8cc1e6ac04dafabf8e29e" title="PIDMotor::setOutput" alt="" coords="691,351,833,377"/>
 <area shape="rect" id="node17" href="$classPIDMotor.html#a702890e63da27ace0ec16b30d53e0c9e" title="PIDMotor::getFreeSpinMax\lDegreesPerSecond" alt="" coords="411,377,592,418"/>
 </map>
