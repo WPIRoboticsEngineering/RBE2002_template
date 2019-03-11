@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hbridgeencoderpidmotor',['HBridgeEncoderPIDMotor',['../classHBridgeEncoderPIDMotor.html',1,'']]]
+  ['lookup',['Lookup',['../classLookup.html',1,'']]]
 ];

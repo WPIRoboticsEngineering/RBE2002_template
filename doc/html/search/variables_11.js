@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['vel',['Vel',['../classPIDMotor.html#a3b1ad2b34978914a743f1530bd95bbb2',1,'PIDMotor']]],
-  ['velocitypid',['velocityPID',['../classPIDMotor.html#a4289fc0e98150a03b5df1ca2c1b37623',1,'PIDMotor']]]
+  ['unitduration',['unitDuration',['../classPIDMotor.html#ae9d7514135efe7785de2e12c37596cf3',1,'PIDMotor']]],
+  ['updateindex',['updateIndex',['../classGetIMU.html#a380c518c2e86c8bf15e5a31b7cd2116a',1,'GetIMU']]]
 ];

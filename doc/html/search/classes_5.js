@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lookup',['Lookup',['../classLookup.html',1,'']]]
+  ['pidmotor',['PIDMotor',['../classPIDMotor.html',1,'']]]
 ];

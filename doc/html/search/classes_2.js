@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['estop',['EStop',['../classEStop.html',1,'']]]
+  ['hbridgeencoderpidmotor',['HBridgeEncoderPIDMotor',['../classHBridgeEncoderPIDMotor.html',1,'']]]
 ];

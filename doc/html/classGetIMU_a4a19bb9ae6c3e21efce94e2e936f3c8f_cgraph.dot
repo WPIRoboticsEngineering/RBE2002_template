@@ -1,0 +1,45 @@
+digraph "GetIMU::GetIMU"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="GetIMU::GetIMU",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node0 -> Node1 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="GetIMU::event",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a5d19eeb4f12de54811c29372984fc1c1"];
+  Node0 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="GetIMU::getEULER_azimuth",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#abe0ace63352c0213907971ec6e8cc973"];
+  Node0 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="GetIMU::getEULER_elevation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a2df8f5974b4be881b9ea30fb4e3eb90d"];
+  Node0 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="GetIMU::getEULER_tilt",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#afd4267290c18bd41fc9c0e68f6fc4940"];
+  Node0 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="GetIMU::getGRAVITY_X",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#ad7d0dcf149e6198bc0d396d368bc9185"];
+  Node0 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="GetIMU::getGRAVITY_Y",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#abb0d465cacf5f89aea6bf71276cf4f29"];
+  Node0 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="GetIMU::getGRAVITY_Z",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a9d53fde1c5de7a3c14ee6365a44c978b"];
+  Node0 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="GetIMU::getGYROSCOPE_X",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#aff08560c32d34372087f0e6f5ac2a6b3"];
+  Node0 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="GetIMU::getGYROSCOPE_Y",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a915b5ceca55bc853ce35b718be0870d1"];
+  Node0 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="GetIMU::getGYROSCOPE_Z",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#aeaaa47dcfba40e76e302825d4b55dc96"];
+  Node0 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="GetIMU::getLINEARACCEL_X",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a87ad4a2fcb8b4a999d2049de92db3d36"];
+  Node0 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="GetIMU::getLINEARACCEL_Y",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a096f5beeac42e0e439a589473f12017a"];
+  Node0 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="GetIMU::getLINEARACCEL_Z",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#aaef0b6eabbdd78721418bdd6a004f336"];
+  Node0 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="GetIMU::loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a38e7793014c6e3f284992744ec723c15"];
+  Node0 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="GetIMU::print",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a758f3c2d0b8968977767d548bdaaf32a"];
+  Node0 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="GetIMU::setXPosition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a7619b8ea17913f59f34396bd75ac8d78"];
+  Node0 -> Node17 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="GetIMU::setYPosition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#abf702f0faf59cb042fbb0bc743665450"];
+  Node0 -> Node18 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="GetIMU::setZPosition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#a8012154383088b1f273bdbb56437457c"];
+  Node0 -> Node19 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="GetIMU::startSensor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html#af458fe68b2df51326bfd55a784df05a3"];
+}

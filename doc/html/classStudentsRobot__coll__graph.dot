@@ -1,0 +1,17 @@
+digraph "StudentsRobot"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="StudentsRobot",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" motor1\nmotor2\nmotor3" ,fontname="Helvetica"];
+  Node2 [label="PIDMotor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPIDMotor.html"];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" velocityPID\nmyPID" ,fontname="Helvetica"];
+  Node3 [label="RBEPID",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classRBEPID.html"];
+  Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" IRCamera" ,fontname="Helvetica"];
+  Node4 [label="IRCamSimplePacketComsServer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIRCamSimplePacketComsServer.html"];
+  Node5 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PacketEventAbstract",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" IMU" ,fontname="Helvetica"];
+  Node6 [label="GetIMU",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGetIMU.html"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

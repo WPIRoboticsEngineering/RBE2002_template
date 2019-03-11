@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['directionpin',['directionPin',['../classHBridgeEncoderPIDMotor.html#a001bbb3cd52f999f4bccc8833a3efe67',1,'HBridgeEncoderPIDMotor']]],
-  ['duration',['duration',['../classPIDMotor.html#a66797fcc13056527c76fe9d22da07b8c',1,'PIDMotor']]]
+  ['camera',['camera',['../classIRCamSimplePacketComsServer.html#aaf2bf1630bf1eced2c60533ae6c0a2b2',1,'IRCamSimplePacketComsServer']]],
+  ['coms',['coms',['../classRobotControlCenter.html#aa876ebd7124ef14f19b7f5fc95a11767',1,'RobotControlCenter']]],
+  ['controlcenter',['controlCenter',['../template_8ino.html#a2751c414491aab0297e50ed77db08aeb',1,'template.ino']]],
+  ['curtime',['curTime',['../classPIDMotor.html#af66ab48703c2f0ea5a60e63529417709',1,'PIDMotor']]]
 ];

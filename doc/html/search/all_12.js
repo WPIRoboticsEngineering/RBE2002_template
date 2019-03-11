@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['vel',['Vel',['../classPIDMotor.html#a3b1ad2b34978914a743f1530bd95bbb2',1,'PIDMotor::Vel()'],['../PIDMotor_8h.html#a5f2bed26bc3981591ee546627fdbbef4a52747a70f1917d227fb19ded90da348d',1,'VEL():&#160;PIDMotor.h']]],
-  ['velocityloop',['velocityLoop',['../classPIDMotor.html#af5a516cd4dc617063b61632ce9968df1',1,'PIDMotor']]],
-  ['velocitypid',['velocityPID',['../classPIDMotor.html#a4289fc0e98150a03b5df1ca2c1b37623',1,'PIDMotor']]]
+  ['unitduration',['unitDuration',['../classPIDMotor.html#ae9d7514135efe7785de2e12c37596cf3',1,'PIDMotor']]],
+  ['updateindex',['updateIndex',['../classGetIMU.html#a380c518c2e86c8bf15e5a31b7cd2116a',1,'GetIMU']]],
+  ['updatestatemachine',['updateStateMachine',['../classStudentsRobot.html#a67255944c57772b33390dcc786505afe',1,'StudentsRobot']]],
+  ['use_5fimu',['USE_IMU',['../config_8h.html#a8253255e4a1a7c9d1eb849d923244b54',1,'config.h']]],
+  ['use_5fir_5fcam',['USE_IR_CAM',['../config_8h.html#a74e0047338f75d94a695108df2faa350',1,'config.h']]],
+  ['use_5fwifi',['USE_WIFI',['../config_8h.html#a038b45d7c3c759d55de15e9fe019f580',1,'config.h']]]
 ];

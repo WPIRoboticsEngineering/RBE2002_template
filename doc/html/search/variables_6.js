@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['input',['Input',['../classPIDMotor.html#a5ac267ebdd2cd4425a6caab03cdc0ae7',1,'PIDMotor']]]
+  ['hardwareoutput',['hardwareOutput',['../classPIDMotor.html#a43f8245623fff936dae732923c2003ce',1,'PIDMotor']]]
 ];

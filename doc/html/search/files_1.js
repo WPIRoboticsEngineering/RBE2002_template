@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['clearfaults_2ecpp',['ClearFaults.cpp',['../ClearFaults_8cpp.html',1,'']]],
-  ['clearfaults_2eh',['ClearFaults.h',['../ClearFaults_8h.html',1,'']]],
-  ['config_2eh',['config.h',['../config_8h.html',1,'']]]
+  ['drivechassis_2eh',['DriveChassis.h',['../DriveChassis_8h.html',1,'']]],
+  ['drivingchassis_2ecpp',['DrivingChassis.cpp',['../DrivingChassis_8cpp.html',1,'']]]
 ];
