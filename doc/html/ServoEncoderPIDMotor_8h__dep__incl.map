@@ -1,8 +1,8 @@
 <map id="src/pid/ServoEncoderPIDMotor.h" name="src/pid/ServoEncoderPIDMotor.h">
 <area shape="rect" id="node2" href="$ServoEncoderPIDMotor_8cpp.html" title="src/pid/ServoEncoderPIDMotor.cpp" alt="" coords="5,80,233,107"/>
-<area shape="rect" id="node3" href="$RobotControlCenter_8h.html" title="src/RobotControlCenter.h" alt="" coords="186,155,357,181"/>
-<area shape="rect" id="node6" href="$StudentsRobot_8h.html" title="StudentsRobot.h" alt="" coords="309,80,429,107"/>
-<area shape="rect" id="node4" href="$RobotControlCenter_8cpp.html" title="src/RobotControlCenter.cpp" alt="" coords="97,229,283,256"/>
-<area shape="rect" id="node5" href="$template_8ino.html" title="template.ino" alt="" coords="307,229,401,256"/>
-<area shape="rect" id="node7" href="$StudentsRobot_8cpp.html" title="StudentsRobot.cpp" alt="" coords="381,155,516,181"/>
+<area shape="rect" id="node3" href="$StudentsRobot_8h.html" title="StudentsRobot.h" alt="" coords="258,80,378,107"/>
+<area shape="rect" id="node4" href="$RobotControlCenter_8h.html" title="src/RobotControlCenter.h" alt="" coords="143,155,314,181"/>
+<area shape="rect" id="node7" href="$StudentsRobot_8cpp.html" title="StudentsRobot.cpp" alt="" coords="339,155,473,181"/>
+<area shape="rect" id="node5" href="$RobotControlCenter_8cpp.html" title="src/RobotControlCenter.cpp" alt="" coords="55,229,240,256"/>
+<area shape="rect" id="node6" href="$template_8ino.html" title="template.ino" alt="" coords="265,229,358,256"/>
 </map>

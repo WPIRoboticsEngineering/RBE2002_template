@@ -100,14 +100,14 @@ Collaboration diagram for RobotControlCenter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classRobotControlCenter__coll__graph.png" border="0" usemap="#RobotControlCenter_coll__map" alt="Collaboration graph"/></div>
 <map name="RobotControlCenter_coll__map" id="RobotControlCenter_coll__map">
-<area shape="rect" id="node2" href="classPIDMotor.html" title="PIDMotor" alt="" coords="116,109,194,136"/>
-<area shape="rect" id="node4" href="classStudentsRobot.html" title="StudentsRobot" alt="" coords="358,228,467,255"/>
-<area shape="rect" id="node8" href="classHBridgeEncoderPIDMotor.html" title="HBridgeEncoderPIDMotor" alt="" coords="68,228,242,255"/>
-<area shape="rect" id="node3" href="classRBEPID.html" title="RBEPID" alt="" coords="118,5,192,32"/>
-<area shape="rect" id="node5" href="classIRCamSimplePacketComsServer.html" title="IRCamSimplePacketComsServer" alt="" coords="376,109,595,136"/>
-<area shape="rect" id="node7" href="classGetIMU.html" title="GetIMU" alt="" coords="284,109,352,136"/>
+<area shape="rect" id="node2" href="classPIDMotor.html" title="{PIDMotor\n|+ hardwareOutput\l+ targetDegreesPerSecond\l+ mode\l+ unitDuration\l# lastTimeRunPID\l# Setpoint\l# Input\l# Output\l# lastErrPositive\l# curTime\l# prevTime\l# timeInterval\l# movement\l# prevPos\l# Vel\l# startSetpoint\l# endSetpoint\l# startTime\l# duration\l&#45; outputMin\l&#45; outputMax\l&#45; outputMinDeadbad\l&#45; outputMaxDeadbad\l&#45; outputStop\l&#45; myTicksToDeg\l&#45; freeSpinMaxDegreesPerSecond\l&#45; freeSpinMinDegreesPerSecond\l|+ getHardwareOutput()\l+ PIDMotor()\l+ ~PIDMotor()\l+ loop()\l+ velocityLoop()\l+ overrideCurrentPosition()\l+ setSetpoint()\l+ startInterpolation()\l+ isInterpolationDone()\l+ getInterpolationUnitIncrement()\land 22 more...\l# setOutput()\l# calcVel()\l# myFmap()\l# getSetPoint()\l}" alt="" coords="109,277,325,941"/>
+<area shape="rect" id="node4" href="classStudentsRobot.html" title="{StudentsRobot\n|+ myCommandsStatus\l+ status\l&#45; servo\l&#45; lsensorVal\l&#45; rsensorVal\l&#45; nextTime\l&#45; startTime\l&#45; nextStatus\l|+ StudentsRobot()\l+ pidLoop()\l+ updateStateMachine()\l}" alt="" coords="457,1033,619,1243"/>
+<area shape="rect" id="node8" href="classHBridgeEncoderPIDMotor.html" title="{HBridgeEncoderPIDMotor\n|+ encoder\l+ motor\l&#45; directionPin\l|+ HBridgeEncoderPIDMotor()\l+ ~HBridgeEncoderPIDMotor()\l+ attach()\l+ getPosition()\l+ setOutput()\l+ overrideCurrentPositionHardware()\l+ calcCur()\l}" alt="" coords="102,1041,337,1235"/>
+<area shape="rect" id="node3" href="classRBEPID.html" title="{RBEPID\n|+ kp\l+ ki\l+ kd\l+ last_error\l+ sum_error\l+ sampleRateMs\l|+ RBEPID()\l+ setpid()\l+ calc()\l+ clearIntegralBuffer()\l}" alt="" coords="143,5,291,200"/>
+<area shape="rect" id="node5" href="classIRCamSimplePacketComsServer.html" title="{IRCamSimplePacketComsServer\n|&#45; camera\l&#45; bufferCache\l|+ IRCamSimplePacketComsServer()\l+ ~IRCamSimplePacketComsServer()\l+ event()\l+ loop()\l+ print()\l+ readX()\l+ readY()\l}" alt="" coords="544,519,791,699"/>
+<area shape="rect" id="node7" href="classGetIMU.html" title="{GetIMU\n|&#45; bno\l&#45; bufferINTERNAL\l&#45; started\l&#45; updateIndex\l|+ GetIMU()\l+ event()\l+ loop()\l+ startSensor()\l+ print()\l+ getLINEARACCEL_X()\l+ getLINEARACCEL_Y()\l+ getLINEARACCEL_Z()\l+ getGYROSCOPE_X()\l+ getGYROSCOPE_Y()\land 10 more...\l}" alt="" coords="349,475,519,743"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -170,7 +170,7 @@ Private Attributes</h2></td></tr>
 <p>This class is the starting point for all the code. Student code is housed in <a class="el" href="classStudentsRobot.html">StudentsRobot</a> class </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classStudentsRobot.html">StudentsRobot</a></dd></dl>
 <p>This class managed the overall state machine for dealing with connecting and maintaining connection to the WiFi, constructing the <a class="el" href="classStudentsRobot.html">StudentsRobot</a> class, and managing the <a class="el" href="classStudentsRobot.html">StudentsRobot</a> calls to updates its state machine as well as its PID loops. </p>
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00059">59</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00057">57</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5e116295bc4dd976de2380e128676986"></a>
 <div class="memitem">
@@ -190,7 +190,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">60</a> of file <a class="el" href="RobotControlCenter_8cpp_source.html">RobotControlCenter.cpp</a>.</p>
 
-<p>References <a class="el" href="RobotControlCenter_8h_source.html#l00112">motor1</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00113">motor2</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00114">motor3</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00065">name</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00067">pidList</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00110">robot</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00083">sensor</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00085">serverIR</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00043">Startup</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00080">state</a>.</p>
+<p>References <a class="el" href="RobotControlCenter_8h_source.html#l00110">motor1</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00111">motor2</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00112">motor3</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00063">name</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00065">pidList</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00108">robot</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00081">sensor</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00083">serverIR</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00041">Startup</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00078">state</a>.</p>
 
 </div>
 </div>
@@ -215,7 +215,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00096">96</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00094">94</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>References <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>.</p>
 
@@ -300,7 +300,7 @@ StudentsRobot::PickOrder </dd></dl>
 
 <p>Definition at line <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">142</a> of file <a class="el" href="RobotControlCenter_8cpp_source.html">RobotControlCenter.cpp</a>.</p>
 
-<p>References <a class="el" href="RobotControlCenter_8h_source.html#l00071">coms</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00073">manager</a>, <a class="el" href="StudentsRobot_8cpp_source.html#l00177">StudentsRobot::pidLoop()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00110">robot</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00043">Startup</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00080">state</a>, and <a class="el" href="StudentsRobot_8cpp_source.html#l00098">StudentsRobot::updateStateMachine()</a>.</p>
+<p>References <a class="el" href="RobotControlCenter_8h_source.html#l00069">coms</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00071">manager</a>, <a class="el" href="StudentsRobot_8cpp_source.html#l00177">StudentsRobot::pidLoop()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00108">robot</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00041">Startup</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00078">state</a>, and <a class="el" href="StudentsRobot_8cpp_source.html#l00098">StudentsRobot::updateStateMachine()</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>.</p>
 
@@ -359,9 +359,9 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">18</a> of file <a class="el" href="RobotControlCenter_8cpp_source.html">RobotControlCenter.cpp</a>.</p>
 
-<p>References <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">fastLoop()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00063">lastPrint</a>, <a class="el" href="IRCamSimplePacketComsServer_8cpp_source.html#l00026">IRCamSimplePacketComsServer::loop()</a>, <a class="el" href="GetIMU_8cpp_source.html#l00021">GetIMU::loop()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00073">manager</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00043">readIMU</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00043">readIR</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00083">sensor</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00085">serverIR</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00043">Startup</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00080">state</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00043">WaitForConnect</a>.</p>
+<p>References <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">fastLoop()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00061">lastPrint</a>, <a class="el" href="IRCamSimplePacketComsServer_8cpp_source.html#l00026">IRCamSimplePacketComsServer::loop()</a>, <a class="el" href="GetIMU_8cpp_source.html#l00021">GetIMU::loop()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00071">manager</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00041">readIMU</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00041">readIR</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00081">sensor</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00083">serverIR</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00041">Startup</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00078">state</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00041">WaitForConnect</a>.</p>
 
-<p>Referenced by <a class="el" href="template_8ino_source.html#l00023">loop()</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00096">~RobotControlCenter()</a>.</p>
+<p>Referenced by <a class="el" href="template_8ino_source.html#l00023">loop()</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00094">~RobotControlCenter()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -435,7 +435,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">72</a> of file <a class="el" href="RobotControlCenter_8cpp_source.html">RobotControlCenter.cpp</a>.</p>
 
-<p>References <a class="el" href="HBridgeEncoderPIDMotor_8cpp_source.html#l00026">HBridgeEncoderPIDMotor::attach()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00012">bno</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00071">coms</a>, <a class="el" href="HBridgeEncoderPIDMotor_8cpp_source.html#l00035">HBridgeEncoderPIDMotor::getPosition()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00073">manager</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00112">motor1</a>, <a class="el" href="config_8h_source.html#l00035">MOTOR1_DIR</a>, <a class="el" href="config_8h_source.html#l00054">MOTOR1_ENCA</a>, <a class="el" href="config_8h_source.html#l00055">MOTOR1_ENCB</a>, <a class="el" href="config_8h_source.html#l00031">MOTOR1_PWM</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00113">motor2</a>, <a class="el" href="config_8h_source.html#l00043">MOTOR2_DIR</a>, <a class="el" href="config_8h_source.html#l00057">MOTOR2_ENCA</a>, <a class="el" href="config_8h_source.html#l00058">MOTOR2_ENCB</a>, <a class="el" href="config_8h_source.html#l00039">MOTOR2_PWM</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00114">motor3</a>, <a class="el" href="config_8h_source.html#l00051">MOTOR3_DIR</a>, <a class="el" href="config_8h_source.html#l00061">MOTOR3_ENCA</a>, <a class="el" href="config_8h_source.html#l00060">MOTOR3_ENCB</a>, <a class="el" href="config_8h_source.html#l00047">MOTOR3_PWM</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00016">myDFRobotIRPosition</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00065">name</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00046">numberOfPID</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00067">pidList</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00110">robot</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00083">sensor</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00085">serverIR</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00116">servo</a>, <a class="el" href="config_8h_source.html#l00022">SERVO_PIN</a>, <a class="el" href="PIDMotor_8cpp_source.html#l00182">PIDMotor::setSetpoint()</a>, <a class="el" href="GetIMU_8cpp_source.html#l00104">GetIMU::startSensor()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00043">Startup</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00080">state</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00043">WaitForConnect</a>.</p>
+<p>References <a class="el" href="HBridgeEncoderPIDMotor_8cpp_source.html#l00026">HBridgeEncoderPIDMotor::attach()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00012">bno</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00069">coms</a>, <a class="el" href="HBridgeEncoderPIDMotor_8cpp_source.html#l00035">HBridgeEncoderPIDMotor::getPosition()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00071">manager</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00110">motor1</a>, <a class="el" href="config_8h_source.html#l00035">MOTOR1_DIR</a>, <a class="el" href="config_8h_source.html#l00054">MOTOR1_ENCA</a>, <a class="el" href="config_8h_source.html#l00055">MOTOR1_ENCB</a>, <a class="el" href="config_8h_source.html#l00031">MOTOR1_PWM</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00111">motor2</a>, <a class="el" href="config_8h_source.html#l00043">MOTOR2_DIR</a>, <a class="el" href="config_8h_source.html#l00057">MOTOR2_ENCA</a>, <a class="el" href="config_8h_source.html#l00058">MOTOR2_ENCB</a>, <a class="el" href="config_8h_source.html#l00039">MOTOR2_PWM</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00112">motor3</a>, <a class="el" href="config_8h_source.html#l00051">MOTOR3_DIR</a>, <a class="el" href="config_8h_source.html#l00061">MOTOR3_ENCA</a>, <a class="el" href="config_8h_source.html#l00060">MOTOR3_ENCB</a>, <a class="el" href="config_8h_source.html#l00047">MOTOR3_PWM</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00016">myDFRobotIRPosition</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00063">name</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00044">numberOfPID</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00065">pidList</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00108">robot</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00081">sensor</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00083">serverIR</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00114">servo</a>, <a class="el" href="config_8h_source.html#l00022">SERVO_PIN</a>, <a class="el" href="PIDMotor_8cpp_source.html#l00182">PIDMotor::setSetpoint()</a>, <a class="el" href="GetIMU_8cpp_source.html#l00104">GetIMU::startSensor()</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00041">Startup</a>, <a class="el" href="RobotControlCenter_8h_source.html#l00078">state</a>, and <a class="el" href="RobotControlCenter_8h_source.html#l00041">WaitForConnect</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>.</p>
 
@@ -501,7 +501,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00071">71</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00069">69</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">fastLoop()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -525,7 +525,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00063">63</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00061">61</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>.</p>
 
@@ -549,7 +549,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00073">73</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00071">71</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">fastLoop()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -573,7 +573,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00112">112</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00110">110</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -597,7 +597,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00113">113</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00111">111</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -621,7 +621,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00114">114</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00112">112</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -645,7 +645,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00065">65</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00063">63</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -669,7 +669,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00067">67</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00065">65</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -687,7 +687,7 @@ Here is the call graph for this function:</div>
 <p>A pointer to the students robot</p>
 <p>NULL at startup, this is instantiated by the <a class="el" href="classRobotControlCenter.html">RobotControlCenter</a> state machine. This variable is set as part of </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRobotControlCenter.html#af72cdd5fd97b1c040d4738153b69cb5c">RobotControlCenter::setup</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00110">110</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00108">108</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">fastLoop()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -711,7 +711,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00083">83</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00081">81</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -735,7 +735,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00085">85</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00083">83</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -759,7 +759,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00116">116</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00114">114</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 
@@ -783,7 +783,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00080">80</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
+<p>Definition at line <a class="el" href="RobotControlCenter_8h_source.html#l00078">78</a> of file <a class="el" href="RobotControlCenter_8h_source.html">RobotControlCenter.h</a>.</p>
 
 <p>Referenced by <a class="el" href="RobotControlCenter_8cpp_source.html#l00142">fastLoop()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00018">loop()</a>, <a class="el" href="RobotControlCenter_8cpp_source.html#l00060">RobotControlCenter()</a>, and <a class="el" href="RobotControlCenter_8cpp_source.html#l00072">setup()</a>.</p>
 

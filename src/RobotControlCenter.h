@@ -16,9 +16,7 @@
 #include <ESP32Encoder.h>
 #include "../RBEPID.h"
 #include "pid/PIDMotor.h"
-#include "pid/ServoEncoderPIDMotor.h"
 #include "pid/HBridgeEncoderPIDMotor.h"
-#include "pid/ServoAnalogPIDMotor.h"
 #include <Preferences.h>
 #include <WiFi.h>
 #include <SimplePacketComs.h>
