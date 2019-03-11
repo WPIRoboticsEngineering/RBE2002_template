@@ -48,7 +48,7 @@
 /**
  * Pin for setting the direction of the H-Bridge
  */
-#define MOTOR3_DIR 25
+#define MOTOR3_DIR 26
 
 //Encoder pins
 #define MOTOR1_ENCA 19
@@ -57,7 +57,7 @@
 #define MOTOR2_ENCA 17
 #define MOTOR2_ENCB 16
 
-#define MOTOR3_ENCA 26
+#define MOTOR3_ENCA 25
 #define MOTOR3_ENCB 14
 
 //Stepper
