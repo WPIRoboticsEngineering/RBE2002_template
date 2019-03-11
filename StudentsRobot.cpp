@@ -74,7 +74,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 					(1.0 / 360.0) * // degrees per revolution
 					2, // Number of edges that are used to increment the value
 			1400, // measured max degrees per second
-			150 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
+			50 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
 	// Set up the Analog sensors
 	pinMode(ANALOG_SENSE_ONE, ANALOG);
