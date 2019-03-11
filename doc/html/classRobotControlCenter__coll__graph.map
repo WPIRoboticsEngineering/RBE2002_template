@@ -1,7 +1,0 @@
-<map id="RobotControlCenter" name="RobotControlCenter">
-<area shape="rect" id="node2" href="$classPIDMotor.html" title="PIDMotor" alt="" coords="68,109,147,136"/>
-<area shape="rect" id="node5" href="$classHBridgeEncoderPIDMotor.html" title="HBridgeEncoderPIDMotor" alt="" coords="21,185,194,212"/>
-<area shape="rect" id="node6" href="$classServoEncoderPIDMotor.html" title="ServoEncoderPIDMotor" alt="" coords="218,185,378,212"/>
-<area shape="rect" id="node3" href="$classRBEPID.html" title="RBEPID" alt="" coords="71,5,144,32"/>
-<area shape="rect" id="node4" href="$classStudentsRobot.html" title="StudentsRobot" alt="" coords="141,291,250,317"/>
-</map>
