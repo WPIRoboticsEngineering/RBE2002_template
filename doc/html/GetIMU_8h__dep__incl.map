@@ -1,0 +1,10 @@
+<map id="src/commands/GetIMU.h" name="src/commands/GetIMU.h">
+<area shape="rect" id="node2" href="$DriveChassis_8h.html" title="DriveChassis.h" alt="" coords="123,80,235,107"/>
+<area shape="rect" id="node4" href="$StudentsRobot_8h.html" title="StudentsRobot.h" alt="" coords="165,155,285,181"/>
+<area shape="rect" id="node5" href="$RobotControlCenter_8h.html" title="src/RobotControlCenter.h" alt="" coords="237,229,408,256"/>
+<area shape="rect" id="node9" href="$GetIMU_8cpp.html" title="src/commands/GetIMU.cpp" alt="" coords="361,80,543,107"/>
+<area shape="rect" id="node3" href="$DrivingChassis_8cpp.html" title="DrivingChassis.cpp" alt="" coords="5,155,141,181"/>
+<area shape="rect" id="node8" href="$StudentsRobot_8cpp.html" title="StudentsRobot.cpp" alt="" coords="78,229,213,256"/>
+<area shape="rect" id="node6" href="$RobotControlCenter_8cpp.html" title="src/RobotControlCenter.cpp" alt="" coords="147,304,333,331"/>
+<area shape="rect" id="node7" href="$template_8ino.html" title="template.ino" alt="" coords="357,304,451,331"/>
+</map>

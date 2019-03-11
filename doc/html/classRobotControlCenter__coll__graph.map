@@ -1,0 +1,8 @@
+<map id="RobotControlCenter" name="RobotControlCenter">
+<area shape="rect" id="node2" href="$classPIDMotor.html" title="PIDMotor" alt="" coords="116,109,194,136"/>
+<area shape="rect" id="node4" href="$classStudentsRobot.html" title="StudentsRobot" alt="" coords="358,228,467,255"/>
+<area shape="rect" id="node8" href="$classHBridgeEncoderPIDMotor.html" title="HBridgeEncoderPIDMotor" alt="" coords="68,228,242,255"/>
+<area shape="rect" id="node3" href="$classRBEPID.html" title="RBEPID" alt="" coords="118,5,192,32"/>
+<area shape="rect" id="node5" href="$classIRCamSimplePacketComsServer.html" title="IRCamSimplePacketComsServer" alt="" coords="376,109,595,136"/>
+<area shape="rect" id="node7" href="$classGetIMU.html" title="GetIMU" alt="" coords="284,109,352,136"/>
+</map>
