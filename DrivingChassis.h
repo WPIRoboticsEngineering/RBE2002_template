@@ -77,6 +77,8 @@ public:
 	 * @param msDuration is the time in miliseconds that the drive action should take
 	 *
 	 * @note this function is fast-return and should not block
+	 * @note myleft->overrideCurrentPosition(0); can be used to "zero out" the motor to
+	 * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
 	 */
 	void driveForward(float mmDistanceFromCurrent, int msDuration);
 	/**
@@ -91,6 +93,8 @@ public:
 	 * @param msDuration is the time in miliseconds that the drive action should take
 	 *
 	 *  @note this function is fast-return and should not block
+	 *  @note myleft->overrideCurrentPosition(0); can be used to "zero out" the motor to
+	 * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
 	 */
 	void turnDegrees(float degreesToRotateBase, int msDuration);
 	/**

@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "DriveChassis.h"
+#include "DrivingChassis.h"
 
 /**
  * Compute a delta in wheel angle to traverse a specific distance
@@ -64,9 +64,10 @@ DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
  * @param msDuration is the time in miliseconds that the drive action should take
  *
  * @note this function is fast-return and should not block
+ * @note myleft->overrideCurrentPosition(0); can be used to "zero out" the motor to
+ * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
 void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
-
 }
 
 /**
@@ -81,6 +82,8 @@ void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
  * @param msDuration is the time in miliseconds that the drive action should take
  *
  *  @note this function is fast-return and should not block
+ *  @note myleft->overrideCurrentPosition(0); can be used to "zero out" the motor to
+ * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
 void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
 
