@@ -18,9 +18,9 @@ void GetIMU::event(float * buffer) {
 	}
 
 }
-void GetIMU::loop() {
+boolean GetIMU::loop() {
 	if (!started)
-		return;
+		return true;
 	imu::Vector<3> a;
 	imu::Vector<3> v;
 	imu::Vector<3> g;
@@ -53,7 +53,9 @@ void GetIMU::loop() {
 	updateIndex++;
 	if (updateIndex == 4) {
 		updateIndex = 0;
+		return true;
 	}
+	return false;
 }
 void GetIMU::setXPosition(float x){
 	bufferINTERNAL[12] =x;

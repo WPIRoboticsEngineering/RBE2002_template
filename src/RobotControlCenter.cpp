@@ -34,18 +34,23 @@ void RobotControlCenter::loop() {
 			break;
 		case readIR:
 			state = readIMU;
-
-#if defined(USE_IMU)
-			sensor->loop();
-#endif
-			break;
-		case readIMU:
-			state = readIR;
 #if defined(USE_IR_CAM)
 			serverIR->loop();
 			//serverIR->print();
 #endif
 			break;
+		case readIMU:
+
+#if defined(USE_IMU)
+			if(sensor->loop()){
+				state = readIR;
+			}else{
+				// keep reading the IMU until all vectors are read
+			}
+#else
+			state = readIR;
+#endif
+	break;
 		default:
 			break;
 		}
