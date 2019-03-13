@@ -21,7 +21,7 @@ void RobotControlCenter::loop() {
 			|| esp_timer_get_time() < lastPrint // check for the wrap over case
 					) {
 
-		lastPrint +=loopTime; // ensure 0.5 ms spacing *between* reads for Wifi to transact
+		lastPrint +=loopTime; // ensure 5ms real time loop
 		switch (state) {
 		case Startup:
 			setup();
