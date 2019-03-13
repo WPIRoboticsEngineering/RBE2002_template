@@ -17,6 +17,11 @@
 #endif
 #define loopTime 5000
 void RobotControlCenter::loop() {
+	if (state != Startup) {
+		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
+		fastLoop();    // Run PID and wifi after State machine on all states
+	}
+
 	if (esp_timer_get_time() - lastPrint > loopTime
 			|| esp_timer_get_time() < lastPrint // check for the wrap over case
 					) {
@@ -55,10 +60,6 @@ void RobotControlCenter::loop() {
 		default:
 			break;
 		}
-	}
-	if (state != Startup) {
-		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
-		fastLoop();    // Run PID and wifi after State machine on all states
 	}
 
 }
