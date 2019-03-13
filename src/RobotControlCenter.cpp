@@ -9,11 +9,11 @@
 #if defined(USE_IMU)
 // Simple packet coms server for IMU
 // The IMU object
-	Adafruit_BNO055 bno;
+Adafruit_BNO055 bno;
 #endif
 #if defined(USE_IR_CAM)
 // IR camera
-	DFRobotIRPosition myDFRobotIRPosition;
+DFRobotIRPosition myDFRobotIRPosition;
 #endif
 #define loopTime 5000
 void RobotControlCenter::loop() {
@@ -26,7 +26,7 @@ void RobotControlCenter::loop() {
 			|| esp_timer_get_time() < lastPrint // check for the wrap over case
 					) {
 
-		lastPrint +=loopTime; // ensure 5ms real time loop
+		lastPrint += loopTime; // ensure 5ms real time loop
 		switch (state) {
 		case Startup:
 			setup();
@@ -48,15 +48,15 @@ void RobotControlCenter::loop() {
 		case readIMU:
 
 #if defined(USE_IMU)
-			if(sensor->loop()){
+			if (sensor->loop()) {
 				state = readIR;
-			}else{
+			} else {
 				// keep reading the IMU until all vectors are read
 			}
 #else
 			state = readIR;
 #endif
-	break;
+			break;
 		default:
 			break;
 		}
@@ -99,7 +99,6 @@ void RobotControlCenter::setup() {
 	servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
 
-
 	//	// Create sensors and servers
 #if defined(USE_IMU)
 	sensor = new GetIMU();
@@ -121,7 +120,8 @@ void RobotControlCenter::setup() {
 	serverIR = new IRCamSimplePacketComsServer(&myDFRobotIRPosition);
 #endif
 
-	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo,serverIR,sensor);
+	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo, serverIR,
+			sensor);
 
 #if defined(USE_WIFI)
 #if defined(USE_IMU)
