@@ -15,7 +15,10 @@
    version="1.1"
    id="svg12948"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="level-shifters.svg">
+   sodipodi:docname="level-shifters.svg"
+   inkscape:export-filename="level-shifters.png"
+   inkscape:export-xdpi="799.77301"
+   inkscape:export-ydpi="799.77301">
   <defs
      id="defs12942">
     <marker
@@ -57,7 +60,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.12"
-     inkscape:cx="222.68831"
+     inkscape:cx="180.50081"
      inkscape:cy="173.79911"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -79,7 +82,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
