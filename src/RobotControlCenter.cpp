@@ -15,12 +15,13 @@
 // IR camera
 	DFRobotIRPosition myDFRobotIRPosition;
 #endif
+#define loopTime 5000
 void RobotControlCenter::loop() {
-	if (esp_timer_get_time() - lastPrint > 2500
+	if (esp_timer_get_time() - lastPrint > loopTime
 			|| esp_timer_get_time() < lastPrint // check for the wrap over case
 					) {
 
-		lastPrint = esp_timer_get_time(); // ensure 0.5 ms spacing *between* reads for Wifi to transact
+		lastPrint +=loopTime; // ensure 0.5 ms spacing *between* reads for Wifi to transact
 		switch (state) {
 		case Startup:
 			setup();
