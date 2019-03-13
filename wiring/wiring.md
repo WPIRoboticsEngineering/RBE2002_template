@@ -1,7 +1,7 @@
 # Robot Wiring Diagram
 
 ## Robot Interface Module
-![RIB Wiring](/wiring/RIB-Wiring.svg)
+![RIB Wiring](/wiring/rib-wiring.png)
 
 ## H-Bridges
 ![H-Bridge Wiring](/wiring/H-bridges.png)
