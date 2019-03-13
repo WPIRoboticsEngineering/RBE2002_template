@@ -16,7 +16,7 @@ STL's https://github.com/WPIRoboticsEngineering/RBELabCustomParts/releases/downl
 
 Hardware Documentation: https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard
 
-Base Bot Wireing  [See wiring/wiring.md](https://github.com/WPIRoboticsEngineering/RBE2002_template/blob/master/wiring/wiring.md)
+wireing Diagram [wiring/wiring.md]
 
 
 ## A note about the level shifter
