@@ -9,18 +9,24 @@
 #if defined(USE_IMU)
 // Simple packet coms server for IMU
 // The IMU object
-	Adafruit_BNO055 bno;
+Adafruit_BNO055 bno;
 #endif
 #if defined(USE_IR_CAM)
 // IR camera
-	DFRobotIRPosition myDFRobotIRPosition;
+DFRobotIRPosition myDFRobotIRPosition;
 #endif
+#define loopTime 5000
 void RobotControlCenter::loop() {
-	if (esp_timer_get_time() - lastPrint > 2500
+	if (state != Startup) {
+		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
+		fastLoop();    // Run PID and wifi after State machine on all states
+	}
+
+	if (esp_timer_get_time() - lastPrint > loopTime
 			|| esp_timer_get_time() < lastPrint // check for the wrap over case
 					) {
 
-		lastPrint = esp_timer_get_time(); // ensure 0.5 ms spacing *between* reads for Wifi to transact
+		lastPrint += loopTime; // ensure 5ms real time loop
 		switch (state) {
 		case Startup:
 			setup();
@@ -34,25 +40,26 @@ void RobotControlCenter::loop() {
 			break;
 		case readIR:
 			state = readIMU;
-
-#if defined(USE_IMU)
-			sensor->loop();
-#endif
-			break;
-		case readIMU:
-			state = readIR;
 #if defined(USE_IR_CAM)
 			serverIR->loop();
 			//serverIR->print();
 #endif
 			break;
+		case readIMU:
+
+#if defined(USE_IMU)
+			if (sensor->loop()) {
+				state = readIR;
+			} else {
+				// keep reading the IMU until all vectors are read
+			}
+#else
+			state = readIR;
+#endif
+			break;
 		default:
 			break;
 		}
-	}
-	if (state != Startup) {
-		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
-		fastLoop();    // Run PID and wifi after State machine on all states
 	}
 
 }
@@ -92,7 +99,6 @@ void RobotControlCenter::setup() {
 	servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
 
-
 	//	// Create sensors and servers
 #if defined(USE_IMU)
 	sensor = new GetIMU();
@@ -114,7 +120,8 @@ void RobotControlCenter::setup() {
 	serverIR = new IRCamSimplePacketComsServer(&myDFRobotIRPosition);
 #endif
 
-	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo,serverIR,sensor);
+	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo, serverIR,
+			sensor);
 
 #if defined(USE_WIFI)
 #if defined(USE_IMU)

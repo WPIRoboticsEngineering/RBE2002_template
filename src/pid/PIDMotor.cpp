@@ -64,7 +64,7 @@ bool PIDMotor::isInterpolationDone() {
 void PIDMotor::loop() {
 	calcVel(); // ensure the velocity value is kept up to date
 	if (millis() - lastTimeRunPID > myPID.sampleRateMs) {
-		lastTimeRunPID = millis();
+		lastTimeRunPID +=myPID.sampleRateMs;
 	} else {
 		return;
 	}

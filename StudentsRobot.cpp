@@ -18,7 +18,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 	IRCamera = IRCam;
 	IMU = imu;
 #if defined(USE_IMU)
-	IMU->setXPosition(0);
+	IMU->setXPosition(200);
 	IMU->setYPosition(0);
 	IMU->setZPosition(0);
 #endif
