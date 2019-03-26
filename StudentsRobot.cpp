@@ -25,7 +25,7 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 	// Set the PID Clock gating rate. The PID must be 10 times slower than the motors update rate
 	motor1->myPID.sampleRateMs = 5; //
 	motor2->myPID.sampleRateMs = 5; //
-	motor3->myPID.sampleRateMs = 1;  // 10khz H-Bridge, 0.1ms update, 1 ms PID
+	motor3->myPID.sampleRateMs = 5;  // 10khz H-Bridge, 0.1ms update, 1 ms PID
 
 	// Set default P.I.D gains
 	motor1->myPID.setpid(0.00015, 0, 0);
