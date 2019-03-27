@@ -50,7 +50,7 @@ You and your team members should find your repository made with the template cod
 
 First install [Arduino IDE and Github Desktop](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard#arduino-and-the-esp32-toolchain)
 
-Compile your code in Arduino IDE before moving on to Eclipse. If compilation is not working, do ot yet move on. 
+Compile your code in Arduino IDE before moving on to Eclipse. If compilation is not working, do not yet move on. 
 
 ## Install Eclipse And Setup Eclipse on Personal Machine
 
