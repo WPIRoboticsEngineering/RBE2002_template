@@ -61,7 +61,7 @@ And select your port:
 ```
 Tools->Port-> (the port that your arduino is connected to)
 ```
-
+Compile your code in Arduino IDE before moving on to Eclipse. If compilation is not working, do ot yet move on. 
 
 ## Install Eclipse And Setup Eclipse on Personal Machine
 
