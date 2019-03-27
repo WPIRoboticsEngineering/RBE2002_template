@@ -2,6 +2,26 @@
 
 Template code for the RBE 2002 final project
 
+# Libraries
+
+Search and install:
+
+```
+ESP32Servo
+
+ESP32Encoder
+
+Adafruit_BNO055
+
+Adafruit Unified Sensor
+
+Esp32SimplePacketComs
+
+SimplePacketComs
+
+DFRobotIRPosition
+```
+
 ## Code Documentation Doxygen
 
 In you checked out code, open doc/html/annotated.html to see the Doxygen documentation. The best way to understand this code is to start in the Files section of the documentation, and look at the .ino file. Look at the setup and loop call graphs.
