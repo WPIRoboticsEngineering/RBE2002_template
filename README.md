@@ -50,17 +50,6 @@ You and your team members should find your repository made with the template cod
 
 First install [Arduino IDE and Github Desktop](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard#arduino-and-the-esp32-toolchain)
 
-After your Arduino is installed and the ESP32 toolchain is up and running, open Arduino IDE and Select your board:
-
-```
-Tools->Board->ESP32 Dev Module
-```
-
-And select your port:
-
-```
-Tools->Port-> (the port that your arduino is connected to)
-```
 Compile your code in Arduino IDE before moving on to Eclipse. If compilation is not working, do ot yet move on. 
 
 ## Install Eclipse And Setup Eclipse on Personal Machine
