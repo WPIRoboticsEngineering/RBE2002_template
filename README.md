@@ -50,21 +50,28 @@ Your private Repository has been created for you here: https://github.com/RBE200
 
 You and your team members should find your repository made with the template code in there.
 
-## Develop Code for your project
-
-### (Optional) Install Eclipse on Personal Machine
-
- [See Eclipse install instructions in InstallEclipse.md](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/InstallEclipse.md)
-
-### Clone your project
-
-You may either:
+# Development of your code
 
 Use [Arduino IDE and Github Desktop](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/UseArduinoGithubDesktop.md)
 
-or:
+After your Arduino is installed and the ESP32 toolchain is up and running, open Arduino IDE and Select your board:
 
-(Optional) Use Eclipse [using the Eclipse instructions](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/UseEclipse.md)
+```
+Tools->Board->ESP32 Dev Module
+```
+
+And select your port:
+
+```
+Tools->Port-> (the port that your arduino is connected to)
+```
+
+
+## Install Eclipse And Setup Eclipse on Personal Machine
+
+ [See Eclipse install instructions in InstallEclipse.md](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/InstallEclipse.md)
+ 
+ [Open Projects in Eclipse using the Eclipse instructions](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/UseEclipse.md)
 
 ## Code theory, structure and what to edit
 
