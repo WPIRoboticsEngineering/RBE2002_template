@@ -40,10 +40,6 @@ Hardware Documentation: https://github.com/WPIRoboticsEngineering/RobotInterface
 
 It is important to make sure the red connection (3.3v) is attached to the level shifter. Omitting this connection can damage your ESP32. Check Twice!
 
-## Arduino Setup and Development Computer Options
-
-See: [Development Computer Options](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard#development-computer-options)
-
 ## Where Is My Code?
 
 Your private Repository has been created for you here: https://github.com/RBE200x-lab
@@ -52,7 +48,7 @@ You and your team members should find your repository made with the template cod
 
 # Development of your code
 
-Use [Arduino IDE and Github Desktop](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard/blob/master/UseArduinoGithubDesktop.md)
+First install [Arduino IDE and Github Desktop](https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard#arduino-and-the-esp32-toolchain)
 
 After your Arduino is installed and the ESP32 toolchain is up and running, open Arduino IDE and Select your board:
 
