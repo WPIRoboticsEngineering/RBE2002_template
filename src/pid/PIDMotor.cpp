@@ -99,15 +99,9 @@ void PIDMotor::loop() {
 }
 void PIDMotor::velocityLoop() {
 	double openLoopTerm=0;
-	if(targetDegreesPerSecond>0)
-		openLoopTerm= myFmap(targetDegreesPerSecond,
-				freeSpinMinDegreesPerSecond, getFreeSpinMaxDegreesPerSecond(),
-			0, 1);
-	else
-		openLoopTerm= myFmap(targetDegreesPerSecond,
-						-getFreeSpinMaxDegreesPerSecond(),
-						-freeSpinMinDegreesPerSecond,
-					-1,0);
+	openLoopTerm= myFmap(targetDegreesPerSecond,
+			-getFreeSpinMaxDegreesPerSecond(), getFreeSpinMaxDegreesPerSecond(),
+		-1, 1);
 	// TODO Apply PD velocity terms here, 2002 velocity lab
 	setOutputUnitVector(openLoopTerm);
 }
