@@ -51,6 +51,8 @@ DrivingChassis::~DrivingChassis() {
  * @param right the right motor
  * @param wheelTrackMM is the measurment in milimeters of the distance from the left wheel contact point to the right wheels contact point
  * @param wheelRadiusMM is the measurment in milimeters of the radius of the wheels
+ * @param imu The object that is used to access the IMU data
+ *
  */
 DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
 		float wheelTrackMM, float wheelRadiusMM,GetIMU * imu) {
@@ -64,7 +66,7 @@ DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
  * @param msDuration is the time in miliseconds that the drive action should take
  *
  * @note this function is fast-return and should not block
- * @note myleft->overrideCurrentPosition(0); can be used to "zero out" the motor to
+ * @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
  * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
 void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
@@ -82,8 +84,8 @@ void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
  * @param msDuration is the time in miliseconds that the drive action should take
  *
  *  @note this function is fast-return and should not block
- *  @note myleft->overrideCurrentPosition(0); can be used to "zero out" the motor to
- * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
+ *  @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
+ * 		  allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
 void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
 
@@ -94,8 +96,17 @@ void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
  *
  * @return false is the chassis is driving, true is the chassis msDuration has elapsed
  *
- *  @note this function is fast-return and should not block
+ * @note this function is fast-return and should not block
  */
 bool DrivingChassis::isChassisDoneDriving() {
 	return false;
+}
+/**
+ * loop()
+ *
+ * a fast loop function that will update states of the motors based on the information from the
+ * imu.
+ */
+void DrivingChassis::loop(){
+
 }
