@@ -5,8 +5,7 @@
 #include <WiFi.h>
 #include <SimplePacketComs.h>
 #include <Esp32SimplePacketComs.h>
-#include <wifi/WifiManager.h>
-#include <server/NameCheckerServer.h>
+#include <Esp32WifiManager.h>
 
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
