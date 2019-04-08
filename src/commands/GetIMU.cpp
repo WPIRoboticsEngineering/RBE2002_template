@@ -18,6 +18,7 @@ void GetIMU::event(float * buffer) {
 	}
 
 }
+
 boolean GetIMU::loop() {
 	if (!started)
 		return true;
@@ -33,22 +34,22 @@ boolean GetIMU::loop() {
 		bufferINTERNAL[2] = a.x();
 		break;
 	case (1):
-		v = bno->getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-		bufferINTERNAL[3] = v.z();
-		bufferINTERNAL[4] = v.y();
-		bufferINTERNAL[5] = v.x();
-		break;
-	case 2:
 		g = bno->getVector(Adafruit_BNO055::VECTOR_GRAVITY);
 		bufferINTERNAL[6] = g.z();
 		bufferINTERNAL[7] = g.y();
 		bufferINTERNAL[8] = g.x();
 		break;
+	case 2:
+		v = bno->getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
+		bufferINTERNAL[3] = v.z();
+		bufferINTERNAL[4] = v.y();
+		bufferINTERNAL[5] = v.x();
+		break;
 	case 3:
 		e = bno->getVector(Adafruit_BNO055::VECTOR_EULER);
-		bufferINTERNAL[9] = e.z();// tilt
-		bufferINTERNAL[10] = e.y();// elevation
-		bufferINTERNAL[11] = e.x();// azimuth
+		bufferINTERNAL[9] = e.z(); // tilt
+		bufferINTERNAL[10] = e.y(); // elevation
+		bufferINTERNAL[11] = e.x(); // azimuth
 	}
 	updateIndex++;
 	if (updateIndex == 4) {
@@ -57,14 +58,23 @@ boolean GetIMU::loop() {
 	}
 	return false;
 }
-void GetIMU::setXPosition(float x){
-	bufferINTERNAL[12] =x;
+float GetIMU::getXPosition(){
+	return bufferINTERNAL[12];
 }
-void GetIMU::setYPosition(float y){
-	bufferINTERNAL[13] =y;
+float GetIMU::getYPosition(){
+	return bufferINTERNAL[13];
 }
-void GetIMU::setZPosition(float z){
-	bufferINTERNAL[14] =z;
+float GetIMU::getZPosition(){
+	return bufferINTERNAL[14];
+}
+void GetIMU::setXPosition(float x) {
+	bufferINTERNAL[12] = x;
+}
+void GetIMU::setYPosition(float y) {
+	bufferINTERNAL[13] = y;
+}
+void GetIMU::setZPosition(float z) {
+	bufferINTERNAL[14] = z;
 }
 float GetIMU::getLINEARACCEL_X() {
 	return bufferINTERNAL[0];
@@ -113,7 +123,8 @@ void GetIMU::startSensor(Adafruit_BNO055 * _bno) {
 void GetIMU::print() {
 	if (!started)
 		return;
-	Serial.print("\r\n Euler= " + String(bufferINTERNAL[9]) + " , "
+	Serial.print(
+			"\r\n Euler= " + String(bufferINTERNAL[9]) + " , "
 					+ String(bufferINTERNAL[10]) + " , "
 					+ String(bufferINTERNAL[11]) + "\r\n ");
 	/* Display calibration status for each sensor. */

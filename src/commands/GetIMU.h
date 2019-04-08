@@ -57,6 +57,10 @@ public:
 	float getEULER_elevation();
 	float getEULER_tilt();
 
+	float getXPosition();
+	float getYPosition();
+	float getZPosition();
+
 	void setXPosition(float x);
 	void setYPosition(float y);
 	void setZPosition(float z);
