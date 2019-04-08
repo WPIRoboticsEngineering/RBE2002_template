@@ -53,7 +53,8 @@ boolean GetIMU::loop() {
 	}
 	updateIndex++;
 	if (updateIndex == 4) {
-		updateIndex = 0;
+		//updateIndex = 2;// Read two vectors, fast reading
+		updateIndex = 0;// read all vectors
 		return true;
 	}
 	return false;
