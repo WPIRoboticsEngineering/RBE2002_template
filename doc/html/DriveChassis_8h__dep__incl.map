@@ -1,8 +1,0 @@
-<map id="DriveChassis.h" name="DriveChassis.h">
-<area shape="rect" id="node2" href="$DrivingChassis_8cpp.html" title="DrivingChassis.cpp" alt="" coords="47,80,183,107"/>
-<area shape="rect" id="node3" href="$StudentsRobot_8h.html" title="StudentsRobot.h" alt="" coords="207,80,327,107"/>
-<area shape="rect" id="node4" href="$RobotControlCenter_8h.html" title="src/RobotControlCenter.h" alt="" coords="94,155,265,181"/>
-<area shape="rect" id="node7" href="$StudentsRobot_8cpp.html" title="StudentsRobot.cpp" alt="" coords="289,155,424,181"/>
-<area shape="rect" id="node5" href="$RobotControlCenter_8cpp.html" title="src/RobotControlCenter.cpp" alt="" coords="5,229,191,256"/>
-<area shape="rect" id="node6" href="$template_8ino.html" title="template.ino" alt="" coords="215,229,309,256"/>
-</map>

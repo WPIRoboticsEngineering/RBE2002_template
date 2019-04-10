@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['wheel_5fradius',['WHEEL_RADIUS',['../config_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07',1,'config.h']]],
-  ['wheel_5ftrack',['WHEEL_TRACK',['../config_8h.html#aa9cd2eaae3d5c89c36ebd4cccd174d4d',1,'config.h']]],
-  ['wii_5fcontroller_5fdetect',['WII_CONTROLLER_DETECT',['../config_8h.html#a0a42c87cb5792c0118fbf71abe4a5f98',1,'config.h']]]
+  ['use_5fimu',['USE_IMU',['../config_8h.html#a8253255e4a1a7c9d1eb849d923244b54',1,'config.h']]],
+  ['use_5fir_5fcam',['USE_IR_CAM',['../config_8h.html#a74e0047338f75d94a695108df2faa350',1,'config.h']]],
+  ['use_5fwifi',['USE_WIFI',['../config_8h.html#a038b45d7c3c759d55de15e9fe019f580',1,'config.h']]]
 ];
