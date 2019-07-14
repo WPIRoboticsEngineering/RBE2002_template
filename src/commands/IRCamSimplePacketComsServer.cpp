@@ -24,7 +24,7 @@ void IRCamSimplePacketComsServer::event(float * buffer) {
 }
 
 void IRCamSimplePacketComsServer::loop() {
-	int64_t start = esp_timer_get_time();
+	//int64_t start = esp_timer_get_time();
 	Wire.flush();
 	camera->requestPosition();
 	if (camera->available()) {
