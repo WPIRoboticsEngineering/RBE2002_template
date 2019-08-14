@@ -11,6 +11,8 @@ ESP32Servo
 
 ESP32Encoder
 
+ESP32WifiManager
+
 Adafruit_BNO055
 
 Adafruit Unified Sensor
