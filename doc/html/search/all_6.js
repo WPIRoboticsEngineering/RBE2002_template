@@ -1,6 +1,7 @@
 var searchData=
 [
   ['getangledegrees',['getAngleDegrees',['../classPIDMotor.html#a30fafa2f674001af8bf25d771532620b',1,'PIDMotor']]],
+<<<<<<< HEAD
   ['geteuler_5fazimuth',['getEULER_azimuth',['../classGetIMU.html#abe0ace63352c0213907971ec6e8cc973',1,'GetIMU']]],
   ['geteuler_5felevation',['getEULER_elevation',['../classGetIMU.html#a2df8f5974b4be881b9ea30fb4e3eb90d',1,'GetIMU']]],
   ['geteuler_5ftilt',['getEULER_tilt',['../classGetIMU.html#afd4267290c18bd41fc9c0e68f6fc4940',1,'GetIMU']]],
@@ -39,5 +40,33 @@ var searchData=
   ['getposition',['getPosition',['../classHBridgeEncoderPIDMotor.html#aaf50960b179c4d9b0a059b3b4b41b14d',1,'HBridgeEncoderPIDMotor::getPosition()'],['../classPIDMotor.html#a804fb78d6d87e55d96d4b798935c8809',1,'PIDMotor::getPosition()'],['../classServoAnalogPIDMotor.html#ad6ea5e73f0ee9edf35ae1a3c59eee467',1,'ServoAnalogPIDMotor::getPosition()'],['../classServoEncoderPIDMotor.html#ace3748b0fc47372137067424ce7c664f',1,'ServoEncoderPIDMotor::getPosition()']]],
   ['getsetpoint',['getSetPoint',['../classPIDMotor.html#ab4fc140e1212fa3c192feca5bcbd7acc',1,'PIDMotor']]],
   ['getsetpointdegrees',['getSetPointDegrees',['../classPIDMotor.html#a3c8496df466934c31b344bd342621d6d',1,'PIDMotor']]],
+=======
+  ['getfreespinmaxdegreespersecond',['getFreeSpinMaxDegreesPerSecond',['../classPIDMotor.html#a702890e63da27ace0ec16b30d53e0c9e',1,'PIDMotor']]],
+  ['gethardwareoutput',['getHardwareOutput',['../classPIDMotor.html#a16d341c8cabceefa3de1f2fd9ecf6362',1,'PIDMotor']]],
+  ['getinterpolationunitincrement',['getInterpolationUnitIncrement',['../classPIDMotor.html#a4b178659f339c95aa78bfb1a9e77c338',1,'PIDMotor']]],
+  ['getoutputmax',['getOutputMax',['../classPIDMotor.html#aeac2d568ea99d5ed87511f6107681919',1,'PIDMotor']]],
+  ['getoutputmaxdeadbad',['getOutputMaxDeadbad',['../classPIDMotor.html#a4abe212ce5ed85b3f6f9b0d6065a2d19',1,'PIDMotor']]],
+  ['getoutputmin',['getOutputMin',['../classPIDMotor.html#a48ccac9c1c76693f15b54e5db7a33df1',1,'PIDMotor']]],
+  ['getoutputmindeadbad',['getOutputMinDeadbad',['../classPIDMotor.html#a7cd2e4d3e82e28e60999eca98a96be7d',1,'PIDMotor']]],
+  ['getoutputstop',['getOutputStop',['../classPIDMotor.html#aab8f58c624bc04015c6179e2c029fec3',1,'PIDMotor']]],
+  ['getpdvelocityconstants',['GetPDVelocityConstants',['../classGetPDVelocityConstants.html',1,'GetPDVelocityConstants'],['../classGetPDVelocityConstants.html#ae0cd2a63bcea0b70ec93e9cce80a5261',1,'GetPDVelocityConstants::GetPDVelocityConstants()']]],
+  ['getpdvelocityconstants_2ecpp',['GetPDVelocityConstants.cpp',['../GetPDVelocityConstants_8cpp.html',1,'']]],
+  ['getpdvelocityconstants_2eh',['GetPDVelocityConstants.h',['../GetPDVelocityConstants_8h.html',1,'']]],
+  ['getpidconstants',['GetPIDConstants',['../classGetPIDConstants.html',1,'GetPIDConstants'],['../classGetPIDConstants.html#a9346f1835bc690fa1eb0bdd333ad7457',1,'GetPIDConstants::GetPIDConstants()']]],
+  ['getpidconstants_2ecpp',['GetPIDConstants.cpp',['../GetPIDConstants_8cpp.html',1,'']]],
+  ['getpidconstants_2eh',['GetPIDConstants.h',['../GetPIDConstants_8h.html',1,'']]],
+  ['getpiddata',['GetPIDData',['../classGetPIDData.html',1,'GetPIDData'],['../classGetPIDData.html#a90dd17043e291437f2db1d0ac4dfccda',1,'GetPIDData::GetPIDData()']]],
+  ['getpiddata_2ecpp',['GetPIDData.cpp',['../GetPIDData_8cpp.html',1,'']]],
+  ['getpiddata_2eh',['GetPIDData.h',['../GetPIDData_8h.html',1,'']]],
+  ['getpidvelocity',['GetPIDVelocity',['../classGetPIDVelocity.html',1,'GetPIDVelocity'],['../classGetPIDVelocity.html#a8ccd61136397c916a680446948bf97ea',1,'GetPIDVelocity::GetPIDVelocity()']]],
+  ['getpidvelocity_2ecpp',['GetPIDVelocity.cpp',['../GetPIDVelocity_8cpp.html',1,'']]],
+  ['getpidvelocity_2eh',['GetPIDVelocity.h',['../GetPIDVelocity_8h.html',1,'']]],
+  ['getposition',['getPosition',['../classHBridgeEncoderPIDMotor.html#aaf50960b179c4d9b0a059b3b4b41b14d',1,'HBridgeEncoderPIDMotor::getPosition()'],['../classPIDMotor.html#a804fb78d6d87e55d96d4b798935c8809',1,'PIDMotor::getPosition()'],['../classServoAnalogPIDMotor.html#ad6ea5e73f0ee9edf35ae1a3c59eee467',1,'ServoAnalogPIDMotor::getPosition()'],['../classServoEncoderPIDMotor.html#ace3748b0fc47372137067424ce7c664f',1,'ServoEncoderPIDMotor::getPosition()']]],
+  ['getsetpoint',['getSetPoint',['../classPIDMotor.html#ab4fc140e1212fa3c192feca5bcbd7acc',1,'PIDMotor']]],
+  ['getsetpointdegrees',['getSetPointDegrees',['../classPIDMotor.html#a3c8496df466934c31b344bd342621d6d',1,'PIDMotor']]],
+  ['getstatus',['GetStatus',['../classGetStatus.html',1,'GetStatus'],['../classGetStatus.html#a6d05494722fc80823004142310d7a0ac',1,'GetStatus::GetStatus()']]],
+  ['getstatus_2ecpp',['GetStatus.cpp',['../GetStatus_8cpp.html',1,'']]],
+  ['getstatus_2eh',['GetStatus.h',['../GetStatus_8h.html',1,'']]],
+>>>>>>> branch 'master' of https://github.com/WPIRoboticsEngineering/RBE2001_template.git
   ['getvelocitydegreespersecond',['getVelocityDegreesPerSecond',['../classPIDMotor.html#a1e251bea3d32a8b3b8028e0d400ba47f',1,'PIDMotor']]]
 ];
