@@ -17,7 +17,6 @@ var searchData=
   ['setup',['setup',['../classRobotControlCenter.html#af72cdd5fd97b1c040d4738153b69cb5c',1,'RobotControlCenter::setup()'],['../template_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;template.ino']]],
   ['setuppidservers',['setupPIDServers',['../classRobotControlCenter.html#a1b709ab07eb0b1c6501d9d1553f34bc1',1,'RobotControlCenter']]],
   ['setvelocitydegreespersecond',['setVelocityDegreesPerSecond',['../classPIDMotor.html#a7c8326dcf4466f7e2abb0491b0bb80bc',1,'PIDMotor']]],
-<<<<<<< HEAD
   ['setxposition',['setXPosition',['../classGetIMU.html#a7619b8ea17913f59f34396bd75ac8d78',1,'GetIMU']]],
   ['setyposition',['setYPosition',['../classGetIMU.html#abf702f0faf59cb042fbb0bc743665450',1,'GetIMU']]],
   ['setzposition',['setZPosition',['../classGetIMU.html#a8012154383088b1f273bdbb56437457c',1,'GetIMU']]],
@@ -26,10 +25,4 @@ var searchData=
   ['startsensor',['startSensor',['../classGetIMU.html#af458fe68b2df51326bfd55a784df05a3',1,'GetIMU']]],
   ['stop',['stop',['../classPIDMotor.html#ab70676b6d2cea7a85592715056bdb0dd',1,'PIDMotor']]],
   ['studentsrobot',['StudentsRobot',['../classStudentsRobot.html#aaaac5ec11da1e61f6c2c4d094f812fd2',1,'StudentsRobot']]]
-=======
-  ['startinterpolation',['startInterpolation',['../classPIDMotor.html#a0aba3994cd6722646cce3f62a5cc056b',1,'PIDMotor']]],
-  ['startinterpolationdegrees',['startInterpolationDegrees',['../classPIDMotor.html#a59a361f6877ad6dd4504273646e433fd',1,'PIDMotor']]],
-  ['stop',['stop',['../classPIDMotor.html#ab70676b6d2cea7a85592715056bdb0dd',1,'PIDMotor']]],
-  ['studentsrobot',['StudentsRobot',['../classStudentsRobot.html#acd99cc5ec8e204312989b5e918292736',1,'StudentsRobot']]]
->>>>>>> branch 'master' of https://github.com/WPIRoboticsEngineering/RBE2001_template.git
 ];

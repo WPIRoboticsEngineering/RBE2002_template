@@ -1,7 +1,7 @@
 <map id="DrivingChassis" name="DrivingChassis">
-<area shape="rect" id="node1" title=" " alt="" coords="119,1019,352,1199"/>
+<area shape="rect" id="node1" title=" " alt="" coords="119,1019,352,1213"/>
 <area shape="rect" id="node2" href="$classPIDMotor.html" title=" " alt="" coords="5,277,220,941"/>
 <area shape="rect" id="node3" href="$classRBEPID.html" title=" " alt="" coords="40,5,185,200"/>
-<area shape="rect" id="node4" href="$classGetIMU.html" title=" " alt="" coords="245,475,410,743"/>
+<area shape="rect" id="node4" href="$classGetIMU.html" title=" " alt="" coords="245,453,410,765"/>
 <area shape="rect" id="node5" title=" " alt="" coords="255,64,399,141"/>
 </map>

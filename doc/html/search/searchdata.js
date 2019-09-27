@@ -1,24 +1,13 @@
 var indexSectionsWithContent =
 {
   0: "abcdefghiklmnoprstuvw~",
-<<<<<<< HEAD
   1: "dghilprs",
   2: "cdghilprst",
   3: "acdefghilmoprstuv~",
   4: "abcdefhiklmnoprstuv",
-=======
-  1: "acdeghlprs",
-  2: "acdeghlprst",
-  3: "acdefghilmoprstuv~",
-  4: "acdefhiklmnoprstuv",
->>>>>>> branch 'master' of https://github.com/WPIRoboticsEngineering/RBE2001_template.git
   5: "cirs",
   6: "dfhlprsvw",
-<<<<<<< HEAD
   7: "abfhilmnpstuw"
-=======
-  7: "abfhimnpstw"
->>>>>>> branch 'master' of https://github.com/WPIRoboticsEngineering/RBE2001_template.git
 };
 
 var indexSectionNames =

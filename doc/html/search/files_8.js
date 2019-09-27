@@ -1,6 +1,5 @@
 var searchData=
 [
-<<<<<<< HEAD
   ['servoanalogpidmotor_2ecpp',['ServoAnalogPIDMotor.cpp',['../ServoAnalogPIDMotor_8cpp.html',1,'']]],
   ['servoanalogpidmotor_2eh',['ServoAnalogPIDMotor.h',['../ServoAnalogPIDMotor_8h.html',1,'']]],
   ['servoencoderpidmotor_2ecpp',['ServoEncoderPIDMotor.cpp',['../ServoEncoderPIDMotor_8cpp.html',1,'']]],
@@ -15,10 +14,4 @@ var searchData=
   ['setpidvelocity_2eh',['SetPIDVelocity.h',['../SetPIDVelocity_8h.html',1,'']]],
   ['studentsrobot_2ecpp',['StudentsRobot.cpp',['../StudentsRobot_8cpp.html',1,'']]],
   ['studentsrobot_2eh',['StudentsRobot.h',['../StudentsRobot_8h.html',1,'']]]
-=======
-  ['rbepid_2ecpp',['RBEPID.cpp',['../RBEPID_8cpp.html',1,'']]],
-  ['rbepid_2eh',['RBEPID.h',['../RBEPID_8h.html',1,'']]],
-  ['robotcontrolcenter_2ecpp',['RobotControlCenter.cpp',['../RobotControlCenter_8cpp.html',1,'']]],
-  ['robotcontrolcenter_2eh',['RobotControlCenter.h',['../RobotControlCenter_8h.html',1,'']]]
->>>>>>> branch 'master' of https://github.com/WPIRoboticsEngineering/RBE2001_template.git
 ];
