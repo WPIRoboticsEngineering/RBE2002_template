@@ -50,6 +50,18 @@ boolean GetIMU::loop() {
 		bufferINTERNAL[9] = e.z(); // tilt
 		bufferINTERNAL[10] = e.y(); // elevation
 		bufferINTERNAL[11] = e.x(); // azimuth
+		if(firstRotationRead==true){
+			firstRotationRead=false;
+			lastRotation=bufferINTERNAL[11];
+		}
+		if(bufferINTERNAL[11]-lastRotation>180){
+			absoluteRotation+=360.0;
+		}
+		if(bufferINTERNAL[11]-lastRotation<-180){
+			absoluteRotation-=360.0;
+		}
+		lastRotation=bufferINTERNAL[11];
+		bufferINTERNAL[11]=bufferINTERNAL[11]+absoluteRotation;
 	}
 	updateIndex++;
 	if (updateIndex == 4) {

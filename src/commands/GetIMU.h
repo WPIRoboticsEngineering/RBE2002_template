@@ -25,6 +25,9 @@ private:
 	volatile float  bufferINTERNAL[NUM_IMU_VALUES];
 	bool started;
 	int updateIndex=0;
+	float absoluteRotation=0;
+	float lastRotation=0;
+	bool firstRotationRead=true;
 public:
 	// Packet ID needs to be set
 	GetIMU() :
