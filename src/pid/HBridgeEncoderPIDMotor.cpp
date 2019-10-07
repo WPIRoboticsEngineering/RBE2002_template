@@ -27,7 +27,7 @@ void HBridgeEncoderPIDMotor::attach(int pwmPin, int directionPin, int encoderA,
 		int encoderB) {
 	encoder.attachHalfQuad(encoderA, encoderB);
 	this->directionPin = directionPin;
-	motor.attachPin(pwmPin, 10000, 8);
+	motor.attachPin(pwmPin, 20000, 8);
 	pidinit();
 	pinMode(directionPin, OUTPUT);
 	setOutput(0);
