@@ -115,7 +115,7 @@ public:
 	 *
 	 * @note this function is fast-return and should not block
 	 */
-	void loop();
+	bool loop();
 
 };
 

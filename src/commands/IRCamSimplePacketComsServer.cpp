@@ -9,7 +9,7 @@
 
 IRCamSimplePacketComsServer::IRCamSimplePacketComsServer(
 		DFRobotIRPosition * cam) :
-		PacketEventAbstract(1590) {
+		PacketEvent(1590) {
 	camera = cam;
 }
 
@@ -23,7 +23,7 @@ void IRCamSimplePacketComsServer::event(float * buffer) {
 	}
 }
 
-void IRCamSimplePacketComsServer::loop() {
+bool IRCamSimplePacketComsServer::loop() {
 	//int64_t start = esp_timer_get_time();
 	Wire.flush();
 	camera->requestPosition();
@@ -34,8 +34,10 @@ void IRCamSimplePacketComsServer::loop() {
 			bufferCache[(i * 2) + 1] = ((float) camera->readY(i));	///1024.0;
 			//bufferCache[(i * 2) + 1] = bufferCache[(i * 2) + 1]>0?23.0/bufferCache[(i * 2) + 1]:0;
 		}
+		return true;
 	}else{
 		Serial.println("Error reading IR cam");
+		return false;
 	}
 
 }

@@ -107,6 +107,6 @@ bool DrivingChassis::isChassisDoneDriving() {
  * a fast loop function that will update states of the motors based on the information from the
  * imu.
  */
-void DrivingChassis::loop(){
-
+bool DrivingChassis::loop(){
+return false;
 }
