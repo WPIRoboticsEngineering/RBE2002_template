@@ -56,7 +56,11 @@ DrivingChassis::~DrivingChassis() {
  */
 DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
 		float wheelTrackMM, float wheelRadiusMM,GetIMU * imu) {
-
+	myleft = left;
+	myright = right;
+	mywheelTrackMM = wheelTrackMM;
+	mywheelRadiusMM = wheelRadiusMM;
+	IMU = imu;
 }
 
 /**
@@ -70,6 +74,25 @@ DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
  * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
 void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
+	// We should also have a "drive straight" method that uses the IMU to actually drive straight
+	// Although we'll have a linefollow state so... idk maybe not
+	myleft -> startInterpolationDegrees(mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
+    myright -> startInterpolationDegrees(-mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
+}
+
+/**
+	 * Start a drive backwards action
+	 *
+	 * @param mmDistanceFromCurrent is the distance the mobile base should drive backwards
+	 * @param msDuration is the time in miliseconds that the drive action should take
+	 *
+	 * @note this function is fast-return and should not block
+*/
+void DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration) {
+	// We should also have a "drive straight" method that uses the IMU to actually drive straight
+	// Although we'll have a linefollow state so... idk maybe not
+	myleft -> startInterpolationDegrees(-mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
+    myright -> startInterpolationDegrees(mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
 }
 
 /**
@@ -88,7 +111,17 @@ void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
  * 		  allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
 void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
-
+	/* As of 10/4/2020 Gabe doesn't have an IMU... rippu
+	  Two variants, one with IMU and one without IMU.
+	  IMU variant: will use P controller to modulate speed to make the turn based on
+	  heading. Maybe we can even make this absolute in the future.
+	  Encoder variant: Make the turn based on encoder ticks
+	  */
+	#ifdef USE_IMU
+	#else
+	   myleft -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
+	   myright -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
+	#endif
 }
 
 /**

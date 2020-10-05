@@ -57,6 +57,7 @@ private:
 	PIDMotor * motor2;
 	PIDMotor * motor3;
 	Servo * servo;
+	DrivingChassis robotChassis;
 	float lsensorVal=0;
 	float rsensorVal=0;
 	long nextTime =0;

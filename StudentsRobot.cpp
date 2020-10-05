@@ -9,7 +9,7 @@
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 		PIDMotor * motor3, Servo * servo, IRCamSimplePacketComsServer * IRCam,
-		GetIMU * imu) {
+		GetIMU * imu): robotChassis(motor2, motor1, 230, 30, imu) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
 	this->servo = servo;
 	this->motor1 = motor1;
@@ -128,6 +128,9 @@ void StudentsRobot::updateStateMachine() {
 		if (!digitalRead(BOOT_FLAG_PIN)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
+			//robotChassis.turnDegrees(-90, 5000);
+			//robotChassis.driveForward(300, 5000);
+			robotChassis.driveBackwards(300, 5000);
 #if defined(USE_IMU)
 			IMU->print();
 #endif

@@ -10,6 +10,11 @@
 #include "src/pid/PIDMotor.h"
 #include "src/commands/GetIMU.h"
 #include "config.h"
+
+#define WHEEL_DEGREES_TO_BODY_DEGREES 4.25F//3.8333447041F
+#define WHEEL_DEGREES_TO_MM 2.1174F
+
+
 /**
  * DrivingChassis encapsulates a 2 wheel differential steered chassis that drives around
  *
@@ -73,16 +78,25 @@ public:
 			float wheelRadiusMM,GetIMU * imu);
 
 	/**
-	 * Start a drive forward action
+	 * Start a drive backwards action
 	 *
-	 * @param mmDistanceFromCurrent is the distance the mobile base should drive forward
+	 * @param mmDistanceFromCurrent is the distance the mobile base should drive backwards
 	 * @param msDuration is the time in miliseconds that the drive action should take
 	 *
 	 * @note this function is fast-return and should not block
-	 * @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
-	 * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
 	 */
+	void driveBackwards(float mmDistanceFromCurrent, int msDuration);
+
+	/**
+		 * Start a drive forward action
+		 *
+		 * @param mmDistanceFromCurrent is the distance the mobile base should drive forward
+		 * @param msDuration is the time in miliseconds that the drive action should take
+		 *
+		 * @note this function is fast-return and should not block
+		 */
 	void driveForward(float mmDistanceFromCurrent, int msDuration);
+
 	/**
 	 * Start a turn action
 	 *
