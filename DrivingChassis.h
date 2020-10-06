@@ -12,7 +12,7 @@
 #include "config.h"
 
 #define WHEEL_DEGREES_TO_BODY_DEGREES 4.25F//3.8333447041F
-#define WHEEL_DEGREES_TO_MM 2.1174F
+#define MM_TO_WHEEL_DEGREES 2.1174F
 
 
 /**

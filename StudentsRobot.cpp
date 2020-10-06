@@ -128,9 +128,9 @@ void StudentsRobot::updateStateMachine() {
 		if (!digitalRead(BOOT_FLAG_PIN)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
-			//robotChassis.turnDegrees(-90, 5000);
+			robotChassis.turnDegrees(-90, 5000);
 			//robotChassis.driveForward(300, 5000);
-			robotChassis.driveBackwards(300, 5000);
+			//robotChassis.driveBackwards(300, 5000);
 #if defined(USE_IMU)
 			IMU->print();
 #endif

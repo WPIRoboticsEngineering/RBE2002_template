@@ -76,8 +76,11 @@ DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
 void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
 	// We should also have a "drive straight" method that uses the IMU to actually drive straight
 	// Although we'll have a linefollow state so... idk maybe not
-	myleft -> startInterpolationDegrees(mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
-    myright -> startInterpolationDegrees(-mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
+
+	myleft -> overrideCurrentPosition(0);
+	myright -> overrideCurrentPosition(0);
+	myleft -> startInterpolationDegrees(mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
+    myright -> startInterpolationDegrees(-mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
 }
 
 /**
@@ -91,8 +94,11 @@ void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
 void DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration) {
 	// We should also have a "drive straight" method that uses the IMU to actually drive straight
 	// Although we'll have a linefollow state so... idk maybe not
-	myleft -> startInterpolationDegrees(-mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
-    myright -> startInterpolationDegrees(mmDistanceFromCurrent * WHEEL_DEGREES_TO_MM, msDuration, LIN);
+	myleft -> overrideCurrentPosition(0);
+	myright -> overrideCurrentPosition(0);
+
+	myleft -> startInterpolationDegrees(-mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
+    myright -> startInterpolationDegrees(mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
 }
 
 /**
@@ -119,6 +125,8 @@ void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
 	  */
 	#ifdef USE_IMU
 	#else
+	   myleft -> overrideCurrentPosition(0);
+	   myright -> overrideCurrentPosition(0);
 	   myleft -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
 	   myright -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
 	#endif
