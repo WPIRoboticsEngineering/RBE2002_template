@@ -24,7 +24,8 @@
  * Feel free to add ot remove values from here
  */
 enum RobotStateMachine {
-	StartupRobot = 0, StartRunning = 1, Running = 2, Halting = 3, Halt = 4,WAIT_FOR_MOTORS_TO_FINNISH=5,WAIT_FOR_TIME=6
+	StartupRobot = 0, StartRunning = 1, Running = 2, Halting = 3, Halt = 4,WAIT_FOR_MOTORS_TO_FINNISH=5,WAIT_FOR_TIME=6,
+	TestingBasicMovement = 7,
 
 };
 /**

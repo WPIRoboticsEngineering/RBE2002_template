@@ -73,7 +73,7 @@ DrivingChassis::DrivingChassis(PIDMotor * left, PIDMotor * right,
  * @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
  * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
-void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
+void DrivingChassis::driveForwardFromInterpolation(float mmDistanceFromCurrent, int msDuration) {
 	// We should also have a "drive straight" method that uses the IMU to actually drive straight
 	// Although we'll have a linefollow state so... idk maybe not
 
@@ -81,6 +81,47 @@ void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
 	myright -> overrideCurrentPosition(0);
 	myleft -> startInterpolationDegrees(mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
     myright -> startInterpolationDegrees(-mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
+}
+
+bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
+	// if we're not performing an action
+	// start a timer, reset encoders
+    if(!performingMovement){
+    	startTimeOfMovement_ms = millis();
+    	performingMovement = true;
+    	//myleft -> overrideCurrentPosition(0);
+    	//myright -> overrideCurrentPosition(0);
+    	// TODO: call driveStraight method which uses IMU (if we're using an IMU)
+    	Serial.println("HERE\r\n");
+    }
+	// check for timeout
+	if((millis() - startTimeOfMovement_ms) > msDuration){
+		//timeout occured. Stop the robot
+		Serial.println("Detected Timeout\r\n");
+		stop();
+		//performingMovement = false;
+		return false;
+	}
+
+	float currentDistanceMovedRightWheel_mm = (myright -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
+	float currentDistanceMovedLeftWheel_mm = (myleft -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
+	float rightWheelError_mm = currentDistanceMovedRightWheel_mm - mmDistanceFromCurrent;
+	float leftWheelError_mm = - currentDistanceMovedLeftWheel_mm - mmDistanceFromCurrent;
+
+	if((fabs(rightWheelError_mm) < wheelMovementDeadband_mm) && (fabs(leftWheelError_mm) < wheelMovementDeadband_mm)){
+		Serial.println("Reached Setpoint \r\n");
+		stop();
+		//performingMovement = false;
+		return false;
+	}
+	else{
+		Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
+		Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
+		myright -> setVelocityDegreesPerSecond(-wheelMovementKp*rightWheelError_mm);
+		myleft -> setVelocityDegreesPerSecond(wheelMovementKp*leftWheelError_mm);
+	}
+
+    return true;
 }
 
 /**
@@ -91,7 +132,7 @@ void DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration) {
 	 *
 	 * @note this function is fast-return and should not block
 */
-void DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration) {
+void DrivingChassis::driveBackwardsFromInterpolation(float mmDistanceFromCurrent, int msDuration) {
 	// We should also have a "drive straight" method that uses the IMU to actually drive straight
 	// Although we'll have a linefollow state so... idk maybe not
 	myleft -> overrideCurrentPosition(0);
@@ -99,6 +140,10 @@ void DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
 
 	myleft -> startInterpolationDegrees(-mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
     myright -> startInterpolationDegrees(mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
+}
+
+bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration){
+	return false;
 }
 
 /**
@@ -116,20 +161,21 @@ void DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
  *  @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
  * 		  allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
  */
-void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
+void DrivingChassis::turnDegreesFromInterpolation(float degreesToRotateBase, int msDuration) {
+	   myleft -> overrideCurrentPosition(0);
+	   myright -> overrideCurrentPosition(0);
+	   myleft -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
+	   myright -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
+}
+
+bool DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration){
 	/* As of 10/4/2020 Gabe doesn't have an IMU... rippu
 	  Two variants, one with IMU and one without IMU.
 	  IMU variant: will use P controller to modulate speed to make the turn based on
 	  heading. Maybe we can even make this absolute in the future.
 	  Encoder variant: Make the turn based on encoder ticks
 	  */
-	#ifdef USE_IMU
-	#else
-	   myleft -> overrideCurrentPosition(0);
-	   myright -> overrideCurrentPosition(0);
-	   myleft -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
-	   myright -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
-	#endif
+	return false;
 }
 
 /**
@@ -141,6 +187,11 @@ void DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration) {
  */
 bool DrivingChassis::isChassisDoneDriving() {
 	return false;
+}
+
+void DrivingChassis::stop(){
+	myleft -> stop();
+	myright -> stop();
 }
 /**
  * loop()

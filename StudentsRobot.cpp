@@ -119,17 +119,16 @@ void StudentsRobot::updateStateMachine() {
 		break;
 	case Running:
 		// Set up a non-blocking 1000 ms delay
-		status = WAIT_FOR_TIME;
-		nextTime = nextTime + 100; // ensure no timer drift by incremeting the target
+		//status = WAIT_FOR_TIME;
+		nextTime = nextTime + 10; // ensure no timer drift by incremeting the target
 		// After 1000 ms, come back to this state
-		nextStatus = Running;
-
+		//nextStatus = Running;
 		// Do something
 		if (!digitalRead(BOOT_FLAG_PIN)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
-			robotChassis.turnDegrees(-90, 5000);
-			//robotChassis.driveForward(300, 5000);
+			//robotChassis.turnDegrees(-90, 5000);
+			//robotChassis.driveForward(100, 5000);
 			//robotChassis.driveBackwards(300, 5000);
 #if defined(USE_IMU)
 			IMU->print();
@@ -137,7 +136,7 @@ void StudentsRobot::updateStateMachine() {
 #if defined(USE_IR_CAM)
 			IRCamera->print();
 #endif
-
+        status = TestingBasicMovement;
 		}
 		break;
 	case WAIT_FOR_TIME:
@@ -165,6 +164,40 @@ void StudentsRobot::updateStateMachine() {
 		break;
 	case Halt:
 		// in safe mode
+		break;
+	case TestingBasicMovement:
+//		// Move forward for 300 mm, then turn right
+//		static bool navigatedToBox = false;
+//		static bool turnedToBox    = false;
+//		static bool gotBox         = false;
+//
+//		// if we haven't gotten to the right grid space
+//		if(!navigatedToBox)
+//		{
+//			//Drive until we reach 300 mm
+//			if(!robotChassis.driveForward(300, 5000)){
+//				navigatedToBox = true;
+//				//we found the box, now we have to turn to it
+//			}
+//		}
+//		// we've found the box but haven't turned to it
+//		else if(navigatedToBox && !turnedToBox){
+//			//Turn 90 degrees
+//			if(!robotChassis.turnDegrees(90, 1000)){
+//				turnedToBox = true;
+//				//we found the box, now we have to turn to it
+//			}
+//		}
+//
+//		else if (!gotBox && turnedToBox){
+//	        //drive forward until limit switch
+//			robotChassis.driveForward(0, 1000);
+//			if(digitalRead(limitSwitch)){
+//				gotBox = true;
+//				status = Running;
+//			}
+//		}
+//
 		break;
 
 	}
