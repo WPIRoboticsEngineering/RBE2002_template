@@ -89,37 +89,44 @@ bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
     if(!performingMovement){
     	startTimeOfMovement_ms = millis();
     	performingMovement = true;
-    	//myleft -> overrideCurrentPosition(0);
-    	//myright -> overrideCurrentPosition(0);
+    	myleft -> overrideCurrentPosition(0);
+    	myright -> overrideCurrentPosition(0);
     	// TODO: call driveStraight method which uses IMU (if we're using an IMU)
-    	Serial.println("HERE\r\n");
     }
 	// check for timeout
 	if((millis() - startTimeOfMovement_ms) > msDuration){
 		//timeout occured. Stop the robot
 		Serial.println("Detected Timeout\r\n");
 		stop();
-		//performingMovement = false;
+		performingMovement = false;
 		return false;
 	}
 
-	float currentDistanceMovedRightWheel_mm = (myright -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
-	float currentDistanceMovedLeftWheel_mm = (myleft -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
-	float rightWheelError_mm = currentDistanceMovedRightWheel_mm - mmDistanceFromCurrent;
-	float leftWheelError_mm = - currentDistanceMovedLeftWheel_mm - mmDistanceFromCurrent;
+    if(mmDistanceFromCurrent != -1){
+    	float currentDistanceMovedRightWheel_mm = (myright -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
+	    float currentDistanceMovedLeftWheel_mm = (myleft -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
+	    float rightWheelError_mm = currentDistanceMovedRightWheel_mm - mmDistanceFromCurrent;
+	    float leftWheelError_mm = - currentDistanceMovedLeftWheel_mm - mmDistanceFromCurrent;
 
-	if((fabs(rightWheelError_mm) < wheelMovementDeadband_mm) && (fabs(leftWheelError_mm) < wheelMovementDeadband_mm)){
-		Serial.println("Reached Setpoint \r\n");
-		stop();
-		//performingMovement = false;
-		return false;
-	}
-	else{
-		Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
-		Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
-		myright -> setVelocityDegreesPerSecond(-wheelMovementKp*rightWheelError_mm);
-		myleft -> setVelocityDegreesPerSecond(wheelMovementKp*leftWheelError_mm);
-	}
+	    if((fabs(rightWheelError_mm) < wheelMovementDeadband_mm) && (fabs(leftWheelError_mm) < wheelMovementDeadband_mm)){
+		    Serial.println("Reached Setpoint \r\n");
+		    stop();
+		    performingMovement = false;
+		    return false;
+	    }
+	    else{
+		    //Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
+		    //Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
+		    myright -> setVelocityDegreesPerSecond(-wheelMovementKp*rightWheelError_mm);
+		    myleft -> setVelocityDegreesPerSecond(wheelMovementKp*leftWheelError_mm);
+	    }
+    }
+
+    else{
+    	// sets speed to 10 cm per second
+    	myright -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES);
+        myleft -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES);
+    }
 
     return true;
 }
@@ -143,7 +150,51 @@ void DrivingChassis::driveBackwardsFromInterpolation(float mmDistanceFromCurrent
 }
 
 bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration){
-	return false;
+		// if we're not performing an action
+		// start a timer, reset encoders
+	    if(!performingMovement){
+	    	startTimeOfMovement_ms = millis();
+	    	performingMovement = true;
+	    	myleft -> overrideCurrentPosition(0);
+	    	myright -> overrideCurrentPosition(0);
+	    	// TODO: call driveStraight method which uses IMU (if we're using an IMU)
+	    }
+		// check for timeout
+		if((millis() - startTimeOfMovement_ms) > msDuration){
+			//timeout occured. Stop the robot
+			Serial.println("Detected Timeout\r\n");
+			stop();
+			performingMovement = false;
+			return false;
+		}
+
+	    if(mmDistanceFromCurrent != -1){
+	    	float currentDistanceMovedRightWheel_mm = (myright -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
+		    float currentDistanceMovedLeftWheel_mm = (myleft -> getAngleDegrees())*WHEEL_DEGREES_TO_MM;
+		    float rightWheelError_mm = - currentDistanceMovedRightWheel_mm - mmDistanceFromCurrent;
+		    float leftWheelError_mm = currentDistanceMovedLeftWheel_mm - mmDistanceFromCurrent;
+
+		    if((fabs(rightWheelError_mm) < wheelMovementDeadband_mm) && (fabs(leftWheelError_mm) < wheelMovementDeadband_mm)){
+			    Serial.println("Reached Setpoint \r\n");
+			    stop();
+			    performingMovement = false;
+			    return false;
+		    }
+		    else{
+			    //Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
+			    //Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
+			    myright -> setVelocityDegreesPerSecond(wheelMovementKp*rightWheelError_mm);
+			    myleft -> setVelocityDegreesPerSecond(-wheelMovementKp*leftWheelError_mm);
+		    }
+	    }
+
+	    else{
+	    	// sets speed to 10 cm per second
+	    	myright -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES);
+	        myleft -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES);
+	    }
+
+	    return true;
 }
 
 /**
@@ -168,14 +219,43 @@ void DrivingChassis::turnDegreesFromInterpolation(float degreesToRotateBase, int
 	   myright -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
 }
 
-bool DrivingChassis::turnDegrees(float degreesToRotateBase, int msDuration){
+bool DrivingChassis::turnToHeading(float degreesToRotateBase, int msDuration){
 	/* As of 10/4/2020 Gabe doesn't have an IMU... rippu
 	  Two variants, one with IMU and one without IMU.
 	  IMU variant: will use P controller to modulate speed to make the turn based on
 	  heading. Maybe we can even make this absolute in the future.
 	  Encoder variant: Make the turn based on encoder ticks
 	  */
-	return false;
+	 if(!performingMovement){
+		    	startTimeOfMovement_ms = millis();
+		    	performingMovement = true;
+     }
+	 // check for timeout
+     if((millis() - startTimeOfMovement_ms) > msDuration){
+			//timeout occured. Stop the robot
+			Serial.println("Detected Timeout\r\n");
+			stop();
+			performingMovement = false;
+			return false;
+    }
+
+	float currentHeading = IMU->getEULER_azimuth();
+
+	float headingError = - currentHeading - degreesToRotateBase;
+
+	if(fabs(headingError) <= wheelMovementDeadband_deg)
+	{
+		Serial.println("Reached Setpoint\r\n");
+		performingMovement = false;
+		stop();
+		return false;
+	}
+	else{
+		    Serial.println("Heading Error: " + String(headingError) +"\r\n");
+            myleft->setVelocityDegreesPerSecond(-(wheelMovementKp*2.8) * headingError);
+            myright->setVelocityDegreesPerSecond(-(wheelMovementKp*2.8) * headingError);
+	}
+	return true;
 }
 
 /**

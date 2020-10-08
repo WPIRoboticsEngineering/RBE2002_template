@@ -66,7 +66,7 @@ private:
 public:
 	bool performingMovement = false;
 	unsigned long startTimeOfMovement_ms;
-	float wheelMovementKp = 10;
+	float wheelMovementKp = 20;
 	int wheelMovementDeadband_mm = 1;
 	float wheelMovementDeadband_deg = .5;
 
@@ -149,13 +149,18 @@ public:
 	/**
 	 * Start a turn action. Will return false when finished moving. Will stop when reached setpoint or timeout.
 	 *
-	 * @param mmDistanceFromCurrent is the distance the mobile base should drive backwards
+	 * This action rotates the robot around the center line made up by the contact points of the left and right wheels.
+	 * Positive angles should rotate to the left
+	 *
+	 * This rotation is a positive rotation about the Z axis of the robot.
+	 *
+	 * @param desiredHeading is the desired angle the robot should reach
 	 * @param msDuration is the time in miliseconds that the drive action should take (this is a timeout)
 	 *
 	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
 	 * until this function returns false due to reaching the set-point or timing out.
 	 */
-	bool turnDegrees(float degreesToRotateBase, int msDuration);
+	bool turnToHeading(float desiredHeading, int msDuration);
 
 	/**
 	 * Check to see if the chassis is performing an action

@@ -119,11 +119,12 @@ void StudentsRobot::updateStateMachine() {
 		break;
 	case Running:
 		// Set up a non-blocking 1000 ms delay
-		//status = WAIT_FOR_TIME;
-		nextTime = nextTime + 10; // ensure no timer drift by incremeting the target
-		// After 1000 ms, come back to this state
-		//nextStatus = Running;
+//		status = WAIT_FOR_TIME;
+//		nextTime = nextTime + 1; // ensure no timer drift by incremeting the target
+//		// After 1000 ms, come back to this state
+//		nextStatus = Running;
 		// Do something
+		// On button press we go into testing state
 		if (!digitalRead(BOOT_FLAG_PIN)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
@@ -136,7 +137,12 @@ void StudentsRobot::updateStateMachine() {
 #if defined(USE_IR_CAM)
 			IRCamera->print();
 #endif
-        status = TestingBasicMovement;
+		// I put in this delay so that I have time to step back
+		//status = WAIT_FOR_TIME;
+		//nextTime = millis() + 3000; // ensure no timer drift by incremeting the target
+		// After 1000 ms, come back to this state
+		//nextStatus = TestingBasicMovement;
+		status = TestingBasicMovement;
 		}
 		break;
 	case WAIT_FOR_TIME:
@@ -166,6 +172,39 @@ void StudentsRobot::updateStateMachine() {
 		// in safe mode
 		break;
 	case TestingBasicMovement:
+		static bool movedForward = false;
+		static bool movedBack    = false;
+	    static bool turnedRight  = false;
+		static bool turnedLeft   = false;
+		static bool backToZero   = false;
+
+		if(!movedForward){
+			if(!robotChassis.driveForward(300, 5000)){
+				movedForward = true;
+			}
+		}
+		else if(movedForward && !movedBack){
+				if(!robotChassis.driveBackwards(300, 5000)){
+					movedBack = true;
+				}
+	    }
+		else if(movedBack && !turnedRight){
+			if(!robotChassis.turnToHeading(-90, 5000)){
+				turnedRight = true;
+			}
+		}
+		else if(turnedRight && !turnedLeft){
+			if(!robotChassis.turnToHeading(90, 5000)){
+				turnedLeft = true;
+			}
+		}
+		else if(turnedLeft && !backToZero){
+			if(!robotChassis.turnToHeading(0, 5000)){
+				backToZero = true;
+				status = Running;
+			}
+		}
+
 //		// Move forward for 300 mm, then turn right
 //		static bool navigatedToBox = false;
 //		static bool turnedToBox    = false;
