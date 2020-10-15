@@ -16,6 +16,12 @@ Adafruit_BNO055 bno;
 DFRobotIRPosition myDFRobotIRPosition;
 #endif
 #define loopTime 5000
+
+static TaskHandle_t motorPIDTaskHandler;
+
+// This array contains the motors for the PID task to run
+PIDMotor * motorPIDTaskMotorList[numberOfPID];
+
 void RobotControlCenter::loop() {
 	if (state != Startup) {
 		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
@@ -68,6 +74,9 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	pidList[0] = &motor1;
 	pidList[1] = &motor2;
 	pidList[2] = &motor3;
+	motorPIDTaskMotorList[0] = &motor1;
+	motorPIDTaskMotorList[1] = &motor2;
+	motorPIDTaskMotorList[2] = &motor3;
 	state = Startup;
 	name = mn;
 	robot = NULL;
@@ -96,6 +105,7 @@ void RobotControlCenter::setup() {
 	// Set up digital servo for the gripper
 	servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
+
 
 	//	// Create sensors and servers
 #if defined(USE_IMU)
@@ -142,12 +152,34 @@ void RobotControlCenter::setup() {
 
 #endif
 
+	setupMotorPIDTask();
+	Serial.println("Setup PID Task");
 }
+
+void motorPIDTask(void *param){
+    ESP_LOGI(TAG, "Starting the PID loop thread");
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = 1;
+    xLastWakeTime = xTaskGetTickCount();
+    while (1) {
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        motorPIDTaskMotorList[0]->loop();
+        motorPIDTaskMotorList[1]->loop();
+        motorPIDTaskMotorList[2]->loop();
+    }
+    ESP_LOGE(TAG, "ERROR PID thread died!");
+}
+
+void RobotControlCenter::setupMotorPIDTask(){
+	 xTaskCreatePinnedToCore(motorPIDTask, "PID loop Thread", 8192, NULL, 1,
+			 &motorPIDTaskHandler, 0);
+}
+
 
 void RobotControlCenter::fastLoop() {
 	if (state == Startup)    // Do not run before startp
 		return;
-	robot->pidLoop();
+	//robot->pidLoop();
 #if defined(USE_WIFI)
 	manager.loop();
 	if (manager.getState() == Connected)

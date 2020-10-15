@@ -239,9 +239,9 @@ void StudentsRobot::updateStateMachine() {
  * You call the PIDMotor's loop function. This will update the whole motor control system
  * This will read from the concoder and write to the motors and handle the hardware interface.
  */
-void StudentsRobot::pidLoop() {
-	motor1->loop();
-	motor2->loop();
-	motor3->loop();
-}
+//void StudentsRobot::pidLoop() {
+//	motor1->loop();
+//	motor2->loop();
+//	motor3->loop();
+//}
 

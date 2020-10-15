@@ -99,6 +99,14 @@ public:
 	 * This function is callled over and over by the INO loop()
 	 */
 	void loop();
+
+	/**
+	 * Creates a task for the motor PID loop
+	 */
+	void setupMotorPIDTask();
+
+
+
 	/**
 	 * A pointer to the students robot
 	 *
