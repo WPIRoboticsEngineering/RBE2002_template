@@ -5,12 +5,16 @@
  *      Author: hephaestus
  */
 
+
 #include "StudentsRobot.h"
+
+uint32_t startTime = 0;
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 		PIDMotor * motor3, Servo * servo, IRCamSimplePacketComsServer * IRCam,
-		GetIMU * imu): robotChassis(motor2, motor1, 230, 30, imu) {
+		GetIMU * imu): robotChassis(motor2, motor1, 230, 30, imu), lineSensor(&robotChassis) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
+
 	this->servo = servo;
 	this->motor1 = motor1;
 	this->motor2 = motor2;
@@ -77,8 +81,8 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 			50 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
 	// Set up the Analog sensors
-	pinMode(ANALOG_SENSE_ONE, ANALOG);
-	pinMode(ANALOG_SENSE_TWO, ANALOG);
+	pinMode(LEFT_LINE_SENSOR, ANALOG);
+	pinMode(RIGHT_LINE_SENSOR, ANALOG);
 	pinMode(ANALOG_SENSE_THREE, ANALOG);
 	pinMode(ANALOG_SENSE_FOUR, ANALOG);
 	// H-Bridge enable pin
@@ -142,7 +146,8 @@ void StudentsRobot::updateStateMachine() {
 		//nextTime = millis() + 3000; // ensure no timer drift by incremeting the target
 		// After 1000 ms, come back to this state
 		//nextStatus = TestingBasicMovement;
-		status = TestingBasicMovement;
+	    startTime = millis();
+		status = Testing;
 		}
 		break;
 	case WAIT_FOR_TIME:
@@ -171,72 +176,57 @@ void StudentsRobot::updateStateMachine() {
 	case Halt:
 		// in safe mode
 		break;
-	case TestingBasicMovement:
-		static bool movedForward = false;
-		static bool movedBack    = false;
-	    static bool turnedRight  = false;
-		static bool turnedLeft   = false;
-		static bool backToZero   = false;
-
-		if(!movedForward){
-			if(!robotChassis.driveForward(300, 5000)){
-				movedForward = true;
-			}
-		}
-		else if(movedForward && !movedBack){
-				if(!robotChassis.driveBackwards(300, 5000)){
-					movedBack = true;
-				}
-	    }
-		else if(movedBack && !turnedRight){
-			if(!robotChassis.turnToHeading(-90, 5000)){
-				turnedRight = true;
-			}
-		}
-		else if(turnedRight && !turnedLeft){
-			if(!robotChassis.turnToHeading(90, 5000)){
-				turnedLeft = true;
-			}
-		}
-		else if(turnedLeft && !backToZero){
-			if(!robotChassis.turnToHeading(0, 5000)){
-				backToZero = true;
-				status = Running;
-			}
-		}
-
-//		// Move forward for 300 mm, then turn right
-//		static bool navigatedToBox = false;
-//		static bool turnedToBox    = false;
-//		static bool gotBox         = false;
+	case Testing:
+		if(millis() - startTime < 20000){
+			lineSensor.lineFollow();
+//		    int leftSensorValue = analogRead(LEFT_LINE_SENSOR);
+//		    int rightSensorValue = analogRead(RIGHT_LINE_SENSOR);
 //
-//		// if we haven't gotten to the right grid space
-//		if(!navigatedToBox)
-//		{
-//			//Drive until we reach 300 mm
+//		    Serial.println(String(leftSensorValue) + " " + String(rightSensorValue) + "\r\n");
+		}
+		else{
+			robotChassis.stop();
+		   status = Running;
+		}
+
+//		static bool movedForward = false;
+//		static bool movedBack    = false;
+//	    static bool turnedRight  = false;
+//		static bool turnedLeft   = false;
+//		static bool backToZero   = false;
+//
+//		if(!movedForward){
 //			if(!robotChassis.driveForward(300, 5000)){
-//				navigatedToBox = true;
-//				//we found the box, now we have to turn to it
+//				movedForward = true;
 //			}
 //		}
-//		// we've found the box but haven't turned to it
-//		else if(navigatedToBox && !turnedToBox){
-//			//Turn 90 degrees
-//			if(!robotChassis.turnDegrees(90, 1000)){
-//				turnedToBox = true;
-//				//we found the box, now we have to turn to it
+//		else if(movedForward && !movedBack){
+//				if(!robotChassis.driveBackwards(300, 5000)){
+//					movedBack = true;
+//				}
+//	    }
+//		else if(movedBack && !turnedRight){
+//			if(!robotChassis.turnToHeading(-90, 5000)){
+//				turnedRight = true;
 //			}
 //		}
-//
-//		else if (!gotBox && turnedToBox){
-//	        //drive forward until limit switch
-//			robotChassis.driveForward(0, 1000);
-//			if(digitalRead(limitSwitch)){
-//				gotBox = true;
+//		else if(turnedRight && !turnedLeft){
+//			if(!robotChassis.turnToHeading(90, 5000)){
+//				turnedLeft = true;
+//			}
+//		}
+//		else if(turnedLeft && !backToZero){
+//			if(!robotChassis.turnToHeading(0, 5000)){
+//				backToZero = true;
 //				status = Running;
+//				movedBack = false;
+//				movedForward = false;
+//				turnedLeft = false;
+//				turnedRight = false;
+//				backToZero  = false;
 //			}
 //		}
-//
+
 		break;
 
 	}

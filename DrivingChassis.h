@@ -31,8 +31,6 @@
  */
 class DrivingChassis {
 private:
-	PIDMotor * myleft;
-	PIDMotor * myright;
 	GetIMU * IMU;
 	float mywheelTrackMM;
 	float mywheelRadiusMM;
@@ -64,10 +62,13 @@ private:
 	 */
 	float chassisRotationToWheelDistance(float angle);
 public:
+	// moved these over for line following
+	PIDMotor * myleft;
+	PIDMotor * myright;
 	bool performingMovement = false;
 	unsigned long startTimeOfMovement_ms;
 	float wheelMovementKp = 20;
-	int wheelMovementDeadband_mm = 1;
+	int wheelMovementDeadband_mm = 2.5;
 	float wheelMovementDeadband_deg = .5;
 
 	virtual ~DrivingChassis();

@@ -15,6 +15,7 @@
 #include <ESP32Servo.h>
 
 #include "DrivingChassis.h"
+#include "LineFollower.h"
 #include "src/commands/IRCamSimplePacketComsServer.h"
 #include "src/commands/GetIMU.h"
 
@@ -25,7 +26,7 @@
  */
 enum RobotStateMachine {
 	StartupRobot = 0, StartRunning = 1, Running = 2, Halting = 3, Halt = 4,WAIT_FOR_MOTORS_TO_FINNISH=5,WAIT_FOR_TIME=6,
-	TestingBasicMovement = 7,
+	Testing = 7,
 
 };
 /**
@@ -59,6 +60,7 @@ private:
 	PIDMotor * motor3;
 	Servo * servo;
 	DrivingChassis robotChassis;
+	LineFollower lineSensor;
 	float lsensorVal=0;
 	float rsensorVal=0;
 	long nextTime =0;

@@ -127,7 +127,6 @@ bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
     	myright -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES);
         myleft -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES);
     }
-
     return true;
 }
 
@@ -181,8 +180,8 @@ bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
 			    return false;
 		    }
 		    else{
-			    //Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
-			    //Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
+//			    Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
+//			    Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
 			    myright -> setVelocityDegreesPerSecond(wheelMovementKp*rightWheelError_mm);
 			    myleft -> setVelocityDegreesPerSecond(-wheelMovementKp*leftWheelError_mm);
 		    }
@@ -193,7 +192,6 @@ bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
 	    	myright -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES);
 	        myleft -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES);
 	    }
-
 	    return true;
 }
 
@@ -251,7 +249,7 @@ bool DrivingChassis::turnToHeading(float degreesToRotateBase, int msDuration){
 		return false;
 	}
 	else{
-		    Serial.println("Heading Error: " + String(headingError) +"\r\n");
+		    //Serial.println("Heading Error: " + String(headingError) +"\r\n");
             myleft->setVelocityDegreesPerSecond(-(wheelMovementKp*2.8) * headingError);
             myright->setVelocityDegreesPerSecond(-(wheelMovementKp*2.8) * headingError);
 	}

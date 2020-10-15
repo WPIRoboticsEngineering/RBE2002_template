@@ -156,6 +156,7 @@ void RobotControlCenter::fastLoop() {
 		return;
 	}
 #endif
+	//uint32_t startTime = micros();
 	robot->updateStateMachine();
-
+	//Serial.println("Time Taken: "  + String(micros() - startTime) + "\r\n" );
 }
