@@ -20,7 +20,7 @@ DFRobotIRPosition myDFRobotIRPosition;
 static TaskHandle_t motorPIDTaskHandler;
 
 // This array contains the motors for the PID task to run
-PIDMotor * motorPIDTaskMotorList[numberOfPID];
+PIDMotor * RobotControlCenter::pidList[numberOfPID] = {NULL, };
 
 void RobotControlCenter::loop() {
 	if (state != Startup) {
@@ -74,9 +74,6 @@ RobotControlCenter::RobotControlCenter(String * mn) {
 	pidList[0] = &motor1;
 	pidList[1] = &motor2;
 	pidList[2] = &motor3;
-	motorPIDTaskMotorList[0] = &motor1;
-	motorPIDTaskMotorList[1] = &motor2;
-	motorPIDTaskMotorList[2] = &motor3;
 	state = Startup;
 	name = mn;
 	robot = NULL;
@@ -156,6 +153,10 @@ void RobotControlCenter::setup() {
 	Serial.println("Setup PID Task");
 }
 
+/**
+ * This calls PIDMotor's loop function. This will update the whole motor control system
+ * This will read from the encoder and write to the motors and handle the hardware interface.
+ */
 void motorPIDTask(void *param){
     ESP_LOGI(TAG, "Starting the PID loop thread");
     TickType_t xLastWakeTime;
@@ -163,9 +164,9 @@ void motorPIDTask(void *param){
     xLastWakeTime = xTaskGetTickCount();
     while (1) {
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        motorPIDTaskMotorList[0]->loop();
-        motorPIDTaskMotorList[1]->loop();
-        motorPIDTaskMotorList[2]->loop();
+        RobotControlCenter::pidList[0]->loop();
+        RobotControlCenter::pidList[1]->loop();
+        RobotControlCenter::pidList[2]->loop();
     }
     ESP_LOGE(TAG, "ERROR PID thread died!");
 }
@@ -179,7 +180,6 @@ void RobotControlCenter::setupMotorPIDTask(){
 void RobotControlCenter::fastLoop() {
 	if (state == Startup)    // Do not run before startp
 		return;
-	//robot->pidLoop();
 #if defined(USE_WIFI)
 	manager.loop();
 	if (manager.getState() == Connected)
