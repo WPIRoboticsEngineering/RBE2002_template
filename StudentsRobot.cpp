@@ -196,27 +196,27 @@ void StudentsRobot::updateStateMachine() {
 //		static bool backToZero   = false;
 //
 //		if(!movedForward){
-//			if(!robotChassis.driveForward(300, 5000)){
+//			if(robotChassis.driveForward(300, 5000) == REACHED_SETPOINT){
 //				movedForward = true;
 //			}
 //		}
 //		else if(movedForward && !movedBack){
-//				if(!robotChassis.driveBackwards(300, 5000)){
+//				if(robotChassis.driveBackwards(300, 5000) == REACHED_SETPOINT){
 //					movedBack = true;
 //				}
 //	    }
 //		else if(movedBack && !turnedRight){
-//			if(!robotChassis.turnToHeading(-90, 5000)){
+//			if(robotChassis.turnToHeading(-90, 5000) == REACHED_SETPOINT){
 //				turnedRight = true;
 //			}
 //		}
 //		else if(turnedRight && !turnedLeft){
-//			if(!robotChassis.turnToHeading(90, 5000)){
+//			if(robotChassis.turnToHeading(90, 5000) == REACHED_SETPOINT){
 //				turnedLeft = true;
 //			}
 //		}
 //		else if(turnedLeft && !backToZero){
-//			if(!robotChassis.turnToHeading(0, 5000)){
+//			if(robotChassis.turnToHeading(0, 5000) == REACHED_SETPOINT){
 //				backToZero = true;
 //				status = Running;
 //				movedBack = false;
@@ -226,8 +226,8 @@ void StudentsRobot::updateStateMachine() {
 //				backToZero  = false;
 //			}
 //		}
-
-		break;
+//
+//		break;
 
 	}
 	digitalWrite(WII_CONTROLLER_DETECT, 0);

@@ -7,6 +7,7 @@
 
 #include "DrivingChassis.h"
 
+
 /**
  * Compute a delta in wheel angle to traverse a specific distance
  *
@@ -83,7 +84,7 @@ void DrivingChassis::driveForwardFromInterpolation(float mmDistanceFromCurrent, 
     myright -> startInterpolationDegrees(-mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
 }
 
-bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
+DrivingStatus DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
 	// if we're not performing an action
 	// start a timer, reset encoders
     if(!performingMovement){
@@ -99,7 +100,7 @@ bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
 		Serial.println("Detected Timeout\r\n");
 		stop();
 		performingMovement = false;
-		return false;
+		return TIMED_OUT;
 	}
 
     if(mmDistanceFromCurrent != -1){
@@ -112,7 +113,7 @@ bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
 		    Serial.println("Reached Setpoint \r\n");
 		    stop();
 		    performingMovement = false;
-		    return false;
+		    return REACHED_SETPOINT;
 	    }
 	    else{
 		    //Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
@@ -127,7 +128,7 @@ bool DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDuration){
     	myright -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES);
         myleft -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES);
     }
-    return true;
+    return GOING_TO_SETPOINT;
 }
 
 /**
@@ -148,7 +149,7 @@ void DrivingChassis::driveBackwardsFromInterpolation(float mmDistanceFromCurrent
     myright -> startInterpolationDegrees(mmDistanceFromCurrent * MM_TO_WHEEL_DEGREES, msDuration, LIN);
 }
 
-bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration){
+DrivingStatus DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration){
 		// if we're not performing an action
 		// start a timer, reset encoders
 	    if(!performingMovement){
@@ -164,7 +165,7 @@ bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
 			Serial.println("Detected Timeout\r\n");
 			stop();
 			performingMovement = false;
-			return false;
+			return TIMED_OUT;
 		}
 
 	    if(mmDistanceFromCurrent != -1){
@@ -177,7 +178,7 @@ bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
 			    Serial.println("Reached Setpoint \r\n");
 			    stop();
 			    performingMovement = false;
-			    return false;
+			    return REACHED_SETPOINT;
 		    }
 		    else{
 //			    Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
@@ -192,7 +193,7 @@ bool DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int msDuration)
 	    	myright -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES);
 	        myleft -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES);
 	    }
-	    return true;
+	    return GOING_TO_SETPOINT;
 }
 
 /**
@@ -217,7 +218,7 @@ void DrivingChassis::turnDegreesFromInterpolation(float degreesToRotateBase, int
 	   myright -> startInterpolationDegrees(degreesToRotateBase * WHEEL_DEGREES_TO_BODY_DEGREES, msDuration, LIN);
 }
 
-bool DrivingChassis::turnToHeading(float degreesToRotateBase, int msDuration){
+DrivingStatus DrivingChassis::turnToHeading(float degreesToRotateBase, int msDuration){
 	/* As of 10/4/2020 Gabe doesn't have an IMU... rippu
 	  Two variants, one with IMU and one without IMU.
 	  IMU variant: will use P controller to modulate speed to make the turn based on
@@ -234,7 +235,7 @@ bool DrivingChassis::turnToHeading(float degreesToRotateBase, int msDuration){
 			Serial.println("Detected Timeout\r\n");
 			stop();
 			performingMovement = false;
-			return false;
+			return TIMED_OUT;
     }
 
 	float currentHeading = IMU->getEULER_azimuth();
@@ -246,14 +247,14 @@ bool DrivingChassis::turnToHeading(float degreesToRotateBase, int msDuration){
 		Serial.println("Reached Setpoint\r\n");
 		performingMovement = false;
 		stop();
-		return false;
+		return REACHED_SETPOINT;
 	}
 	else{
 		    //Serial.println("Heading Error: " + String(headingError) +"\r\n");
             myleft->setVelocityDegreesPerSecond(-(wheelMovementKp*2.8) * headingError);
             myright->setVelocityDegreesPerSecond(-(wheelMovementKp*2.8) * headingError);
 	}
-	return true;
+	return GOING_TO_SETPOINT;
 }
 
 /**

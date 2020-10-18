@@ -17,6 +17,16 @@
 
 
 /**
+ * @enum DrivingStatus
+ * States when performing an drive action.
+ */
+enum DrivingStatus {
+	REACHED_SETPOINT = 0,
+	TIMED_OUT = 1,
+	GOING_TO_SETPOINT = 2,
+};
+
+/**
  * DrivingChassis encapsulates a 2 wheel differential steered chassis that drives around
  *
  * The 0,0,0 center of the robot is on the ground, half way between the left and right wheel contact points.
@@ -105,7 +115,7 @@ public:
 	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
 	 * until this function returns false due to reaching the set-point or timing out.
 	 */
-	bool driveBackwards(float mmDistanceFromCurrent, int msDuration);
+	DrivingStatus driveBackwards(float mmDistanceFromCurrent, int msDuration);
 
 	/**
 	 * Start a drive forward action using the encoders and setpoint interpolation
@@ -128,7 +138,7 @@ public:
 	 * until this function returns false due to reaching the set-point or timing out. Make sure to change state when this reaches a setpoint.
 	 * Otherwise, this will try to reach a new setpoint (imagine driving indefinitely)
 	 */
-	bool driveForward(float mmDistanceFromCurrent, int msDuration);
+	DrivingStatus driveForward(float mmDistanceFromCurrent, int msDuration);
 
 	/**
 	 * Start a turn action using the encoders and setpoint interpolation
@@ -161,7 +171,7 @@ public:
 	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
 	 * until this function returns false due to reaching the set-point or timing out.
 	 */
-	bool turnToHeading(float desiredHeading, int msDuration);
+	DrivingStatus turnToHeading(float desiredHeading, int msDuration);
 
 	/**
 	 * Check to see if the chassis is performing an action
