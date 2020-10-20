@@ -177,57 +177,84 @@ void StudentsRobot::updateStateMachine() {
 		// in safe mode
 		break;
 	case Testing:
-		if(millis() - startTime < 20000){
-			lineSensor.lineFollow();
-//		    int leftSensorValue = analogRead(LEFT_LINE_SENSOR);
-//		    int rightSensorValue = analogRead(RIGHT_LINE_SENSOR);
-//
-//		    Serial.println(String(leftSensorValue) + " " + String(rightSensorValue) + "\r\n");
+// CLAMPED CONTROL
+//		DrivingStatus statusOfForward = robotChassis.turnToHeading(90, 2000);
+//		if(statusOfForward == REACHED_SETPOINT){
+//			status = Running;
+//		}
+//		else if(statusOfForward == TIMED_OUT){
+//			status = Running;
+//		}
+/// LINE FOLLOWING
+		static bool foundCol = false;
+		static bool turnedToBin = false;
+		if(millis() - startTime < 15000){
+			if(!foundCol){
+			    lineSensor.lineFollow();
+			    if(lineSensor.lineCount == 2){
+			    	foundCol = true;
+			    }
+			}
+			if(foundCol && !turnedToBin){
+				if(robotChassis.turnToHeading(90, 1000) == REACHED_SETPOINT){
+					turnedToBin = true;
+				}
+			}
+////		    int leftSensorValue = analogRead(LEFT_LINE_SENSOR);
+////		    int rightSensorValue = analogRead(RIGHT_LINE_SENSOR);
+////
+////		    Serial.println(String(leftSensorValue) + " " + String(rightSensorValue) + "\r\n");
 		}
 		else{
-			robotChassis.stop();
+		   Serial.println("Line Count:" + String(lineSensor.lineCount) + "\r\n");
+		   robotChassis.stop();
+		   lineSensor.resetLineCount();
+		   foundCol = false;
+		   turnedToBin = false;
 		   status = Running;
 		}
 
-//		static bool movedForward = false;
-//		static bool movedBack    = false;
-//	    static bool turnedRight  = false;
-//		static bool turnedLeft   = false;
-//		static bool backToZero   = false;
-//
-//		if(!movedForward){
-//			if(robotChassis.driveForward(300, 5000) == REACHED_SETPOINT){
-//				movedForward = true;
-//			}
-//		}
-//		else if(movedForward && !movedBack){
-//				if(robotChassis.driveBackwards(300, 5000) == REACHED_SETPOINT){
-//					movedBack = true;
-//				}
-//	    }
-//		else if(movedBack && !turnedRight){
-//			if(robotChassis.turnToHeading(-90, 5000) == REACHED_SETPOINT){
-//				turnedRight = true;
-//			}
-//		}
-//		else if(turnedRight && !turnedLeft){
-//			if(robotChassis.turnToHeading(90, 5000) == REACHED_SETPOINT){
-//				turnedLeft = true;
-//			}
-//		}
-//		else if(turnedLeft && !backToZero){
-//			if(robotChassis.turnToHeading(0, 5000) == REACHED_SETPOINT){
-//				backToZero = true;
-//				status = Running;
-//				movedBack = false;
-//				movedForward = false;
-//				turnedLeft = false;
-//				turnedRight = false;
-//				backToZero  = false;
-//			}
-//		}
-//
-//		break;
+// BASIC MOTION
+/*
+		static bool movedForward = false;
+		static bool movedBack    = false;
+	    static bool turnedRight  = false;
+		static bool turnedLeft   = false;
+		static bool backToZero   = false;
+
+		if(!movedForward){
+			if(robotChassis.driveForward(300, 5000) == REACHED_SETPOINT){
+				movedForward = true;
+			}
+		}
+		else if(movedForward && !movedBack){
+				if(robotChassis.driveBackwards(300, 5000) == REACHED_SETPOINT){
+					movedBack = true;
+				}
+	    }
+		else if(movedBack && !turnedRight){
+			if(robotChassis.turnToHeading(-90, 5000) == REACHED_SETPOINT){
+				turnedRight = true;
+			}
+		}
+		else if(turnedRight && !turnedLeft){
+			if(robotChassis.turnToHeading(90, 5000) == REACHED_SETPOINT){
+				turnedLeft = true;
+			}
+		}
+		else if(turnedLeft && !backToZero){
+			if(robotChassis.turnToHeading(0, 5000) == REACHED_SETPOINT){
+				backToZero = true;
+				status = Running;
+				movedBack = false;
+				movedForward = false;
+				turnedLeft = false;
+				turnedRight = false;
+				backToZero  = false;
+			}
+		}
+*/
+		break;
 
 	}
 	digitalWrite(WII_CONTROLLER_DETECT, 0);

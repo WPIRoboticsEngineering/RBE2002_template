@@ -26,7 +26,7 @@ void LineFollower::lineFollow(){
 	      lineCount++;
 	      canCountLine = false;
 	    }
-	    Serial.println("Line Count: " + String(lineCount));
+	    //Serial.println("Line Count: " + String(lineCount));
 	  }
 
 	  else if(leftSensorValue < ON_BLACK && rightSensorValue >= ON_BLACK){
