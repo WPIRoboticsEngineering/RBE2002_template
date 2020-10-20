@@ -188,18 +188,19 @@ void StudentsRobot::updateStateMachine() {
 /// LINE FOLLOWING
 		static bool foundCol = false;
 		static bool turnedToBin = false;
-		if(millis() - startTime < 15000){
-			if(!foundCol){
-			    lineSensor.lineFollow();
-			    if(lineSensor.lineCount == 2){
-			    	foundCol = true;
-			    }
-			}
-			if(foundCol && !turnedToBin){
-				if(robotChassis.turnToHeading(90, 1000) == REACHED_SETPOINT){
-					turnedToBin = true;
-				}
-			}
+		if(millis() - startTime < 10000){
+			lineSensor.lineFollow();
+//			if(!foundCol){
+//			    lineSensor.lineFollow();
+//			    if(lineSensor.lineCount == 2){
+//			    	foundCol = true;
+//			    }
+//			}
+//			if(foundCol && !turnedToBin){
+//				if(robotChassis.turnToHeading(90, 1000) == REACHED_SETPOINT){
+//					turnedToBin = true;
+//				}
+//			}
 ////		    int leftSensorValue = analogRead(LEFT_LINE_SENSOR);
 ////		    int rightSensorValue = analogRead(RIGHT_LINE_SENSOR);
 ////

@@ -32,8 +32,8 @@ void LineFollower::lineFollow(){
 	  else if(leftSensorValue < ON_BLACK && rightSensorValue >= ON_BLACK){
 	    // turn right
 	    //Serial.println("Turning Right");
-	    leftCorrection = 50;
 	    rightCorrection = -50;
+	    leftCorrection = -50;
 	    canCountLine = true;
 	  }
 
@@ -41,7 +41,7 @@ void LineFollower::lineFollow(){
 	    // turn left
 	    //Serial.println("Turning Left");
 	    rightCorrection = 50;
-	    leftCorrection = -50;
+	    leftCorrection = 50;
 	    canCountLine = true;
 	  }
 
@@ -51,14 +51,11 @@ void LineFollower::lineFollow(){
 	  }
 	  //Serial.println("giving vel command");
 	  // Only works backwards
-	  robotChassis->myleft -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES + rightCorrection);
-      robotChassis->myright -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES - leftCorrection);
-	  //robotChassis->myright -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES + leftCorrection);
-	  //robotChassis->myleft -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES - rightCorrection);
+	  robotChassis->myleft -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES + leftCorrection);
+      robotChassis->myright -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES + rightCorrection);
 	  // if not timeout
 	    // set velocity
 }
-
 void LineFollower::resetLineCount(){
 	lineCount = 0;
 }
