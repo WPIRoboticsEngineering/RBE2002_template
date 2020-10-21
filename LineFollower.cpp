@@ -16,8 +16,8 @@ void LineFollower::lineFollow(){
 	  // we need the timeout cause otherwise
 	  int leftSensorValue = analogRead(LEFT_LINE_SENSOR);
 	  int rightSensorValue = analogRead(RIGHT_LINE_SENSOR);
-	  int leftCorrection = 0;
-	  int rightCorrection = 0;
+	  float leftCorrection = 0;
+	  float rightCorrection = 0;
 
 	  if(leftSensorValue >= ON_BLACK && rightSensorValue>= ON_BLACK)
 	  {
@@ -29,30 +29,46 @@ void LineFollower::lineFollow(){
 	    //Serial.println("Line Count: " + String(lineCount));
 	  }
 
-	  else if(leftSensorValue < ON_BLACK && rightSensorValue >= ON_BLACK){
-	    // turn right
-	    //Serial.println("Turning Right");
-	    rightCorrection = -50;
-	    leftCorrection = -50;
-	    canCountLine = true;
+
+	  else if(leftSensorValue >= ON_BLACK || rightSensorValue >= ON_BLACK){
+			rightCorrection = (ON_BLACK - rightSensorValue)*lineFollowingKp;
+			leftCorrection =  (leftSensorValue - ON_BLACK)*lineFollowingKp;
 	  }
 
-	  else if(leftSensorValue >= ON_BLACK && rightSensorValue < ON_BLACK){
-	    // turn left
-	    //Serial.println("Turning Left");
-	    rightCorrection = 50;
-	    leftCorrection = 50;
-	    canCountLine = true;
-	  }
+//	  else if(leftSensorValue < ON_BLACK && rightSensorValue >= ON_BLACK){
+//			rightCorrection = -(rightSensorValue - ON_BLACK)*lineFollowingKp;
+//			leftCorrection =  -(ON_BLACK - leftSensorValue)*lineFollowingKp;
+//	  }
 
-	  else{
-	    //Serial.println("Straddling Line");
-	    canCountLine = true;
-	  }
+//	  else if(leftSensorValue < ON_BLACK && rightSensorValue >= ON_BLACK){
+//	    // turn right
+////		rightCorrection = (ON_BLACK - rightCorrection)*.05;
+////		leftCorrection = (leftSensorValue - ON_BLACK)*.05;
+//	    rightCorrection = -50;
+//	    leftCorrection = -50;
+//	    canCountLine = true;
+//	  }
+////
+//	  else if(leftSensorValue >= ON_BLACK && rightSensorValue < ON_BLACK){
+//	    // turn left
+//	    //Serial.println("Turning Left");
+//	    rightCorrection = 50;
+//	    leftCorrection = 50;
+////		rightCorrection = (rightSensorValue - ON_BLACK)*.05;
+////		leftCorrection = (ON_BLACK - leftSensorValue)*.05;
+//	    canCountLine = true;
+//	  }
+//
+//	  else{
+//	    //Serial.println("Straddling Line");
+//	    canCountLine = true;
+//	  }
 	  //Serial.println("giving vel command");
 	  // Only works backwards
-	  robotChassis->myleft -> setVelocityDegreesPerSecond(100*MM_TO_WHEEL_DEGREES + leftCorrection);
-      robotChassis->myright -> setVelocityDegreesPerSecond(-100*MM_TO_WHEEL_DEGREES + rightCorrection);
+	  Serial.println("Left Correction: " + String(leftCorrection));
+	  Serial.println("Right Correction: " + String(rightCorrection));
+	  robotChassis->myleft -> setVelocityDegreesPerSecond(lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + leftCorrection);
+      robotChassis->myright -> setVelocityDegreesPerSecond(-lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + rightCorrection);
 	  // if not timeout
 	    // set velocity
 }

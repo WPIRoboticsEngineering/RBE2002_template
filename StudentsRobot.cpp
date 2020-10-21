@@ -188,7 +188,7 @@ void StudentsRobot::updateStateMachine() {
 /// LINE FOLLOWING
 		static bool foundCol = false;
 		static bool turnedToBin = false;
-		if(millis() - startTime < 10000){
+		if(lineSensor.lineCount == 0){
 			lineSensor.lineFollow();
 //			if(!foundCol){
 //			    lineSensor.lineFollow();
