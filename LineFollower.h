@@ -15,7 +15,7 @@ class LineFollower{
     public:
 	   LineFollower(DrivingChassis* myChassis);
 	   // on black line
-	   const int ON_BLACK = 3625;//3750;
+	   const int ON_BLACK = 3692;//3750;
 	   int lineFollowingSpeed_mm_per_sec = 175;
 	   float lineFollowingKp = .002*lineFollowingSpeed_mm_per_sec;
 	   int lineCount = 0;

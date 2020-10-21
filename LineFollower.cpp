@@ -65,8 +65,6 @@ void LineFollower::lineFollow(){
 //	  }
 	  //Serial.println("giving vel command");
 	  // Only works backwards
-	  Serial.println("Left Correction: " + String(leftCorrection));
-	  Serial.println("Right Correction: " + String(rightCorrection));
 	  robotChassis->myleft -> setVelocityDegreesPerSecond(lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + leftCorrection);
       robotChassis->myright -> setVelocityDegreesPerSecond(-lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + rightCorrection);
 	  // if not timeout
