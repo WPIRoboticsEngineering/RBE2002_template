@@ -10,12 +10,13 @@
 #include "src/pid/PIDMotor.h"
 #include "src/commands/GetIMU.h"
 #include "config.h"
+#include "Pose.h"
 
 #define WHEEL_DEGREES_TO_BODY_DEGREES 4.25F
 #define MM_TO_WHEEL_DEGREES 2.1174F
 #define WHEEL_DEGREES_TO_MM .472277F
-#define MAX_SPEED_MM_PER_SEC 200
-#define MAX_MOTOR_EFFORT_DURING_TURN 500
+#define MAX_SPEED_MM_PER_SEC 180
+#define MAX_MOTOR_EFFORT_DURING_TURN 300 //275 // 500
 
 
 /**
@@ -79,10 +80,11 @@ public:
 	PIDMotor * myright;
 	bool performingMovement = false;
 	unsigned long startTimeOfMovement_ms;
-	float wheelMovementKp = 3.9;// was 3.5
-	float turningMovementKp = 9;
-	int wheelMovementDeadband_mm = 2.5;
+	float wheelMovementKp = 4.1;// was 3.9
+	float turningMovementKp = 13; //was 9, 11.7
+	float wheelMovementDeadband_mm = 2.5;
 	float wheelMovementDeadband_deg = .5;
+	Pose myChassisPose;
 
 	virtual ~DrivingChassis();
 

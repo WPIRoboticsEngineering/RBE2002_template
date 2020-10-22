@@ -19,8 +19,8 @@ class LineFollower{
 	   int lineFollowingSpeed_mm_per_sec = 175;
 	   float lineFollowingKp = .002*lineFollowingSpeed_mm_per_sec;
 	   int lineCount = 0;
-	   bool canCountLine = true;
        DrivingChassis* robotChassis;
+       bool canCountLine = true;
 
 	   void lineFollow();
 	   void resetLineCount();

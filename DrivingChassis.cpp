@@ -120,15 +120,17 @@ DrivingStatus DrivingChassis::driveForward(float mmDistanceFromCurrent, int msDu
 	    	float leftMotorEffort_deg_per_sec = wheelMovementKp*leftWheelError_mm;
 
 	    	//clamps speed to 20 cm per second
-	    	if(rightMotorEffort_deg_per_sec > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
-	    		rightMotorEffort_deg_per_sec = MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
+	    	if(fabs(rightMotorEffort_deg_per_sec) > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
+	    		rightMotorEffort_deg_per_sec = -MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
 	    	}
-	    	if(leftMotorEffort_deg_per_sec > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
-	    		leftMotorEffort_deg_per_sec = MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
+	    	if(fabs(leftMotorEffort_deg_per_sec) > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
+	    		leftMotorEffort_deg_per_sec = -MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
 	        }
 	    	myright -> setVelocityDegreesPerSecond(-rightMotorEffort_deg_per_sec);
 	    	myleft -> setVelocityDegreesPerSecond(leftMotorEffort_deg_per_sec);
 
+//	    	Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
+//	    	Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
 //	    	Serial.println("Left Effort: " + String(leftMotorEffort_deg_per_sec) + "\r\n" );
 //	    	Serial.println("Right Effort: " + String(rightMotorEffort_deg_per_sec) + "\r\n" );
 	    }
@@ -196,17 +198,19 @@ DrivingStatus DrivingChassis::driveBackwards(float mmDistanceFromCurrent, int ms
 		    	float leftMotorEffort_deg_per_sec = wheelMovementKp*leftWheelError_mm;
 
 		    	//clamps speed to 20 cm per second
-		    	if(rightMotorEffort_deg_per_sec > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
-		    		rightMotorEffort_deg_per_sec = MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
+		    	if(fabs(rightMotorEffort_deg_per_sec) > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
+		    		rightMotorEffort_deg_per_sec = -MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
 		    	}
-		    	if(leftMotorEffort_deg_per_sec > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
-		    		leftMotorEffort_deg_per_sec = MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
+		    	if(fabs(leftMotorEffort_deg_per_sec) > (MAX_SPEED_MM_PER_SEC * MM_TO_WHEEL_DEGREES)){
+		    		leftMotorEffort_deg_per_sec = -MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES;
 		        }
 		    	myright -> setVelocityDegreesPerSecond(rightMotorEffort_deg_per_sec);
 		    	myleft -> setVelocityDegreesPerSecond(-leftMotorEffort_deg_per_sec);
 
-	//	    	Serial.println("Left Effort: " + String(leftMotorEffort_deg_per_sec) + "\r\n" );
-	//	    	Serial.println("Right Effort: " + String(rightMotorEffort_deg_per_sec) + "\r\n" );
+//		    	Serial.println("Left Error: " + String(leftWheelError_mm) + "\r\n" );
+//		    	Serial.println("Right Error: " + String(rightWheelError_mm) + "\r\n" );
+//		    	Serial.println("Left Effort: " + String(leftMotorEffort_deg_per_sec) + "\r\n" );
+//		    	Serial.println("Right Effort: " + String(rightMotorEffort_deg_per_sec) + "\r\n" );
 		    }
 	    }
 
@@ -261,9 +265,9 @@ DrivingStatus DrivingChassis::turnToHeading(float degreesToRotateBase, int msDur
     }
 
 	float currentHeading = IMU->getEULER_azimuth();
-
 	float headingError = - currentHeading - degreesToRotateBase;
     float motorEffort = (turningMovementKp) * headingError;
+    myChassisPose.heading = -currentHeading; // - to account for what is considered a "positive" rotation
 	if(fabs(headingError) <= wheelMovementDeadband_deg)
 	{
 		Serial.println("Reached Setpoint\r\n");
