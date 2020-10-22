@@ -22,7 +22,8 @@ class LineFollower{
        DrivingChassis* robotChassis;
        bool canCountLine = true;
 
-	   void lineFollow();
+	   void lineFollowBackwards();
+	   void lineFollowForwards();
 	   void resetLineCount();
 
     private:

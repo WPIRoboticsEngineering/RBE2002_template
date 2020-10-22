@@ -186,121 +186,26 @@ void StudentsRobot::updateStateMachine() {
 //			status = Running;
 //		}
 /// LINE FOLLOWING
-//		if(lineSensor.lineCount == 0){
-//			lineSensor.lineFollow();
-//		}
-//		else{
-//		   if(robotChassis.turnToHeading(180, 5000) == REACHED_SETPOINT){
-//		   Serial.println("Line Count:" + String(lineSensor.lineCount) + "\r\n");
-//		   Serial.println("Pose Row:" + String(robotChassis.myChassisPose.currentRow) + "\r\n");
-//		   Serial.println("Pose Column:" + String(robotChassis.myChassisPose.currentColumn) + "\r\n");
-//		   Serial.println("Pose Heading:" + String(robotChassis.myChassisPose.heading) + "\r\n");
-//		   robotChassis.stop();
-//		   lineSensor.resetLineCount();
-//		   status = Running;
-//		   }
-//		}
+	    if((millis() - startTime) < 3000){
+			lineSensor.lineFollowForwards();
+		}
+		else{
+		   robotChassis.stop();
+		   lineSensor.resetLineCount();
+		   status = Running;
+		}
 
 // Navigation
-		switch(navState){
-		case INITIALIZE_NAVIGATION:
-			Serial.println("INIT NAV");
-			// if we're in the outerlane, then there really isn't a need to find the outerlane
-			if(robotChassis.myChassisPose.currentColumn == 0){
-				navState = TURN_TOWARDS_CORRECT_ROW;
-			}
-			else{
-				navState = TURN_TOWARDS_CORRECT_COLUMN;
-			}
-			break;
-		case TURN_TOWARDS_CORRECT_COLUMN:
-			Serial.println("TURNING TOWARDS COLUMN");
-			// determine what is our first state
-		    if(robotChassis.myChassisPose.currentRow != goalRow){
-				// if our current row isn't our goal row, then we need to navigate to the outer edge
-				// first
-		        /// TODO: check where we are, maybe our orientation is correct
-			    if(robotChassis.turnToHeading(90, 2500) == REACHED_SETPOINT){
-				     navState = FINDING_OUTER_EDGE;
-			    }
-			}
-			else{
-				// otherwise, we just need to find the right column
-				if(robotChassis.myChassisPose.currentColumn > goalColumn){
-					if(robotChassis.turnToHeading(-90, 2500) == REACHED_SETPOINT){
-						navState = FINDING_COLUMN;
-					}
-				}
-				else{
-					if(robotChassis.turnToHeading(90, 2500) == REACHED_SETPOINT){
-						navState = FINDING_COLUMN;
-					}
-				}
-			}
-			break;
-		case FINDING_OUTER_EDGE:
-			Serial.println("FINDING COL: 0, CURRENT COL: " + String(robotChassis.myChassisPose.currentColumn));
-		    // navigate until column == 0
-			if(robotChassis.myChassisPose.currentColumn != 0){
-				// if the column is wrong.
-				lineSensor.lineFollow();
-			}
-			else{
-                if(robotChassis.driveBackwards(210, 2500) == REACHED_SETPOINT){
-                	robotChassis.stop();
-                	navState = TURN_TOWARDS_CORRECT_ROW;
-                }
-			}
-			break;
-		case FINDING_ROW:
-			Serial.println("FINDING ROW: " + String(goalRow) +  "CURRENT ROW: " + String(robotChassis.myChassisPose.currentRow));
-			if(robotChassis.myChassisPose.currentRow != goalRow){
-				// if the row is wrong.
-				lineSensor.lineFollow();
-			}
-			else{
-				robotChassis.stop();
-				if(goalColumn != 0){
-				    if(robotChassis.driveBackwards(210, 2500) == REACHED_SETPOINT){
-					    navState = TURN_TOWARDS_CORRECT_COLUMN;
-				    }
-				}
-			}
-			break;
-		case TURN_TOWARDS_CORRECT_ROW:
-			Serial.println("TURNING TOWARDS ROW");
-			// otherwise, we just need to find the right column
-			if(robotChassis.myChassisPose.currentRow > goalRow){
-				if(robotChassis.turnToHeading(180, 2500) == REACHED_SETPOINT){
-					navState = FINDING_ROW;
-				}
-			}
-			else{
-				if(robotChassis.turnToHeading(0, 2500) == REACHED_SETPOINT){
-					navState = FINDING_ROW;
-				}
-			}
-			break;
-		case FINDING_COLUMN:
-			Serial.println("FINDING COL: " + String(goalColumn) +  "CURRENT COL: " + String(robotChassis.myChassisPose.currentColumn));
-			if(robotChassis.myChassisPose.currentColumn != goalColumn){
-				// if the row is wrong.
-				lineSensor.lineFollow();
-			}
-			else{
-				if(robotChassis.driveBackwards(210, 2500) == REACHED_SETPOINT){
-					//goalRow = 2;
-					//goalColumn = -1;
-					goalRow = 3;
-					goalColumn = 0;
-					robotChassis.stop();
-				    navState = INITIALIZE_NAVIGATION;
-				}
-			}
-			break;
-		case FINISHED:
-			break;
-		}
+//   static bool goingToWayPoint1 = true;
+//
+//   if(goingToWayPoint1){
+//        if(navigate(2, -2, &robotChassis, &lineSensor)){
+//        	Serial.println("reached waypoint 1");
+//        	goingToWayPoint1 = false;
+//        }
+//   }
+//   else
+//	   navigate(3, 0, &robotChassis, &lineSensor);
 /// POSE TRACKING
 
 //	   static int testCase = 1;

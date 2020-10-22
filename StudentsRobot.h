@@ -13,6 +13,7 @@
 #include "src/pid/HBridgeEncoderPIDMotor.h"
 #include "src/pid/ServoAnalogPIDMotor.h"
 #include <ESP32Servo.h>
+#include "NavigationRoutine.h"
 
 #include "DrivingChassis.h"
 #include "LineFollower.h"
@@ -50,16 +51,6 @@ enum ComStackStatusState {
 	Fault_excessive_load = 10,
 	Fault_obstructed_path = 11,
 	Fault_E_Stop_pressed = 12
-};
-
-enum NavigationStates{
-	INITIALIZE_NAVIGATION = 0,
-	TURN_TOWARDS_CORRECT_COLUMN = 1,
-	FINDING_OUTER_EDGE = 2,
-	FINDING_ROW = 3,
-	TURN_TOWARDS_CORRECT_ROW = 4,
-	FINDING_COLUMN = 5,
-	FINISHED = 6,
 };
 
 /**
