@@ -13,10 +13,10 @@ class Pose{
 	   // current row and current column will be updated by the line sensor lineCount
 	   int currentRow = 0;
 	   int currentColumn = 0;
-	   // current heading will be updated by the IMU during turnToHeading. I have
-	   // opted to use solid intervals of 90 to make the math cleaner for determining row
-	   // and column.
+	   // current heading will be updated by the IMU during turnToHeading.
 	   float heading = 0;
+	   int rowCount = 0;
+	   int colCount = 0;
 
     private:
 };

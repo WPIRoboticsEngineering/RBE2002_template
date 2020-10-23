@@ -57,12 +57,17 @@ void LineFollower::lineFollowForwards(){
 	   if(canCountLine){
 	      lineCount++;
 	      // Mathematically speaking, this should only increment one of the following. Either
-	      // row or column
+	      // row or column. Since there are two markers for each row, we need to only count once every two markers.
 	      float headingInRadians = (robotChassis->myChassisPose.heading)*(PI/180.0);
 	      Serial.println(String(round(cos(headingInRadians))) + " " + String(round(sin(headingInRadians))));
-	      robotChassis->myChassisPose.currentRow += round(cos(headingInRadians));
-	      robotChassis->myChassisPose.currentColumn += round(sin(headingInRadians));
-	      canCountLine = false;
+	      robotChassis->myChassisPose.rowCount += 1;
+	      robotChassis->myChassisPose.colCount += round(sin(headingInRadians));
+	      if(robotChassis->myChassisPose.rowCount == 2){
+	          robotChassis->myChassisPose.currentRow += round(cos(headingInRadians));
+	          robotChassis->myChassisPose.rowCount = 0;
+	      }
+	      robotChassis->myChassisPose.currentColumn = robotChassis->myChassisPose.colCount;
+	      canCountLine = false; // This is meant as a line "debouncing". We don't want to catch the same line twice.
 	    }
 	    //Serial.println("Line Count: " + String(lineCount));
 	  }

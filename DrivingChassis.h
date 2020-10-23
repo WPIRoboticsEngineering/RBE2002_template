@@ -81,7 +81,7 @@ public:
 	bool performingMovement = false;
 	unsigned long startTimeOfMovement_ms;
 	float wheelMovementKp = 4.1;// was 3.9
-	float turningMovementKp = 13; //was 9, 11.7
+	float turningMovementKp = 11; //was 9, 11.7
 	float wheelMovementDeadband_mm = 2.5;
 	float wheelMovementDeadband_deg = .5;
 	Pose myChassisPose;
