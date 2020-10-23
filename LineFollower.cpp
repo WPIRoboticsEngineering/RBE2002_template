@@ -60,7 +60,7 @@ void LineFollower::lineFollowForwards(){
 	      // row or column. Since there are two markers for each row, we need to only count once every two markers.
 	      float headingInRadians = (robotChassis->myChassisPose.heading)*(PI/180.0);
 	      Serial.println(String(round(cos(headingInRadians))) + " " + String(round(sin(headingInRadians))));
-	      robotChassis->myChassisPose.rowCount += 1;
+	      robotChassis->myChassisPose.rowCount += abs(round(cos(headingInRadians)));
 	      robotChassis->myChassisPose.colCount += round(sin(headingInRadians));
 	      if(robotChassis->myChassisPose.rowCount == 2){
 	          robotChassis->myChassisPose.currentRow += round(cos(headingInRadians));

@@ -199,13 +199,16 @@ void StudentsRobot::updateStateMachine() {
    static bool goingToWayPoint1 = true;
 
    if(goingToWayPoint1){
-        if(navigate(2, -2, &robotChassis, &lineSensor)){
+        if(navigate(2, -1, &robotChassis, &lineSensor)){
         	Serial.println("reached waypoint 1");
         	goingToWayPoint1 = false;
         }
    }
    else
-	   navigate(0, 0, &robotChassis, &lineSensor);
+	   if(navigate(2, -2, &robotChassis, &lineSensor)){
+		   status = Running;
+		   goingToWayPoint1 = true;
+	   }
 /// POSE TRACKING
 
 //	   static int testCase = 1;

@@ -63,7 +63,10 @@ bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* li
 			}
 			else{
 				drivingChassis->stop();
-				if(col != 0){
+				if(drivingChassis->myChassisPose.currentColumn == col){
+					navState = FINISHED;
+				}
+				else if (col != 0){
 					navState = TURN_TOWARDS_CORRECT_COLUMN;
 				}
 			}
@@ -85,12 +88,14 @@ bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* li
 		case FINDING_COLUMN:
 			Serial.println("FINDING COL: " + String(col) +  "CURRENT COL: " + String(drivingChassis->myChassisPose.currentColumn));
 			if(drivingChassis->myChassisPose.currentColumn != col){
-				// if the row is wrong.
+				// if the column is wrong.
 				lineSensor->lineFollowForwards();
 			}
 			else{
 			   drivingChassis->stop();
-               navState = FINISHED;
+			   if(row == drivingChassis->myChassisPose.currentRow){
+			   					navState = FINISHED;
+			   }
 			}
 			break;
 		case FINISHED:

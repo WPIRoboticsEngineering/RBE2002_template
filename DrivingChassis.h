@@ -16,7 +16,7 @@
 #define MM_TO_WHEEL_DEGREES 2.1174F
 #define WHEEL_DEGREES_TO_MM .472277F
 #define MAX_SPEED_MM_PER_SEC 180
-#define MAX_MOTOR_EFFORT_DURING_TURN 300 //275 // 500
+#define MAX_MOTOR_EFFORT_DURING_TURN 260 //300 //275 // 500
 
 
 /**
@@ -81,7 +81,7 @@ public:
 	bool performingMovement = false;
 	unsigned long startTimeOfMovement_ms;
 	float wheelMovementKp = 4.1;// was 3.9
-	float turningMovementKp = 11; //was 9, 11.7
+	float turningMovementKp = 21; //was 9, 11.7, 17.5
 	float wheelMovementDeadband_mm = 2.5;
 	float wheelMovementDeadband_deg = .5;
 	Pose myChassisPose;
