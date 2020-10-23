@@ -36,15 +36,15 @@ void LineFollower::lineFollowBackwards(){
 
 
 	  else if(leftSensorValue >= ON_BLACK || rightSensorValue >= ON_BLACK){
-			rightCorrection = (ON_BLACK - rightSensorValue)*lineFollowingKp;
-			leftCorrection =  (leftSensorValue - ON_BLACK)*lineFollowingKp;
+			rightCorrection = (ON_BLACK - rightSensorValue)*lineFollowingKpBackwards;
+			leftCorrection =  (leftSensorValue - ON_BLACK)*lineFollowingKpBackwards;
 			canCountLine = true;
 	  }
 	  else{
 		  canCountLine = true;
 	  }
-	  robotChassis->myleft -> setVelocityDegreesPerSecond(lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + leftCorrection);
-      robotChassis->myright -> setVelocityDegreesPerSecond(-lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + rightCorrection);
+	  robotChassis->myleft -> setVelocityDegreesPerSecond(lineFollowingSpeedBackwards_mm_per_sec*MM_TO_WHEEL_DEGREES + leftCorrection);
+      robotChassis->myright -> setVelocityDegreesPerSecond(-lineFollowingSpeedForwards_mm_per_sec*MM_TO_WHEEL_DEGREES + rightCorrection);
 }
 
 void LineFollower::lineFollowForwards(){
@@ -69,15 +69,15 @@ void LineFollower::lineFollowForwards(){
 
 
 	  else if(leftSensorValue >= ON_BLACK || rightSensorValue >= ON_BLACK){
-			rightCorrection = (ON_BLACK - rightSensorValue)*lineFollowingKp;
-			leftCorrection =  (leftSensorValue - ON_BLACK)*lineFollowingKp;
+			rightCorrection = (ON_BLACK - rightSensorValue)*lineFollowingKpForwards;
+			leftCorrection =  (leftSensorValue - ON_BLACK)*lineFollowingKpForwards;
 			canCountLine = true;
 	  }
 	  else{
 		  canCountLine = true;
 	  }
-	  robotChassis->myleft -> setVelocityDegreesPerSecond(-lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + leftCorrection);
-      robotChassis->myright -> setVelocityDegreesPerSecond(lineFollowingSpeed_mm_per_sec*MM_TO_WHEEL_DEGREES + rightCorrection);
+	  robotChassis->myleft -> setVelocityDegreesPerSecond(-lineFollowingSpeedForwards_mm_per_sec*MM_TO_WHEEL_DEGREES + leftCorrection);
+      robotChassis->myright -> setVelocityDegreesPerSecond(lineFollowingSpeedForwards_mm_per_sec*MM_TO_WHEEL_DEGREES + rightCorrection);
 }
 
 void LineFollower::resetLineCount(){

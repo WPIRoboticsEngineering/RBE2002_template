@@ -16,8 +16,10 @@ class LineFollower{
 	   LineFollower(DrivingChassis* myChassis);
 	   // on black line
 	   const int ON_BLACK = 3692;//3750;
-	   int lineFollowingSpeed_mm_per_sec = 175;
-	   float lineFollowingKp = .002*lineFollowingSpeed_mm_per_sec;
+	   int lineFollowingSpeedForwards_mm_per_sec = 150;
+	   int lineFollowingSpeedBackwards_mm_per_sec = 175;
+	   float lineFollowingKpBackwards = .002*lineFollowingSpeedBackwards_mm_per_sec;
+	   float lineFollowingKpForwards = 1.3; //1.6
 	   int lineCount = 0;
        DrivingChassis* robotChassis;
        bool canCountLine = true;

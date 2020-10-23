@@ -186,26 +186,26 @@ void StudentsRobot::updateStateMachine() {
 //			status = Running;
 //		}
 /// LINE FOLLOWING
-	    if((millis() - startTime) < 3000){
-			lineSensor.lineFollowForwards();
-		}
-		else{
-		   robotChassis.stop();
-		   lineSensor.resetLineCount();
-		   status = Running;
-		}
+//	    if((millis() - startTime) < 7000){
+//			lineSensor.lineFollowForwards();
+//		}
+//		else{
+//		   robotChassis.stop();
+//		   lineSensor.resetLineCount();
+//		   status = Running;
+//		}
 
 // Navigation
-//   static bool goingToWayPoint1 = true;
-//
-//   if(goingToWayPoint1){
-//        if(navigate(2, -2, &robotChassis, &lineSensor)){
-//        	Serial.println("reached waypoint 1");
-//        	goingToWayPoint1 = false;
-//        }
-//   }
-//   else
-//	   navigate(3, 0, &robotChassis, &lineSensor);
+   static bool goingToWayPoint1 = true;
+
+   if(goingToWayPoint1){
+        if(navigate(2, -2, &robotChassis, &lineSensor)){
+        	Serial.println("reached waypoint 1");
+        	goingToWayPoint1 = false;
+        }
+   }
+   else
+	   navigate(0, 0, &robotChassis, &lineSensor);
 /// POSE TRACKING
 
 //	   static int testCase = 1;
