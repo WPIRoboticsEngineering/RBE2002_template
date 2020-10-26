@@ -6,7 +6,14 @@
  */
 #include "NavigationRoutine.h"
 
-bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* lineSensor){
+void setNavGoal(int row, int col, DrivingChassis* chassis, LineFollower* lineFollowingSensor){
+	goalRow = row;
+	goalCol = col;
+	drivingChassis = chassis;
+	lineSensor = lineFollowingSensor;
+}
+
+NavigationStates checkNavStatus(){
 	switch(navState){
 		case INITIALIZE_NAVIGATION:
 			Serial.println("INIT NAV");
@@ -21,26 +28,24 @@ bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* li
 		case TURN_TOWARDS_CORRECT_COLUMN:
 			Serial.println("TURNING TOWARDS COLUMN");
 			// determine what is our first state
-			if(drivingChassis->myChassisPose.currentRow != row){
+			if(drivingChassis->myChassisPose.currentRow != goalRow){
 				// if our current row isn't our goal row, then we need to navigate to the outer edge
 				// first
 				/// TODO: check where we are, maybe our orientation is correct
-				if(drivingChassis->turnToHeading(90, 2500) == REACHED_SETPOINT){
-					 navState = FINDING_OUTER_EDGE;
-				}
+				drivingChassis->turnToHeading(90, 5000);
+				navStateAfterMotionSetpointReached = FINDING_OUTER_EDGE;
+				navState = WAIT_FOR_MOTION_SETPOINT_REACHED;
 			}
 			else{
 				// otherwise, we just need to find the right column
-				if(drivingChassis->myChassisPose.currentColumn > col){
-					if(drivingChassis->turnToHeading(-90, 2500) == REACHED_SETPOINT){
-						navState = FINDING_COLUMN;
-					}
+				if(drivingChassis->myChassisPose.currentColumn > goalCol){
+					drivingChassis->turnToHeading(-90, 5000);
 				}
 				else{
-					if(drivingChassis->turnToHeading(90, 2500) == REACHED_SETPOINT){
-						navState = FINDING_COLUMN;
-					}
+					drivingChassis->turnToHeading(90, 5000);
 				}
+				navStateAfterMotionSetpointReached = FINDING_COLUMN;
+				navState = WAIT_FOR_MOTION_SETPOINT_REACHED;
 			}
 			break;
 		case FINDING_OUTER_EDGE:
@@ -56,17 +61,17 @@ bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* li
 			}
 			break;
 		case FINDING_ROW:
-			Serial.println("FINDING ROW: " + String(row) +  "CURRENT ROW: " + String(drivingChassis->myChassisPose.currentRow));
-			if(drivingChassis->myChassisPose.currentRow != row){
+			Serial.println("FINDING ROW: " + String(goalRow) +  "CURRENT ROW: " + String(drivingChassis->myChassisPose.currentRow));
+			if(drivingChassis->myChassisPose.currentRow != goalRow){
 				// if the row is wrong.
 				lineSensor->lineFollowForwards();
 			}
 			else{
 				drivingChassis->stop();
-				if(drivingChassis->myChassisPose.currentColumn == col){
+				if(drivingChassis->myChassisPose.currentColumn == goalCol){
 					navState = FINISHED;
 				}
-				else if (col != 0){
+				else if (goalCol != 0){
 					navState = TURN_TOWARDS_CORRECT_COLUMN;
 				}
 			}
@@ -74,35 +79,37 @@ bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* li
 		case TURN_TOWARDS_CORRECT_ROW:
 			Serial.println("TURNING TOWARDS ROW");
 			// otherwise, we just need to find the right column
-			if(drivingChassis->myChassisPose.currentRow > row){
-				if(drivingChassis->turnToHeading(180, 2500) == REACHED_SETPOINT){
-					navState = FINDING_ROW;
-				}
+			if(drivingChassis->myChassisPose.currentRow > goalRow){
+				drivingChassis->turnToHeading(180, 5000);
 			}
 			else{
-				if(drivingChassis->turnToHeading(0, 2500) == REACHED_SETPOINT){
-					navState = FINDING_ROW;
-				}
+				drivingChassis->turnToHeading(0, 5000);
 			}
+			navStateAfterMotionSetpointReached = FINDING_ROW;
+			navState = WAIT_FOR_MOTION_SETPOINT_REACHED;
 			break;
 		case FINDING_COLUMN:
-			Serial.println("FINDING COL: " + String(col) +  "CURRENT COL: " + String(drivingChassis->myChassisPose.currentColumn));
-			if(drivingChassis->myChassisPose.currentColumn != col){
+			Serial.println("FINDING COL: " + String(goalCol) +  "CURRENT COL: " + String(drivingChassis->myChassisPose.currentColumn));
+			if(drivingChassis->myChassisPose.currentColumn != goalCol){
 				// if the column is wrong.
 				lineSensor->lineFollowForwards();
 			}
 			else{
 			   drivingChassis->stop();
-			   if(row == drivingChassis->myChassisPose.currentRow){
+			   if(goalRow == drivingChassis->myChassisPose.currentRow){
 			   					navState = FINISHED;
 			   }
 			}
 			break;
+		case WAIT_FOR_MOTION_SETPOINT_REACHED:
+		    if(drivingChassis -> statusOfChassisDriving() == REACHED_SETPOINT){
+			    navState = navStateAfterMotionSetpointReached;
+		    }
+            break;
 		case FINISHED:
 			navState = INITIALIZE_NAVIGATION;
-			return true;
 		}
-	return false;
+	return navState;
 }
 
 

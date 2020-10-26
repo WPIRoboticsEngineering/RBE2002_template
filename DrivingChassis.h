@@ -15,7 +15,7 @@
 #define WHEEL_DEGREES_TO_BODY_DEGREES 4.25F
 #define MM_TO_WHEEL_DEGREES 2.1174F
 #define WHEEL_DEGREES_TO_MM .472277F
-#define MAX_SPEED_MM_PER_SEC 180
+#define MAX_SPEED_MM_PER_SEC 150
 #define MAX_MOTOR_EFFORT_DURING_TURN 260 //300 //275 // 500
 
 
@@ -27,6 +27,16 @@ enum DrivingStatus {
 	REACHED_SETPOINT = 0,
 	TIMED_OUT = 1,
 	GOING_TO_SETPOINT = 2,
+};
+
+/**
+ * @enum MotionType
+ * States when performing an drive action.
+ */
+enum MotionType {
+	DRIVING_FORWARDS = 0,
+	DRIVING_BACKWARDS = 1,
+	TURNING = 2,
 };
 
 /**
@@ -79,11 +89,14 @@ public:
 	PIDMotor * myleft;
 	PIDMotor * myright;
 	bool performingMovement = false;
+	MotionType motionType;
 	unsigned long startTimeOfMovement_ms;
-	float wheelMovementKp = 4.1;// was 3.9
+	float wheelMovementKp = 3.5;// was 3.9
 	float turningMovementKp = 21; //was 9, 11.7, 17.5
 	float wheelMovementDeadband_mm = 2.5;
 	float wheelMovementDeadband_deg = .5;
+	float motionSetpoint;
+	float timeout_ms;
 	Pose myChassisPose;
 
 	virtual ~DrivingChassis();
@@ -120,7 +133,7 @@ public:
 	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
 	 * until this function returns false due to reaching the set-point or timing out.
 	 */
-	DrivingStatus driveBackwards(float mmDistanceFromCurrent, int msDuration);
+	void driveBackwards(float mmDistanceFromCurrent, int msDuration);
 
 	/**
 	 * Start a drive forward action using the encoders and setpoint interpolation
@@ -143,7 +156,7 @@ public:
 	 * until this function returns false due to reaching the set-point or timing out. Make sure to change state when this reaches a setpoint.
 	 * Otherwise, this will try to reach a new setpoint (imagine driving indefinitely)
 	 */
-	DrivingStatus driveForward(float mmDistanceFromCurrent, int msDuration);
+	void driveForward(float mmDistanceFromCurrent, int msDuration);
 
 	/**
 	 * Start a turn action using the encoders and setpoint interpolation
@@ -176,7 +189,7 @@ public:
 	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
 	 * until this function returns false due to reaching the set-point or timing out.
 	 */
-	DrivingStatus turnToHeading(float desiredHeading, int msDuration);
+	void turnToHeading(float desiredHeading, int msDuration);
 
 	/**
 	 * Check to see if the chassis is performing an action
@@ -185,12 +198,14 @@ public:
 	 *
 	 * @note this function is fast-return and should not block
 	 */
-	bool isChassisDoneDriving();
+	DrivingStatus statusOfChassisDriving();
 
 	/**
 	 * Stops all motors
 	 */
 	void stop();
+
+	void driveStraight(float targetHeading, MotionType direction);
 
 	/**
 	 * loop()

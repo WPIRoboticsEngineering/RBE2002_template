@@ -177,14 +177,6 @@ void StudentsRobot::updateStateMachine() {
 		// in safe mode
 		break;
 	case Testing:
-// CLAMPED CONTROL
-//		DrivingStatus statusOfForward = robotChassis.turnToHeading(90, 2000);
-//		if(statusOfForward == REACHED_SETPOINT){
-//			status = Running;
-//		}
-//		else if(statusOfForward == TIMED_OUT){
-//			status = Running;
-//		}
 /// LINE FOLLOWING
 //	    if((millis() - startTime) < 7000){
 //			lineSensor.lineFollowForwards();
@@ -196,104 +188,71 @@ void StudentsRobot::updateStateMachine() {
 //		}
 
 // Navigation
-   static bool goingToWayPoint1 = true;
-
-   if(goingToWayPoint1){
-        if(navigate(2, -1, &robotChassis, &lineSensor)){
-        	Serial.println("reached waypoint 1");
-        	goingToWayPoint1 = false;
-        }
-   }
-   else
-	   if(navigate(2, -2, &robotChassis, &lineSensor)){
-		   status = Running;
-		   goingToWayPoint1 = true;
-	   }
-/// POSE TRACKING
-
-//	   static int testCase = 1;
-//       switch(testCase){
-//          case 1:
-//        	  if(robotChassis.myChassisPose.currentRow != 1){
-//        	      lineSensor.lineFollow();
-//        	  }
-//        	  else{
-//			      robotChassis.stop();
-//			      testCase = 2;
-//			  }
-//        	  break;
-//          case 2:
-//        	  if(robotChassis.driveBackwards(200, 1500) == REACHED_SETPOINT){
-//        		  testCase = 3;
-//        		  lineSensor.canCountLine = true;
-//        	  }
-//        	  break;
-//          case 3:
-//        	  // turn right 90
-//        	  if(robotChassis.turnToHeading(-90, 1500) == REACHED_SETPOINT){
-//        		  testCase = 4;
-//        	  }
-//        	  break;
-//          case 4:
-//        	  // line follow until column
-//        	  if(robotChassis.myChassisPose.currentColumn != -1){
-//        	      lineSensor.lineFollow();
-//        	  }
-//        	  else{
-//        	      robotChassis.stop();
-//        	      testCase = 5;
-//        	  }
-//        	  break;
-//          case 5:
-//        	  if(robotChassis.turnToHeading(90, 1500) == REACHED_SETPOINT){
-//        	      Serial.println("Pose Row:" + String(robotChassis.myChassisPose.currentRow) + "\r\n");
-//        	      Serial.println("Pose Column:" + String(robotChassis.myChassisPose.currentColumn) + "\r\n");
-//        	      Serial.println("Pose Heading:" + String(robotChassis.myChassisPose.heading) + "\r\n");
-//        	      status = Running;
-//        	      testCase = 1;
-//        	  }
-//        	  break;
-//       }
+		static int myCase = 1;
+		static int myCaseAfterNav = 2;
+		switch(myCase){
+			case 1:
+				// set a waypoint
+				setNavGoal(2, -2, &robotChassis, &lineSensor);
+				// set the state to go to after the waypoint is reached
+				myCaseAfterNav = 2;
+				// set the state
+				myCase = 4;
+				 break;
+			case 2:
+                // set a waypoint
+				setNavGoal(0, 0, &robotChassis, &lineSensor);
+				// set the state to go to after the waypoint is reached
+				myCaseAfterNav = 3;
+				// set the state
+				myCase = 4;
+				 break;
+			case 3:
+				 myCase = 1;
+				 status = Running;
+				 break;
+			case 4:
+				 if(checkNavStatus() == FINISHED){
+					 myCase = myCaseAfterNav;
+				 }
+				 break;
+		}
 // BASIC MOTION
-
-//		static bool movedForward = false;
-//		static bool movedBack    = false;
-//	    static bool turnedRight  = false;
-//		static bool turnedLeft   = false;
-//		static bool backToZero   = false;
 //
-//		if(!movedForward){
-//			if(robotChassis.driveForward(300, 5000) == REACHED_SETPOINT){
-//				movedForward = true;
+//	static int myCase = 1;
+//	static int myCaseAfterMotion = 2;
+//	switch(myCase){
+//		case 1:
+//			 robotChassis.driveBackwards(300, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 3;
+//			 break;
+//		case 2:
+//			if(robotChassis.statusOfChassisDriving() == REACHED_SETPOINT){
+//				myCase = myCaseAfterMotion;
 //			}
-//		}
-//		else if(movedForward && !movedBack){
-//				if(robotChassis.driveBackwards(300, 5000) == REACHED_SETPOINT){
-//					movedBack = true;
-//				}
-//	    }
-//		else if(movedBack && !turnedRight){
-//			if(robotChassis.turnToHeading(-90, 5000) == REACHED_SETPOINT){
-//				turnedRight = true;
-//			}
-//		}
-//		else if(turnedRight && !turnedLeft){
-//			if(robotChassis.turnToHeading(90, 5000) == REACHED_SETPOINT){
-//				turnedLeft = true;
-//			}
-//		}
-//		else if(turnedLeft && !backToZero){
-//			if(robotChassis.turnToHeading(0, 5000) == REACHED_SETPOINT){
-//				backToZero = true;
-//				status = Running;
-//				movedBack = false;
-//				movedForward = false;
-//				turnedLeft = false;
-//				turnedRight = false;
-//				backToZero  = false;
-//			}
-//		}
-		break;
+//			break;
+//		case 3:
+//			 robotChassis.driveForward(300, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 4;
+//			 break;
+//		case 4:
+//			 robotChassis.turnToHeading(90, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 5;
+//			 break;
+//		case 5:
+//			 robotChassis.turnToHeading(-90, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 6;
+//			 break;
+//		case 6:
+//			 status = Running;
+//			 break;
+//	}
+
+    break;
 
 	}
 	digitalWrite(WII_CONTROLLER_DETECT, 0);

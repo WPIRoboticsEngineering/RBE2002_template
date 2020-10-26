@@ -18,11 +18,21 @@ enum NavigationStates{
 	FINDING_ROW = 3,
 	TURN_TOWARDS_CORRECT_ROW = 4,
 	FINDING_COLUMN = 5,
-	FINISHED = 6,
+	WAIT_FOR_MOTION_SETPOINT_REACHED = 6,
+	FINISHED = 7,
 };
 
-bool navigate(int row, int col, DrivingChassis* drivingChassis, LineFollower* lineSensor);
+void setNavGoal(int row, int col, DrivingChassis* robotChassis, LineFollower* lineFollower);
+NavigationStates checkNavStatus();
+
+static DrivingChassis* drivingChassis;
+static LineFollower* lineSensor;
+static int goalRow;
+static int goalCol;
 
 static NavigationStates navState = INITIALIZE_NAVIGATION;
+
+// This is the navState that occurs after a setpoint has been reached
+static NavigationStates navStateAfterMotionSetpointReached;
 
 #endif /* NAVIGATIONROUTINE_H_ */
