@@ -220,9 +220,8 @@ DrivingStatus DrivingChassis::statusOfChassisDriving() {
 	    	    }
 
 	    	    else{
-	    	    	// sets speed to 10 cm per second
-	    	    	myright -> setVelocityDegreesPerSecond(MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES);
-	    	        myleft -> setVelocityDegreesPerSecond(-MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES);
+	    	    	// sets speed to 20 cm per second
+	    	    	driveStraight(myChassisPose.heading, DRIVING_FORWARDS);
 	    	    }
 	        }
 	        break;
@@ -249,8 +248,7 @@ DrivingStatus DrivingChassis::statusOfChassisDriving() {
 
 	    	    else{
 	    	    	// sets speed to 20 cm per second
-	    	    	myright -> setVelocityDegreesPerSecond(-MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES);
-	    	        myleft -> setVelocityDegreesPerSecond(MAX_SPEED_MM_PER_SEC*MM_TO_WHEEL_DEGREES);
+	    	    	driveStraight(myChassisPose.heading, DRIVING_BACKWARDS);
 	    	    }
 	        }
 	        break;
