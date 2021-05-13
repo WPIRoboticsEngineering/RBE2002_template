@@ -136,3 +136,7 @@ It is a runnable .JAR file. Download it and run.
 # 8. FAQ and Troubleshooting
 
 See https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard#faq-and-troubleshooting
+
+# 9. BOM PDF
+
+https://github.com/WPIRoboticsEngineering/RBE2002_template/raw/master/BOM%20Cost.pdf
