@@ -5,12 +5,16 @@
  *      Author: hephaestus
  */
 
+
 #include "StudentsRobot.h"
+
+uint32_t startTime = 0;
 
 StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 		PIDMotor * motor3, Servo * servo, IRCamSimplePacketComsServer * IRCam,
-		GetIMU * imu) {
+		GetIMU * imu): robotChassis(motor2, motor1, 230, 30, imu), lineSensor(&robotChassis) {
 	Serial.println("StudentsRobot::StudentsRobot constructor called here ");
+
 	this->servo = servo;
 	this->motor1 = motor1;
 	this->motor2 = motor2;
@@ -77,8 +81,8 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 			50 // the speed in degrees per second that the motor spins when the hardware output is at creep forwards
 			);
 	// Set up the Analog sensors
-	pinMode(ANALOG_SENSE_ONE, ANALOG);
-	pinMode(ANALOG_SENSE_TWO, ANALOG);
+	pinMode(LEFT_LINE_SENSOR, ANALOG);
+	pinMode(RIGHT_LINE_SENSOR, ANALOG);
 	pinMode(ANALOG_SENSE_THREE, ANALOG);
 	pinMode(ANALOG_SENSE_FOUR, ANALOG);
 	// H-Bridge enable pin
@@ -119,22 +123,31 @@ void StudentsRobot::updateStateMachine() {
 		break;
 	case Running:
 		// Set up a non-blocking 1000 ms delay
-		status = WAIT_FOR_TIME;
-		nextTime = nextTime + 100; // ensure no timer drift by incremeting the target
-		// After 1000 ms, come back to this state
-		nextStatus = Running;
-
+//		status = WAIT_FOR_TIME;
+//		nextTime = nextTime + 1; // ensure no timer drift by incremeting the target
+//		// After 1000 ms, come back to this state
+//		nextStatus = Running;
 		// Do something
+		// On button press we go into testing state
 		if (!digitalRead(BOOT_FLAG_PIN)) {
 			Serial.println(
 					" Running State Machine " + String((now - startTime)));
+			//robotChassis.turnDegrees(-90, 5000);
+			//robotChassis.driveForward(100, 5000);
+			//robotChassis.driveBackwards(300, 5000);
 #if defined(USE_IMU)
 			IMU->print();
 #endif
 #if defined(USE_IR_CAM)
 			IRCamera->print();
 #endif
-
+		// I put in this delay so that I have time to step back
+		//status = WAIT_FOR_TIME;
+		//nextTime = millis() + 3000; // ensure no timer drift by incremeting the target
+		// After 1000 ms, come back to this state
+		//nextStatus = TestingBasicMovement;
+	    startTime = millis();
+		status = Testing;
 		}
 		break;
 	case WAIT_FOR_TIME:
@@ -163,20 +176,86 @@ void StudentsRobot::updateStateMachine() {
 	case Halt:
 		// in safe mode
 		break;
+	case Testing:
+/// LINE FOLLOWING
+//	    if((millis() - startTime) < 7000){
+//			lineSensor.lineFollowForwards();
+//		}
+//		else{
+//		   robotChassis.stop();
+//		   lineSensor.resetLineCount();
+//		   status = Running;
+//		}
+
+// Navigation
+		static int myCase = 1;
+		static int myCaseAfterNav = 2;
+		switch(myCase){
+			case 1:
+				// set a waypoint
+				setNavGoal(2, -2, &robotChassis, &lineSensor);
+				// set the state to go to after the waypoint is reached
+				myCaseAfterNav = 2;
+				// set the state
+				myCase = 4;
+				 break;
+			case 2:
+                // set a waypoint
+				setNavGoal(0, 0, &robotChassis, &lineSensor);
+				// set the state to go to after the waypoint is reached
+				myCaseAfterNav = 3;
+				// set the state
+				myCase = 4;
+				 break;
+			case 3:
+				 myCase = 1;
+				 status = Running;
+				 break;
+			case 4:
+				 if(checkNavStatus() == FINISHED){
+					 myCase = myCaseAfterNav;
+				 }
+				 break;
+		}
+// BASIC MOTION
+//
+//	static int myCase = 1;
+//	static int myCaseAfterMotion = 2;
+//	switch(myCase){
+//		case 1:
+//			 robotChassis.driveBackwards(300, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 3;
+//			 break;
+//		case 2:
+//			if(robotChassis.statusOfChassisDriving() == REACHED_SETPOINT){
+//				myCase = myCaseAfterMotion;
+//			}
+//			break;
+//		case 3:
+//			 robotChassis.driveForward(300, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 4;
+//			 break;
+//		case 4:
+//			 robotChassis.turnToHeading(90, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 5;
+//			 break;
+//		case 5:
+//			 robotChassis.turnToHeading(-90, 5000);
+//			 myCase = 2;
+//			 myCaseAfterMotion = 6;
+//			 break;
+//		case 6:
+//			 status = Running;
+//			 break;
+//	}
+
+    break;
 
 	}
 	digitalWrite(WII_CONTROLLER_DETECT, 0);
 }
 
-/**
- * This is run fast and should return fast
- *
- * You call the PIDMotor's loop function. This will update the whole motor control system
- * This will read from the concoder and write to the motors and handle the hardware interface.
- */
-void StudentsRobot::pidLoop() {
-	motor1->loop();
-	motor2->loop();
-	motor3->loop();
-}
 

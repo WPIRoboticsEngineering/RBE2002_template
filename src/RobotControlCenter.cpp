@@ -16,6 +16,12 @@ Adafruit_BNO055 bno;
 DFRobotIRPosition myDFRobotIRPosition;
 #endif
 #define loopTime 5000
+
+static TaskHandle_t motorPIDTaskHandler;
+
+// This array contains the motors for the PID task to run
+PIDMotor * RobotControlCenter::pidList[numberOfPID] = {NULL, };
+
 void RobotControlCenter::loop() {
 	if (state != Startup) {
 		// If this is run before the sensor reads, the I2C will fail because the time it takes to send the UDP causes a timeout
@@ -97,6 +103,7 @@ void RobotControlCenter::setup() {
 	servo.setPeriodHertz(50);
 	servo.attach(SERVO_PIN, 1000, 2000);
 
+
 	//	// Create sensors and servers
 #if defined(USE_IMU)
 	sensor = new GetIMU();
@@ -142,12 +149,37 @@ void RobotControlCenter::setup() {
 
 #endif
 
+	setupMotorPIDTask();
+	Serial.println("Setup PID Task");
 }
+
+/**
+ * This calls PIDMotor's loop function. This will update the whole motor control system
+ * This will read from the encoder and write to the motors and handle the hardware interface.
+ */
+void motorPIDTask(void *param){
+    ESP_LOGI(TAG, "Starting the PID loop thread");
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = 1;
+    xLastWakeTime = xTaskGetTickCount();
+    while (1) {
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        RobotControlCenter::pidList[0]->loop();
+        RobotControlCenter::pidList[1]->loop();
+        RobotControlCenter::pidList[2]->loop();
+    }
+    ESP_LOGE(TAG, "ERROR PID thread died!");
+}
+
+void RobotControlCenter::setupMotorPIDTask(){
+	 xTaskCreatePinnedToCore(motorPIDTask, "PID loop Thread", 8192, NULL, 1,
+			 &motorPIDTaskHandler, 0);
+}
+
 
 void RobotControlCenter::fastLoop() {
 	if (state == Startup)    // Do not run before startp
 		return;
-	robot->pidLoop();
 #if defined(USE_WIFI)
 	manager.loop();
 	if (manager.getState() == Connected)
@@ -156,6 +188,7 @@ void RobotControlCenter::fastLoop() {
 		return;
 	}
 #endif
+	//uint32_t startTime = micros();
 	robot->updateStateMachine();
-
+	//Serial.println("Time Taken: "  + String(micros() - startTime) + "\r\n" );
 }

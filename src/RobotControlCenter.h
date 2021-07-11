@@ -61,8 +61,6 @@ private:
 	int64_t lastPrint = 0;
 	// Change this to set your team name
 	String * name;	//
-	// List of PID objects to use with PID server
-	PIDMotor * pidList[numberOfPID];	// = { &motor1.myPID, &motor2.myPID };
 
 #if defined(USE_WIFI)
 	// SImple packet coms implementation useing WiFi
@@ -99,6 +97,14 @@ public:
 	 * This function is callled over and over by the INO loop()
 	 */
 	void loop();
+
+	/**
+	 * Creates a task for the motor PID loop
+	 */
+	void setupMotorPIDTask();
+
+
+
 	/**
 	 * A pointer to the students robot
 	 *
@@ -106,6 +112,10 @@ public:
 	 * This variable is set as part of @see RobotControlCenter::setup
 	 */
 	StudentsRobot * robot;
+
+	// List of PID objects to use with PID server
+	static PIDMotor * pidList[numberOfPID];	// = { &motor1.myPID, &motor2.myPID };
+
 protected:
 	HBridgeEncoderPIDMotor motor1;  // PID controlled motor object
 	HBridgeEncoderPIDMotor motor2; // PID controlled motor object

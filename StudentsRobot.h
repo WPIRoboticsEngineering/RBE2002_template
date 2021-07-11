@@ -13,8 +13,11 @@
 #include "src/pid/HBridgeEncoderPIDMotor.h"
 #include "src/pid/ServoAnalogPIDMotor.h"
 #include <ESP32Servo.h>
+#include "NavigationRoutine.h"
 
 #include "DrivingChassis.h"
+#include "LineFollower.h"
+#include "Pose.h"
 #include "src/commands/IRCamSimplePacketComsServer.h"
 #include "src/commands/GetIMU.h"
 
@@ -24,7 +27,8 @@
  * Feel free to add ot remove values from here
  */
 enum RobotStateMachine {
-	StartupRobot = 0, StartRunning = 1, Running = 2, Halting = 3, Halt = 4,WAIT_FOR_MOTORS_TO_FINNISH=5,WAIT_FOR_TIME=6
+	StartupRobot = 0, StartRunning = 1, Running = 2, Halting = 3, Halt = 4,WAIT_FOR_MOTORS_TO_FINNISH=5,WAIT_FOR_TIME=6,
+	Testing = 7,
 
 };
 /**
@@ -48,6 +52,7 @@ enum ComStackStatusState {
 	Fault_obstructed_path = 11,
 	Fault_E_Stop_pressed = 12
 };
+
 /**
  * @class StudentsRobot
  */
@@ -57,6 +62,8 @@ private:
 	PIDMotor * motor2;
 	PIDMotor * motor3;
 	Servo * servo;
+	DrivingChassis robotChassis;
+	LineFollower lineSensor;
 	float lsensorVal=0;
 	float rsensorVal=0;
 	long nextTime =0;
@@ -88,6 +95,12 @@ public:
 	 * This is internal data representing the runtime status of the robot for use in its state machine
 	 */
 	RobotStateMachine status = StartupRobot;
+
+	NavigationStates navState = INITIALIZE_NAVIGATION;
+
+	int goalColumn = -2;
+	int goalRow = 2;
+
 
 
 	/**

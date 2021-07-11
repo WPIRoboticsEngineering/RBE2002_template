@@ -10,6 +10,35 @@
 #include "src/pid/PIDMotor.h"
 #include "src/commands/GetIMU.h"
 #include "config.h"
+#include "Pose.h"
+
+#define WHEEL_DEGREES_TO_BODY_DEGREES 4.25F
+#define MM_TO_WHEEL_DEGREES 2.1174F
+#define WHEEL_DEGREES_TO_MM .472277F
+#define MAX_SPEED_MM_PER_SEC 150
+#define MAX_MOTOR_EFFORT_DURING_TURN 260 //300 //275 // 500
+
+
+/**
+ * @enum DrivingStatus
+ * States when performing an drive action.
+ */
+enum DrivingStatus {
+	REACHED_SETPOINT = 0,
+	TIMED_OUT = 1,
+	GOING_TO_SETPOINT = 2,
+};
+
+/**
+ * @enum MotionType
+ * States when performing an drive action.
+ */
+enum MotionType {
+	DRIVING_FORWARDS = 0,
+	DRIVING_BACKWARDS = 1,
+	TURNING = 2,
+};
+
 /**
  * DrivingChassis encapsulates a 2 wheel differential steered chassis that drives around
  *
@@ -25,8 +54,6 @@
  */
 class DrivingChassis {
 private:
-	PIDMotor * myleft;
-	PIDMotor * myright;
 	GetIMU * IMU;
 	float mywheelTrackMM;
 	float mywheelRadiusMM;
@@ -58,6 +85,20 @@ private:
 	 */
 	float chassisRotationToWheelDistance(float angle);
 public:
+	// moved these over for line following
+	PIDMotor * myleft;
+	PIDMotor * myright;
+	bool performingMovement = false;
+	MotionType motionType;
+	unsigned long startTimeOfMovement_ms;
+	float wheelMovementKp = 3.5;// was 3.9
+	float turningMovementKp = 21; //was 9, 11.7, 17.5
+	float wheelMovementDeadband_mm = 2.5;
+	float wheelMovementDeadband_deg = .5;
+	float motionSetpoint;
+	float timeout_ms;
+	Pose myChassisPose;
+
 	virtual ~DrivingChassis();
 
 	/**
@@ -73,18 +114,52 @@ public:
 			float wheelRadiusMM,GetIMU * imu);
 
 	/**
-	 * Start a drive forward action
+	 * Start a drive backwards action using the encoders and setpoint interpolation
+	 *
+	 * @param mmDistanceFromCurrent is the distance the mobile base should drive backwards
+	 * @param msDuration is the time in miliseconds that the drive action should take
+	 *
+	 * @note this function is fast-return and should not block
+	 */
+	void driveBackwardsFromInterpolation(float mmDistanceFromCurrent, int msDuration);
+
+	/**
+	 * Start a drive backwards action. Will return false when finished moving. Will stop when reached setpoint or timeout.
+	 * Specifying a mmDistanceFromCurrent of '0' will move the robot indefinitely.
+	 *
+	 * @param mmDistanceFromCurrent is the distance the mobile base should drive backwards
+	 * @param msDuration is the time in miliseconds that the drive action should take (this is a timeout)
+	 *
+	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
+	 * until this function returns false due to reaching the set-point or timing out.
+	 */
+	void driveBackwards(float mmDistanceFromCurrent, int msDuration);
+
+	/**
+	 * Start a drive forward action using the encoders and setpoint interpolation
 	 *
 	 * @param mmDistanceFromCurrent is the distance the mobile base should drive forward
 	 * @param msDuration is the time in miliseconds that the drive action should take
 	 *
 	 * @note this function is fast-return and should not block
-	 * @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
-	 * 		 allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
+	 */
+	void driveForwardFromInterpolation(float mmDistanceFromCurrent, int msDuration);
+
+	/**
+	 * Start a drive forwards action. Will return false when finished moving. Will stop when reached setpoint or timeout.
+	 * Specifying a mmDistanceFromCurrent of '0' will move the robot indefinitely.
+	 *
+	 * @param mmDistanceFromCurrent is the distance the mobile base should drive forward
+	 * @param msDuration is the time in miliseconds that the drive action should take (this is a timeout)
+	 *
+	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
+	 * until this function returns false due to reaching the set-point or timing out. Make sure to change state when this reaches a setpoint.
+	 * Otherwise, this will try to reach a new setpoint (imagine driving indefinitely)
 	 */
 	void driveForward(float mmDistanceFromCurrent, int msDuration);
+
 	/**
-	 * Start a turn action
+	 * Start a turn action using the encoders and setpoint interpolation
 	 *
 	 * This action rotates the robot around the center line made up by the contact points of the left and right wheels.
 	 * Positive angles should rotate to the left
@@ -98,7 +173,24 @@ public:
 	 *  @note pidmotorInstance->overrideCurrentPosition(0); can be used to "zero out" the motor to
 	 * 		  allow for relative moves. Otherwise the motor is always in ABSOLUTE mode
 	 */
-	void turnDegrees(float degreesToRotateBase, int msDuration);
+	void turnDegreesFromInterpolation(float degreesToRotateBase, int msDuration);
+
+	/**
+	 * Start a turn action. Will return false when finished moving. Will stop when reached setpoint or timeout.
+	 *
+	 * This action rotates the robot around the center line made up by the contact points of the left and right wheels.
+	 * Positive angles should rotate to the left
+	 *
+	 * This rotation is a positive rotation about the Z axis of the robot.
+	 *
+	 * @param desiredHeading is the desired angle the robot should reach
+	 * @param msDuration is the time in miliseconds that the drive action should take (this is a timeout)
+	 *
+	 * @note this function is fast-return and should not block. Whatever is calling this should repeatedly do so
+	 * until this function returns false due to reaching the set-point or timing out.
+	 */
+	void turnToHeading(float desiredHeading, int msDuration);
+
 	/**
 	 * Check to see if the chassis is performing an action
 	 *
@@ -106,7 +198,15 @@ public:
 	 *
 	 * @note this function is fast-return and should not block
 	 */
-	bool isChassisDoneDriving();
+	DrivingStatus statusOfChassisDriving();
+
+	/**
+	 * Stops all motors
+	 */
+	void stop();
+
+	void driveStraight(float targetHeading, MotionType direction);
+
 	/**
 	 * loop()
 	 *
